@@ -1,0 +1,26 @@
+fileFormatVersion: 2
+guid: 8d4dcdb83eff69e4da14ed9442f9d0bb
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Affogato
+  fontNames:
+  - Affogato
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: a4d171301e5b4b9419353dbf771f9fbb, type: 3}
+  - {fileID: 12800000, guid: 6851e540cdda778478c0455b8d3626b2, type: 3}
+  - {fileID: 12800000, guid: d55a14801d51d7342850f7c9fc32eecd, type: 3}
+  - {fileID: 12800000, guid: e8556f53ce9db824b87e4acf00b2601b, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
