@@ -13,7 +13,6 @@ public class Casilla : MonoBehaviour
     public float _heigth;
 
 
-        
     public void setIced (bool iced) { _isIced = iced; }
     public bool getIced(bool iced) { return _isIced; }
 

@@ -65,7 +65,6 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Casilla.cs" />
     <Compile Include="Assets\Scripts\MatrixCasillas.cs" />
-    <Compile Include="Assets\col.cs" />
     <Reference Include="UnityEngine">
       <HintPath>D:/Program Files/Unity/Versions/2019.4.16f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
