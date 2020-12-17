@@ -233,14 +233,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b05afcbff4837a74c8b56cd605d22075, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numCasillasX: 5
-  numCasillasY: 5
+  numCasillasX: 15
+  numCasillasY: 18
   prefabCasilla: {fileID: 1629216581556634026, guid: 5ddef48409cbe514185bb273fc38c0d8,
     type: 3}
   prefabWall: {fileID: 6678331455984844249, guid: 2dde36ea51ffef84ab3e052479c2af51,
     type: 3}
-  widthCasilla: 0
-  heigthCasilla: 0
+  widthCasilla: 2
+  heigthCasilla: 2
 --- !u!4 &1603967680
 Transform:
   m_ObjectHideFlags: 0

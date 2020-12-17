@@ -7,7 +7,7 @@ public class Casilla : MonoBehaviour
 
     public bool _isIced = false;
 
-    public bool[] _casillaAdyacente = { true, true, true, true }; //Array de las casillas adyacentes: Arriba, derecha, abajo, izquierda. True = libre, False = ocupada
+    public bool[] _casillaAdyacente = { true, false, true, true }; //Array de las casillas adyacentes: Arriba, derecha, abajo, izquierda. True = libre, False = ocupada
 
     public float _width;
     public float _heigth;

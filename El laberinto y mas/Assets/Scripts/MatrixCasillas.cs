@@ -24,8 +24,9 @@ public class MatrixCasillas : MonoBehaviour
         Camera cam = Camera.main;
         casillas = new GameObject[numCasillasX, numCasillasY];
 
-        prefabCasilla.GetComponent<Casilla>()._width = (5f / numCasillasX);
-        prefabCasilla.GetComponent<Casilla>()._heigth = (5f / numCasillasX);
+       prefabCasilla.GetComponent<Casilla>()._width = (5f / numCasillasX);
+       prefabCasilla.GetComponent<Casilla>()._heigth = (5f / numCasillasX);
+
 
         widthCasilla = prefabCasilla.GetComponent<Casilla>()._width;
         heigthCasilla = prefabCasilla.GetComponent<Casilla>()._heigth;
@@ -41,27 +42,47 @@ public class MatrixCasillas : MonoBehaviour
 
                 for(int l = 0; l < 4; l++)
                 {
-                    if (casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[l] == true)
+                    if (casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[l] == false)
                     {
-                        walls.Add(Instantiate(prefabWall, casillas[i, j].transform));
-                        if(l == 0 || l == 2)
+                        if (l == 0 || l == 2)
                         {
-                            walls[countWalls].transform.localScale = new Vector2(widthCasilla, (float)(numCasillasX * 0.005));
-                            if(l == 0)
-                                walls[countWalls].transform.position = new Vector2(casillas[i, j].transform.position.x, casillas[i, j].transform.position.y + heigthCasilla/2);
-                            else if(l == 2)
-                                walls[countWalls].transform.position = new Vector2(casillas[i, j].transform.position.x, casillas[i, j].transform.position.y - heigthCasilla/2);
+                            if (l == 0 && j == 0)
+                            {
+                                walls.Add(Instantiate(prefabWall, casillas[i, j].transform));
+                                walls[countWalls].transform.localScale = new Vector2(1, (float)(numCasillasX * 0.005));
+                                walls[countWalls].transform.position = new Vector2(casillas[i, j].transform.position.x, casillas[i, j].transform.position.y + 0.5f);
+                                countWalls++;
+                            }
+
+                            else if (l == 2)
+                            {
+                                walls.Add(Instantiate(prefabWall, casillas[i, j].transform));
+                                walls[countWalls].transform.localScale = new Vector2(1, (float)(numCasillasX * 0.005));
+                                walls[countWalls].transform.position = new Vector2(casillas[i, j].transform.position.x, casillas[i, j].transform.position.y - 0.5f);
+                                countWalls++;
+                            }
                         }
                         else
                         {
-                            walls[countWalls].transform.localScale = new Vector2((float)(numCasillasX * 0.005), heigthCasilla);
-                            if (l == 1)
-                                walls[countWalls].transform.position = new Vector2(casillas[i, j].transform.position.x - heigthCasilla/2, casillas[i, j].transform.position.y );
-                            else if (l == 3)
-                                walls[countWalls].transform.position = new Vector2(casillas[i, j].transform.position.x + heigthCasilla/2, casillas[i, j].transform.position.y );
+              
+                            if (l == 1 && i == 0)
+                            {
+                                walls.Add(Instantiate(prefabWall, casillas[i, j].transform));
+                                walls[countWalls].transform.localScale = new Vector2((float)(numCasillasX * 0.005), 1);
+                                walls[countWalls].transform.position = new Vector2(casillas[i, j].transform.position.x - 0.5f, casillas[i, j].transform.position.y);
+                                countWalls++;
+                            }
+
+                            else if (l == 3) {
+                                walls.Add(Instantiate(prefabWall, casillas[i, j].transform));
+                                walls[countWalls].transform.localScale = new Vector2((float)(numCasillasX * 0.005), 1);
+                                walls[countWalls].transform.position = new Vector2(casillas[i, j].transform.position.x + 0.5f, casillas[i, j].transform.position.y);
+                                countWalls++;
+                            }
+                     
                         }
                        
-                        countWalls++;
+                   
                     }   
                 }
             }
