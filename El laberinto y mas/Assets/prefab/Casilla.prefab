@@ -95,6 +95,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isIced: 0
-  _casillaAdyacente: 01010101
+  _casillaAdyacente: 00000000
   _width: 0.33333334
   _heigth: 0.33333334
