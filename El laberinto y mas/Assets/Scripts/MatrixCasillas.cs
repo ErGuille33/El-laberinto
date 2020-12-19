@@ -21,8 +21,8 @@ public class MatrixCasillas : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Camera cam = Camera.main;
-        transform.localScale = new Vector2(cam.pixelWidth/5, cam.pixelWidth/5);
+        //Camera cam = Camera.main;
+       // transform.localScale = new Vector2(cam.pixelWidth/5, cam.pixelWidth/5);
         createNewMap();
     }
 

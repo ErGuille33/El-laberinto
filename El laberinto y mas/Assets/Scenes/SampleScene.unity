@@ -443,13 +443,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numCasillasX: 10
-  numCasillasY: 5
+  numCasillasY: 12
   prefabCasilla: {fileID: 1629216581556634026, guid: 5ddef48409cbe514185bb273fc38c0d8,
     type: 3}
   prefabWall: {fileID: 6678331455984844249, guid: 2dde36ea51ffef84ab3e052479c2af51,
     type: 3}
-  widthCasilla: 2
-  heigthCasilla: 2
+  widthCasilla: 1
+  heigthCasilla: 1
 --- !u!4 &1603967680
 Transform:
   m_ObjectHideFlags: 0
@@ -670,6 +670,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6189b6d7c17c5774885b7af39cf68333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelPackages: []
+  levelPackages:
+  - {fileID: 11400000, guid: 0fa511d9900c0a34f82b8e85862a6400, type: 2}
   levelManager: {fileID: 0}
   levelToPlay: 0
