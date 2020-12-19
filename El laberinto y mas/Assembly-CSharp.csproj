@@ -63,7 +63,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\ObjetoScriptable\LevelPackage.cs" />
     <Compile Include="Assets\Scripts\Casilla.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\LevelManager.cs" />
     <Compile Include="Assets\Scripts\MatrixCasillas.cs" />
     <Reference Include="UnityEngine">
       <HintPath>D:/Program Files/Unity/Versions/2019.4.16f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
