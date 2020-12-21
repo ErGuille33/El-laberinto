@@ -398,7 +398,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 783ae8e974133894c8736630d77f8fbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: {fileID: 4900000, guid: 4ec9d558a38f7c34487e67017f0df644, type: 3}
+  mat: {fileID: 1603967679}
+  level: {fileID: 4900000, guid: 68a67dcc244b9ce46a27496f149db4ef, type: 3}
 --- !u!4 &1207127373
 Transform:
   m_ObjectHideFlags: 0
@@ -672,5 +673,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelPackages:
   - {fileID: 11400000, guid: 0fa511d9900c0a34f82b8e85862a6400, type: 2}
-  levelManager: {fileID: 0}
+  levelManager: {fileID: 1207127372}
   levelToPlay: 0
