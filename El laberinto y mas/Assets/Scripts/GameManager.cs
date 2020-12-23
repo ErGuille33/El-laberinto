@@ -9,9 +9,10 @@ public class GameManager : MonoBehaviour
     public LevelManager levelManager;
 #if UNITY_EDITOR
     public int levelToPlay;
+    public bool iceLevelsToPlay;
 #endif
-    // Start is called before the first frame update
-    void Start()
+
+    void Awake()
     {
         if(_instance != null)
         {
@@ -19,7 +20,11 @@ public class GameManager : MonoBehaviour
             DestroyImmediate(gameObject);
             return;
         }
-        
+        if(iceLevelsToPlay)
+            levelManager.setTextAsset(levelPackages[1].levels[levelToPlay]);
+        else
+            levelManager.setTextAsset(levelPackages[0].levels[levelToPlay]);
+
     }
 
     // Update is called once per frame

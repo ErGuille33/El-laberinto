@@ -9,6 +9,8 @@ public class LevelManager : MonoBehaviour
     public TextAsset level;
 
     protected LevelData lvlData;
+    protected WallsData[] walls;
+    protected bool[,,] wallsArray = new bool [250, 250, 4];
 
     // Start is called before the first frame update
     void Start()
@@ -16,27 +18,95 @@ public class LevelManager : MonoBehaviour
         cargaJson();
     }
 
+
+    //Para poner el nivel 
+    public void setTextAsset(TextAsset lvl)
+    {
+        level = lvl;
+    }
+
+    protected void setWallsArray()
+    {
+        int auxInvertedCoord = lvlData.r ;
+
+        for (int i = 0; i < wallsArray.GetLength(0); i++)
+        {
+            for (int j = 0; j < wallsArray.GetLength(1); j++)
+            {
+                for (int l = 0; l < wallsArray.GetLength(2); l++)
+                {/*
+                    if ((i == 0 && l == 3) || (i == wallsArray.GetLength(0) && l == 1) || (j == 0 && l == 0) || (j == wallsArray.GetLength(1) && l == 2))
+                    {
+                        wallsArray[i, j, l] = false;
+                    }
+                    else*/ wallsArray[i, j, l] = true;
+                }
+            }
+        }
+
+        for (int i = 0; i < walls.Length; i++)
+        {
+            print("antes: " + walls[i].o);
+            print("despues " + walls[i].d);
+
+            if (walls[i].o.y !=  walls[i].d.y )
+            {
+                if ((int)walls[i].o.x == 0)
+                {
+                        wallsArray[(int)walls[i].o.x, auxInvertedCoord - (int)walls[i].o.y, 1] = false;
+             
+                }
+                else
+                {
+                        wallsArray[(int)walls[i].o.x-1, auxInvertedCoord - (int)walls[i].o.y, 3] = false;
+                }
+            }
+
+            if (walls[i].o.x != walls[i].d.x)
+            {
+                if ((int)walls[i].o.y == auxInvertedCoord)
+                {
+                    wallsArray[(int)walls[i].o.x, auxInvertedCoord - (int)walls[i].o.y, 0] = false;
+
+                }
+                else
+                {
+                    wallsArray[(int)walls[i].o.x , auxInvertedCoord-1 - (int)walls[i].o.y, 2] = false;
+                }
+            }
+        }
+    }
+
     void cargaJson()
     {
         lvlData = JsonUtility.FromJson<LevelData>(level.ToString());
 
+        walls = lvlData.w;
+
         for(int i = 0; i < lvlData.h.Length; i++)
         {
-            if (lvlData.h[i].x < 0.8)
+            if (lvlData.h[i].x < 0.5)
             {
                 lvlData.h[i].x = 0;
             }
-            if (lvlData.h[i].y < 0.8)
+            if (lvlData.h[i].y < 0.5)
             {
                 lvlData.h[i].y = 0;
             }
         }
+       /* print("WAllsrx " + lvlData.r);
+        print("WAlls1x " + lvlData.s.x);
+        print("WAlls1y " + lvlData.s.y);
 
+        print("WAlls2x " + lvlData.mx);
+        print("WAlls2y " + lvlData.my);
 
- 
-        print("WAlls1 " + lvlData.h[0].x);
-        print("WAlls2 " + lvlData.h[0].y);
+        print("owo " + walls[0].o.x);
+        print("owo " + walls[0].o.y);*/
 
+        setWallsArray();
+
+        mat.createNewMap(lvlData.r, lvlData.c, wallsArray);
     }
 
     // Update is called once per frame
@@ -54,14 +124,24 @@ public class LevelManager : MonoBehaviour
     protected class LevelData{
         public int r;
         public int c;
+        public bool my;
+        public bool mx;
         public Vector2 s;
         public Vector2 f;
-    
-        public Vector2[] w = new Vector2[50];
-        public Vector2[] h = new Vector2[2];
 
+        public WallsData[] w = new WallsData[100];
+        public Vector2[] h = new Vector2[100];
         public Vector2[] i = new Vector2[2];
         public Vector2[] e = new Vector2[2];
         public Vector2[] t = new Vector2[2];
+    }
+
+    [Serializable]
+    public class WallsData
+    {
+        
+        public Vector2 o;
+        public Vector2 d;
+
     }
 }

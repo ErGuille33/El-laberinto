@@ -23,8 +23,8 @@ public class MatrixCasillas : MonoBehaviour
     void Start()
     {
         //Camera cam = Camera.main;
-       // transform.localScale = new Vector2(cam.pixelWidth/5, cam.pixelWidth/5);
-        createNewMap();
+        // transform.localScale = new Vector2(cam.pixelWidth/5, cam.pixelWidth/5);
+       
     }
 
     // Update is called once per frame
@@ -33,11 +33,15 @@ public class MatrixCasillas : MonoBehaviour
         
     }
 
-
-
-    void createNewMap()
+    public void setWalls(int i, int j, int l)
     {
-       
+        
+    }
+
+    public void createNewMap(int rows, int cols, bool[,,] wallsArray)
+    {
+        numCasillasX = cols;
+        numCasillasY = rows;
         casillas = new GameObject[numCasillasX, numCasillasY];
 
         prefabCasilla.GetComponent<Casilla>()._width = (5f / numCasillasX);
@@ -55,9 +59,10 @@ public class MatrixCasillas : MonoBehaviour
             {
                 casillas[i, j] = Instantiate(prefabCasilla, transform);
                 casillas[i, j].transform.position = new Vector2(transform.position.x + (i * widthCasilla), transform.position.y - (j * heigthCasilla));
-
+               
                 for (int l = 0; l < 4; l++)
                 {
+                    casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[l] = wallsArray[i, j, l];
                     if (casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[l] == false)
                     {
                         if (l == 0 || l == 2)

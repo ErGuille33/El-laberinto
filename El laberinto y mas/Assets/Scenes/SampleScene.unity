@@ -399,7 +399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mat: {fileID: 1603967679}
-  level: {fileID: 4900000, guid: 68a67dcc244b9ce46a27496f149db4ef, type: 3}
+  level: {fileID: 4900000, guid: 039b2639487981a4fa73b7dfe48c25dd, type: 3}
 --- !u!4 &1207127373
 Transform:
   m_ObjectHideFlags: 0
@@ -673,5 +673,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelPackages:
   - {fileID: 11400000, guid: 0fa511d9900c0a34f82b8e85862a6400, type: 2}
+  - {fileID: 11400000, guid: 9c48f307df310374d870d247fdacb30b, type: 2}
   levelManager: {fileID: 1207127372}
   levelToPlay: 0
+  iceLevelsToPlay: 0
