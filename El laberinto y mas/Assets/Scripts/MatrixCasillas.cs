@@ -38,7 +38,7 @@ public class MatrixCasillas : MonoBehaviour
         
     }
 
-    public void createNewMap(int rows, int cols, bool[,,] wallsArray)
+    public void createNewMap(int rows, int cols, bool[,,] wallsArray, bool [,] isIced)
     {
         numCasillasX = cols;
         numCasillasY = rows;
@@ -58,8 +58,11 @@ public class MatrixCasillas : MonoBehaviour
             for (int j = 0; j < numCasillasY; j++)
             {
                 casillas[i, j] = Instantiate(prefabCasilla, transform);
+
                 casillas[i, j].transform.position = new Vector2(transform.position.x + (i * widthCasilla), transform.position.y - (j * heigthCasilla));
-               
+                casillas[i, j].GetComponent<Casilla>()._isIced = isIced[i, j];
+
+
                 for (int l = 0; l < 4; l++)
                 {
                     casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[l] = wallsArray[i, j, l];

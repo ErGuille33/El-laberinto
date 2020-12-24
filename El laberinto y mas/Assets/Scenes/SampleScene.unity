@@ -676,4 +676,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9c48f307df310374d870d247fdacb30b, type: 2}
   levelManager: {fileID: 1207127372}
   levelToPlay: 0
-  iceLevelsToPlay: 0
+  iceLevelsToPlay: 1

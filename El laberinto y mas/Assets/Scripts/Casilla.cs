@@ -5,7 +5,7 @@ using UnityEngine;
 public class Casilla : MonoBehaviour
 {
 
-    public bool _isIced = false;
+    public bool _isIced;
 
     public bool[] _casillaAdyacente = { true, false, true, true }; //Array de las casillas adyacentes: Arriba, derecha, abajo, izquierda. True = libre, False = ocupada
 
@@ -22,7 +22,11 @@ public class Casilla : MonoBehaviour
     void Start()
     {
         transform.localScale = new Vector2( _width,_heigth);
-
+        if (!_isIced)
+        {
+            GetComponent<SpriteRenderer>().enabled = false;
+        }
+        else GetComponent<SpriteRenderer>().enabled = true;
     }
 
     // Update is called once per frame

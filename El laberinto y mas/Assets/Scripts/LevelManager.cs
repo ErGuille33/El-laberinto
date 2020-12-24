@@ -11,6 +11,7 @@ public class LevelManager : MonoBehaviour
     protected LevelData lvlData;
     protected WallsData[] walls;
     protected bool[,,] wallsArray = new bool [250, 250, 4];
+    protected bool[,] isIcedarray = new bool[250, 250];
 
     // Start is called before the first frame update
     void Start()
@@ -77,6 +78,22 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    protected void setIcedArray()
+    {
+        for (int i = 0; i < wallsArray.GetLength(0); i++)
+        {
+            for (int j = 0; j < wallsArray.GetLength(1); j++)
+            {
+                isIcedarray[i, j] = false;
+            }
+        }
+
+        for(int i = 0; i < lvlData.i.Length; i++)
+        {
+            isIcedarray[(int)lvlData.i[i].x, (int)lvlData.i[i].y] = true;
+        }
+    }
+
     void cargaJson()
     {
         lvlData = JsonUtility.FromJson<LevelData>(level.ToString());
@@ -105,8 +122,9 @@ public class LevelManager : MonoBehaviour
         print("owo " + walls[0].o.y);*/
 
         setWallsArray();
+        setIcedArray();
 
-        mat.createNewMap(lvlData.r, lvlData.c, wallsArray);
+        mat.createNewMap(lvlData.r, lvlData.c, wallsArray, isIcedarray);
     }
 
     // Update is called once per frame
