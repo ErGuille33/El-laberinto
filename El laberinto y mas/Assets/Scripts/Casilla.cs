@@ -6,11 +6,14 @@ public class Casilla : MonoBehaviour
 {
 
     public bool _isIced;
+    public bool _end;
 
     public bool[] _casillaAdyacente = { true, false, true, true }; //Array de las casillas adyacentes: Arriba, derecha, abajo, izquierda. True = libre, False = ocupada
 
     public float _width;
     public float _heigth;
+
+    public GameObject endSprite;
 
 
     public void setIced (bool iced) { _isIced = iced; }
@@ -27,6 +30,11 @@ public class Casilla : MonoBehaviour
             GetComponent<SpriteRenderer>().enabled = false;
         }
         else GetComponent<SpriteRenderer>().enabled = true;
+
+        if (_end)
+        {
+            Instantiate(endSprite, transform);
+        }
     }
 
     // Update is called once per frame

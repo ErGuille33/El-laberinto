@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
@@ -12,6 +13,11 @@ public class LevelManager : MonoBehaviour
     protected WallsData[] walls;
     protected bool[,,] wallsArray = new bool [250, 250, 4];
     protected bool[,] isIcedarray = new bool[250, 250];
+
+    Vector2 endCasilla;
+    Vector2 startCasilla;
+
+    private int auxInvertedCoord;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +34,7 @@ public class LevelManager : MonoBehaviour
 
     protected void setWallsArray()
     {
-        int auxInvertedCoord = lvlData.r ;
+        
 
         for (int i = 0; i < wallsArray.GetLength(0); i++)
         {
@@ -47,8 +53,8 @@ public class LevelManager : MonoBehaviour
 
         for (int i = 0; i < walls.Length; i++)
         {
-            print("antes: " + walls[i].o);
-            print("despues " + walls[i].d);
+           // print("antes: " + walls[i].o);
+           // print("despues " + walls[i].d);
 
             if (walls[i].o.y !=  walls[i].d.y )
             {
@@ -80,6 +86,7 @@ public class LevelManager : MonoBehaviour
 
     protected void setIcedArray()
     {
+
         for (int i = 0; i < wallsArray.GetLength(0); i++)
         {
             for (int j = 0; j < wallsArray.GetLength(1); j++)
@@ -90,8 +97,38 @@ public class LevelManager : MonoBehaviour
 
         for(int i = 0; i < lvlData.i.Length; i++)
         {
-            isIcedarray[(int)lvlData.i[i].x, (int)lvlData.i[i].y] = true;
+            if ((int)lvlData.i[i].y == auxInvertedCoord)
+            {
+                isIcedarray[(int)lvlData.i[i].x, auxInvertedCoord - (int)lvlData.i[i].y] = true;
+
+            }
+            else
+            {
+                isIcedarray[(int)lvlData.i[i].x, auxInvertedCoord - 1 - (int)lvlData.i[i].y] = true;
+            }
+       
         }
+    }
+
+    protected void setEnd()
+    {
+        print(auxInvertedCoord- lvlData.f.y);
+        if(lvlData.f.y == auxInvertedCoord)
+        {
+            endCasilla = new Vector2(lvlData.f.x, auxInvertedCoord - lvlData.f.y);
+        }
+        else endCasilla = new Vector2(lvlData.f.x, auxInvertedCoord - 1 - lvlData.f.y);
+
+    }
+
+    protected void setStart()
+    {
+        if (lvlData.s.y == auxInvertedCoord)
+        {
+            startCasilla = new Vector2(lvlData.s.x, auxInvertedCoord - lvlData.s.y);
+        }
+        else startCasilla = new Vector2(lvlData.s.x, auxInvertedCoord - 1 - lvlData.s.y);
+
     }
 
     void cargaJson()
@@ -111,20 +148,24 @@ public class LevelManager : MonoBehaviour
                 lvlData.h[i].y = 0;
             }
         }
-       /* print("WAllsrx " + lvlData.r);
-        print("WAlls1x " + lvlData.s.x);
-        print("WAlls1y " + lvlData.s.y);
+        /* print("WAllsrx " + lvlData.r);
+         print("WAlls1x " + lvlData.s.x);
+         print("WAlls1y " + lvlData.s.y);
 
-        print("WAlls2x " + lvlData.mx);
-        print("WAlls2y " + lvlData.my);
+         print("WAlls2x " + lvlData.mx);
+         print("WAlls2y " + lvlData.my);
 
-        print("owo " + walls[0].o.x);
-        print("owo " + walls[0].o.y);*/
+         print("owo " + walls[0].o.x);
+         print("owo " + walls[0].o.y);*/
+
+        auxInvertedCoord = lvlData.r;
 
         setWallsArray();
         setIcedArray();
+        setEnd();
+        setStart();
 
-        mat.createNewMap(lvlData.r, lvlData.c, wallsArray, isIcedarray);
+        mat.createNewMap(lvlData.r, lvlData.c, wallsArray, isIcedarray,endCasilla);
     }
 
     // Update is called once per frame
