@@ -44,8 +44,8 @@ public class MatrixCasillas : MonoBehaviour
         numCasillasY = rows;
         casillas = new GameObject[numCasillasX, numCasillasY];
 
-        prefabCasilla.GetComponent<Casilla>()._width = (5f / numCasillasX);
-        prefabCasilla.GetComponent<Casilla>()._heigth = (5f / numCasillasX);
+        prefabCasilla.GetComponent<Casilla>()._width = (5.3f / numCasillasX);
+        prefabCasilla.GetComponent<Casilla>()._heigth = (5.3f / numCasillasX);
 
 
         widthCasilla = prefabCasilla.GetComponent<Casilla>()._width;
