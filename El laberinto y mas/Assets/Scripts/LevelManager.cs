@@ -14,15 +14,21 @@ public class LevelManager : MonoBehaviour
     protected bool[,,] wallsArray = new bool [250, 250, 4];
     protected bool[,] isIcedarray = new bool[250, 250];
 
+    public Casilla playerCasilla;
+
     Vector2 endCasilla;
     Vector2 startCasilla;
 
     private int auxInvertedCoord;
 
+    void Awake()
+    {
+        cargaJson();
+    }
     // Start is called before the first frame update
     void Start()
     {
-        cargaJson();
+        
     }
 
 
@@ -112,7 +118,6 @@ public class LevelManager : MonoBehaviour
 
     protected void setEnd()
     {
-        print(auxInvertedCoord- lvlData.f.y);
         if(lvlData.f.y == auxInvertedCoord)
         {
             endCasilla = new Vector2(lvlData.f.x, auxInvertedCoord - lvlData.f.y);
@@ -129,6 +134,11 @@ public class LevelManager : MonoBehaviour
         }
         else startCasilla = new Vector2(lvlData.s.x, auxInvertedCoord - 1 - lvlData.s.y);
 
+    }
+
+    public Vector3 getStart()
+    {
+        return new Vector3(startCasilla.x, startCasilla.y, 0);
     }
 
     void cargaJson()
@@ -165,7 +175,63 @@ public class LevelManager : MonoBehaviour
         setEnd();
         setStart();
 
-        mat.createNewMap(lvlData.r, lvlData.c, wallsArray, isIcedarray,endCasilla);
+        mat.createNewMap(lvlData.r, lvlData.c, wallsArray, isIcedarray,endCasilla,startCasilla);
+    }
+
+    public void MovePlayer(PlayerControl.Dir dir)
+    {
+        switch(dir)
+        {
+            case PlayerControl.Dir.UP:
+                playerMoveUp();
+                break;
+            case PlayerControl.Dir.DOWN:
+                playerMoveDown();
+                break;
+            case PlayerControl.Dir.RIGHT:
+                playerMoveRight();
+                break;
+            case PlayerControl.Dir.LEFT:
+                playerMoveLeft();
+                break;
+        }
+    }
+
+    private void playerMoveUp()
+    {
+        if(playerCasilla._casillaAdyacente[0])
+        {
+            playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos - 1].GetComponent<Casilla>();
+            mat.playerYPos--;
+            playerMoveUp();
+        }
+    }
+    private void playerMoveDown()
+    {
+        if (playerCasilla._casillaAdyacente[2])
+        {
+            playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos + 1].GetComponent<Casilla>();
+            mat.playerYPos++;
+            playerMoveDown();
+        }
+    }
+    private void playerMoveRight()
+    {
+        if (playerCasilla._casillaAdyacente[1])
+        {
+            playerCasilla = mat.casillas[mat.playerXPos + 1, mat.playerYPos].GetComponent<Casilla>();
+            mat.playerXPos++;
+            playerMoveRight();
+        }
+    }
+    private void playerMoveLeft()
+    {
+        if (playerCasilla._casillaAdyacente[3])
+        {
+            playerCasilla = mat.casillas[mat.playerXPos - 1, mat.playerYPos].GetComponent<Casilla>();
+            mat.playerXPos--;
+            playerMoveLeft();
+        }
     }
 
     // Update is called once per frame
@@ -173,6 +239,9 @@ public class LevelManager : MonoBehaviour
     {
 
     }
+
+    
+
     //r es la altura
     //C es la ancura 
     //s es la salida (0,0) abajo izquieda)

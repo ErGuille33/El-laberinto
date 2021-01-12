@@ -12,12 +12,15 @@ public class MatrixCasillas : MonoBehaviour
     public GameObject prefabWall;
     public GameObject[,] casillas;
 
+    public int playerXPos, playerYPos;
+
     List<GameObject> walls = new List<GameObject>();
     private int countWalls = 0;
 
     public float widthCasilla;
     public float heigthCasilla;
 
+    public LevelManager levelManager;
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +41,7 @@ public class MatrixCasillas : MonoBehaviour
         
     }
 
-    public void createNewMap(int rows, int cols, bool[,,] wallsArray, bool [,] isIced, Vector2 isEnd)
+    public void createNewMap(int rows, int cols, bool[,,] wallsArray, bool [,] isIced, Vector2 isEnd, Vector2 isStart)
     {
         numCasillasX = cols;
         numCasillasY = rows;
@@ -66,6 +69,13 @@ public class MatrixCasillas : MonoBehaviour
                     casillas[i, j].GetComponent<Casilla>()._end = true;
                 }
                 else casillas[i, j].GetComponent<Casilla>()._end = false;
+
+                if (i == isStart.x && j == isStart.y)
+                {
+                    levelManager.playerCasilla = casillas[i, j].GetComponent<Casilla>();
+                    playerXPos = i;
+                    playerYPos = j;
+                }
 
                 for (int l = 0; l < 4; l++)
                 {
