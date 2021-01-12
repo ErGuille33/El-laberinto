@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class MatrixCasillas : MonoBehaviour
@@ -11,8 +12,10 @@ public class MatrixCasillas : MonoBehaviour
     public GameObject prefabCasilla;
     public GameObject prefabWall;
     public GameObject[,] casillas;
+    public GameObject hintLine;
 
     List<GameObject> walls = new List<GameObject>();
+    List<GameObject> hints = new List<GameObject>();
     private int countWalls = 0;
 
     public float widthCasilla;
@@ -33,9 +36,27 @@ public class MatrixCasillas : MonoBehaviour
         
     }
 
-    public void setWalls(int i, int j, int l)
+    public void setHints(bool [,] _hints, bool[,] _hintsDir)
     {
-        
+        int countHints = 0;
+        for (int i = 0; i < numCasillasX; i++)
+        {
+            for (int j = 0; j < numCasillasY; j++)
+            {
+                if (_hints[i, j] == true)
+                {
+                    hints.Add(Instantiate(hintLine, casillas[i, j].transform));
+                    hints[countHints].transform.position = new Vector2(casillas[i, j].transform.position.x, casillas[i, j].transform.position.y);
+                    hints[countHints].transform.localScale = new Vector2((float)(numCasillasX * 0.0176), (float)(numCasillasX * 0.02));
+                    if(_hintsDir[i, j] == true)
+                    {
+                        hints[countHints].transform.Rotate(0,0,90);
+                    }
+                    countHints++;
+                   
+                }
+            }
+        }
     }
 
     public void createNewMap(int rows, int cols, bool[,,] wallsArray, bool [,] isIced, Vector2 isEnd)
@@ -74,11 +95,12 @@ public class MatrixCasillas : MonoBehaviour
                     {
                         if (l == 0 || l == 2)
                         {
-                            if (l == 0 && j == 0)
+                            if (l == 0)
                             {
                                 walls.Add(Instantiate(prefabWall, casillas[i, j].transform));
                                 walls[countWalls].transform.localScale = new Vector2(1, (float)(numCasillasX * 0.01));
                                 walls[countWalls].transform.position = new Vector2(casillas[i, j].transform.position.x, casillas[i, j].transform.position.y + 0.5f);
+                                
                                 countWalls++;
                             }
 
@@ -89,19 +111,12 @@ public class MatrixCasillas : MonoBehaviour
                                 walls[countWalls].transform.position = new Vector2(casillas[i, j].transform.position.x, casillas[i, j].transform.position.y - 0.5f);
                                 countWalls++;
                             }
+                         
                         }
                         else
                         {
 
-                            if (l == 1 && i == 0)
-                            {
-                                walls.Add(Instantiate(prefabWall, casillas[i, j].transform));
-                                walls[countWalls].transform.localScale = new Vector2((float)(numCasillasX * 0.01), 1);
-                                walls[countWalls].transform.position = new Vector2(casillas[i, j].transform.position.x - 0.5f, casillas[i, j].transform.position.y);
-                                countWalls++;
-                            }
-
-                            else if (l == 3)
+                            if (l == 1)
                             {
                                 walls.Add(Instantiate(prefabWall, casillas[i, j].transform));
                                 walls[countWalls].transform.localScale = new Vector2((float)(numCasillasX * 0.01), 1);
@@ -109,6 +124,14 @@ public class MatrixCasillas : MonoBehaviour
                                 countWalls++;
                             }
 
+                            else if (l == 3)
+                            {
+                                walls.Add(Instantiate(prefabWall, casillas[i, j].transform));
+                                walls[countWalls].transform.localScale = new Vector2((float)(numCasillasX * 0.01), 1);
+                                walls[countWalls].transform.position = new Vector2(casillas[i, j].transform.position.x - 0.5f, casillas[i, j].transform.position.y);
+                                countWalls++;
+                            }
+                            
                         }
 
 

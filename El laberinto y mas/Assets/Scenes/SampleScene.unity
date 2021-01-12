@@ -666,7 +666,6 @@ GameObject:
   - component: {fileID: 1542155575}
   - component: {fileID: 1542155578}
   - component: {fileID: 1542155577}
-  - component: {fileID: 1542155576}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -693,18 +692,6 @@ RectTransform:
   m_AnchoredPosition: {x: 70.72, y: -70.34}
   m_SizeDelta: {x: 109.562836, y: 74.94049}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1542155576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1542155574}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a96ec175b70b694a9a53d6f54000531, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1542155577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -780,6 +767,8 @@ MonoBehaviour:
   prefabCasilla: {fileID: 1629216581556634026, guid: 5ddef48409cbe514185bb273fc38c0d8,
     type: 3}
   prefabWall: {fileID: 6678331455984844249, guid: 2dde36ea51ffef84ab3e052479c2af51,
+    type: 3}
+  hintLine: {fileID: 4303388646785988897, guid: dd48d2475b5ef1343b34e71b937bcd41,
     type: 3}
   widthCasilla: 1
   heigthCasilla: 1
@@ -1008,5 +997,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9c48f307df310374d870d247fdacb30b, type: 2}
   levelManager: {fileID: 1207127372}
   textLevel: {fileID: 1542155577}
-  levelToPlay: 35
-  iceLevelsToPlay: 1
+  levelToPlay: 0
+  iceLevelsToPlay: 0

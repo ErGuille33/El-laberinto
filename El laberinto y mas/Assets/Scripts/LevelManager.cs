@@ -13,11 +13,15 @@ public class LevelManager : MonoBehaviour
     protected WallsData[] walls;
     protected bool[,,] wallsArray = new bool [250, 250, 4];
     protected bool[,] isIcedarray = new bool[250, 250];
+    protected bool[,] hintsArray = new bool[250, 250];
+    //False es horizontal, true vertical
+    protected bool[,] hintsDir = new bool[250, 250];
 
     Vector2 endCasilla;
     Vector2 startCasilla;
 
     private int auxInvertedCoord;
+    private int auxTotalCols;
 
     // Start is called before the first frame update
     void Start()
@@ -53,19 +57,27 @@ public class LevelManager : MonoBehaviour
 
         for (int i = 0; i < walls.Length; i++)
         {
-           // print("antes: " + walls[i].o);
-           // print("despues " + walls[i].d);
+           
 
             if (walls[i].o.y !=  walls[i].d.y )
             {
                 if ((int)walls[i].o.x == 0)
                 {
-                        wallsArray[(int)walls[i].o.x, auxInvertedCoord - (int)walls[i].o.y, 1] = false;
-             
+                        wallsArray[(int)walls[i].o.x, auxInvertedCoord - (int)walls[i].o.y, 3] = false;
+                
+
                 }
                 else
                 {
-                        wallsArray[(int)walls[i].o.x-1, auxInvertedCoord - (int)walls[i].o.y, 3] = false;
+                    if ((int)walls[i].o.x == auxTotalCols+1) {
+                        wallsArray[(int)walls[i].o.x, auxInvertedCoord - (int)walls[i].o.y, 1] = false; 
+                    }
+                    else
+                    {
+                        wallsArray[(int)walls[i].o.x - 1, auxInvertedCoord - (int)walls[i].o.y, 1] = false;
+                        wallsArray[(int)walls[i].o.x, auxInvertedCoord - (int)walls[i].o.y, 3] = false;
+                    }
+                       
                 }
             }
 
@@ -74,11 +86,13 @@ public class LevelManager : MonoBehaviour
                 if ((int)walls[i].o.y == auxInvertedCoord)
                 {
                     wallsArray[(int)walls[i].o.x, auxInvertedCoord - (int)walls[i].o.y, 0] = false;
+         
 
                 }
                 else
                 {
                     wallsArray[(int)walls[i].o.x , auxInvertedCoord-1 - (int)walls[i].o.y, 2] = false;
+                    wallsArray[(int)walls[i].o.x, auxInvertedCoord - (int)walls[i].o.y, 0] = false;
                 }
             }
         }
@@ -110,9 +124,67 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    protected void setHintsArray()
+    {
+
+        for (int i = 0; i < hintsArray.GetLength(0); i++)
+        {
+            for (int j = 0; j < hintsArray.GetLength(1); j++)
+            {
+                hintsArray[i, j] = false;
+                hintsDir[i, j] = false;
+            }
+        }
+
+        for (int i = 0; i < lvlData.h.Length; i++)
+        {
+            if (lvlData.h[i].y == auxInvertedCoord)
+            {
+                hintsArray[(int)lvlData.h[i].x, auxInvertedCoord - (int)lvlData.h[i].y] = true;
+
+            }
+            else
+            {
+                hintsArray[(int)lvlData.h[i].x, auxInvertedCoord - 1 - (int)lvlData.h[i].y] = true;
+            }
+            if (i < lvlData.h.Length - 1)
+            {
+                if (lvlData.h[i].x > lvlData.h[i + 1].x)
+                {
+
+                }
+            }
+        }
+
+        for (int i = 0; i < hintsArray.GetLength(0); i++)
+        {
+            for (int j = 0; j < hintsArray.GetLength(1); j++)
+            {
+                if(hintsArray[i,j] == true)
+                {
+                    if(i > 0 && i < auxInvertedCoord)
+                    {
+                        if(hintsArray[i - 1, j] || hintsArray[i + 1, j])
+                        {
+                            hintsDir[i, j] = false;
+                        }
+                        else hintsDir[i, j] = true;
+                    }
+                    else
+                    {
+                        if (hintsArray[i + 1, j])
+                        {
+                            hintsDir[i, j] = false;
+                        }
+                        else hintsDir[i, j] = true;
+                    }
+                }
+            }
+        }
+    }
+
     protected void setEnd()
     {
-        print(auxInvertedCoord- lvlData.f.y);
         if(lvlData.f.y == auxInvertedCoord)
         {
             endCasilla = new Vector2(lvlData.f.x, auxInvertedCoord - lvlData.f.y);
@@ -159,13 +231,17 @@ public class LevelManager : MonoBehaviour
          print("owo " + walls[0].o.y);*/
 
         auxInvertedCoord = lvlData.r;
+        auxTotalCols = lvlData.c;
 
         setWallsArray();
         setIcedArray();
+        setHintsArray();
         setEnd();
         setStart();
+    
 
         mat.createNewMap(lvlData.r, lvlData.c, wallsArray, isIcedarray,endCasilla);
+        mat.setHints(hintsArray,hintsDir);
     }
 
     // Update is called once per frame
