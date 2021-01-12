@@ -11,11 +11,11 @@ public class LevelManager : MonoBehaviour
 
     protected LevelData lvlData;
     protected WallsData[] walls;
-    protected bool[,,] wallsArray = new bool [250, 250, 4];
-    protected bool[,] isIcedarray = new bool[250, 250];
-    protected bool[,] hintsArray = new bool[250, 250];
+    protected bool[,,] wallsArray = new bool [500, 500, 4];
+    protected bool[,] isIcedarray = new bool[500, 500];
+    protected bool[,] hintsArray = new bool[500, 500];
     //False es horizontal, true vertical
-    protected bool[,] hintsDir = new bool[250, 250];
+    protected int[,,] hintsDir = new int[500, 500, 2];
 
     public Casilla playerCasilla;
 
@@ -27,7 +27,7 @@ public class LevelManager : MonoBehaviour
 
     void Awake()
     {
-        
+  
     }
     // Start is called before the first frame update
     void Start()
@@ -138,7 +138,10 @@ public class LevelManager : MonoBehaviour
             for (int j = 0; j < hintsArray.GetLength(1); j++)
             {
                 hintsArray[i, j] = false;
-                hintsDir[i, j] = false;
+                for (int l = 0; l < hintsDir.GetLength(2); l++)
+                {
+                    hintsDir[i, j,l] = 0;
+                }
             }
         }
 
@@ -161,29 +164,83 @@ public class LevelManager : MonoBehaviour
                 }
             }
         }
-
+        bool auxDir = true;
         for (int i = 0; i < hintsArray.GetLength(0); i++)
         {
             for (int j = 0; j < hintsArray.GetLength(1); j++)
             {
                 if(hintsArray[i,j] == true)
                 {
-                    if(i > 0 && i < auxInvertedCoord)
+                    for (int l = 0; l < hintsDir.GetLength(2); l++)
                     {
-                        if(hintsArray[i - 1, j] || hintsArray[i + 1, j])
+
+                        if (i > 0 && i < auxTotalCols)
                         {
-                            hintsDir[i, j] = false;
+                            if (hintsArray[i - 1, j] && wallsArray[i,j,3] && auxDir)
+                            {
+                                hintsDir[i, j,l] = 3;
+                                auxDir = false;
+                            }
+                            else if (hintsArray[i + 1, j] && wallsArray[i, j, 1] && auxDir)
+                            {
+                                hintsDir[i, j, l] = 1;
+                                auxDir = false;
+                            }
                         }
-                        else hintsDir[i, j] = true;
-                    }
-                    else
-                    {
-                        if (hintsArray[i + 1, j])
+                        else
                         {
-                            hintsDir[i, j] = false;
+                            if (i == 0)
+                            {
+                                if (hintsArray[i + 1, j] && wallsArray[i, j, 3] && auxDir)
+                                {
+                                    hintsDir[i, j, l] = 1;
+                                    auxDir = false;
+                                }
+                            }
+                            else if(i < auxTotalCols)
+                            {
+                                if (hintsArray[i - 1, j] && wallsArray[i, j, 3] && auxDir)
+                                {
+                                    hintsDir[i, j, l] = 3;
+                                    auxDir = false;
+                                }
+                            }
                         }
-                        else hintsDir[i, j] = true;
+                        if (j > 0 && j < auxInvertedCoord)
+                        {
+                            if (hintsArray[i, j+1] && wallsArray[i, j, 0] && auxDir)
+                            {
+                                hintsDir[i, j,l] = 0;
+                                auxDir = false;
+                            }
+                            else if (hintsArray[i, j - 1] && wallsArray[i, j, 2] && auxDir)
+                            {
+                                hintsDir[i, j, l] = 2;
+                                auxDir = false;
+                            }
+                        }
+                        else
+                        {
+                            if (j == 0)
+                            {
+                                if (hintsArray[i, j + 1] && wallsArray[i, j, 0] && auxDir)
+                                {
+                                    hintsDir[i, j, l] = 0;
+                                    auxDir = false;
+                                }
+                            }
+                            else if (j < auxInvertedCoord)
+                            {
+                                if (hintsArray[i, j - 1] && wallsArray[i, j, 2] && auxDir)
+                                {
+                                    hintsDir[i, j, l] = 2;
+                                    auxDir = false;
+                                }
+                            }
+                        }
+
                     }
+                    auxDir = true;
                 }
             }
         }

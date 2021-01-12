@@ -30,16 +30,16 @@ public class MatrixCasillas : MonoBehaviour
     {
         //Camera cam = Camera.main;
         // transform.localScale = new Vector2(cam.pixelWidth/5, cam.pixelWidth/5);
-       
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public void setHints(bool [,] _hints, bool[,] _hintsDir)
+    public void setHints(bool[,] _hints, int[,,] _hintsDir)
     {
         int countHints = 0;
         for (int i = 0; i < numCasillasX; i++)
@@ -48,21 +48,30 @@ public class MatrixCasillas : MonoBehaviour
             {
                 if (_hints[i, j] == true)
                 {
-                    hints.Add(Instantiate(hintLine, casillas[i, j].transform));
-                    hints[countHints].transform.position = new Vector2(casillas[i, j].transform.position.x, casillas[i, j].transform.position.y);
-                    hints[countHints].transform.localScale = new Vector2((float)(numCasillasX * 0.0176), (float)(numCasillasX * 0.02));
-                    if(_hintsDir[i, j] == true)
+                    for (int l = 0; l < 2; l++)
                     {
-                        hints[countHints].transform.Rotate(0,0,90);
+                        hints.Add(Instantiate(hintLine, casillas[i, j].transform));
+                        hints[countHints].transform.position = new Vector2(casillas[i, j].transform.position.x, casillas[i, j].transform.position.y);
+                        hints[countHints].transform.localScale = new Vector2((float)(numCasillasX * 0.0176), (float)(numCasillasX * 0.02));
+                        if (_hintsDir[i, j, l] == 0)
+                        {
+                            hints[countHints].transform.Rotate(0, 0, 90);
+
+                        }
+                        if (_hintsDir[i, j, l] == 2)
+                        {
+                            hints[countHints].transform.Rotate(0, 0, 90);
+
+                        }
+                        countHints++;
                     }
-                    countHints++;
-                   
+
                 }
             }
         }
     }
 
-    public void createNewMap(int rows, int cols, bool[,,] wallsArray, bool [,] isIced, Vector2 isEnd, Vector2 isStart)
+    public void createNewMap(int rows, int cols, bool[,,] wallsArray, bool[,] isIced, Vector2 isEnd, Vector2 isStart)
     {
         numCasillasX = cols;
         numCasillasY = rows;
@@ -110,7 +119,7 @@ public class MatrixCasillas : MonoBehaviour
                                 walls.Add(Instantiate(prefabWall, casillas[i, j].transform));
                                 walls[countWalls].transform.localScale = new Vector2(1, (float)(numCasillasX * 0.01));
                                 walls[countWalls].transform.position = new Vector2(casillas[i, j].transform.position.x, casillas[i, j].transform.position.y + 0.5f);
-                                
+
                                 countWalls++;
                             }
 
@@ -121,7 +130,7 @@ public class MatrixCasillas : MonoBehaviour
                                 walls[countWalls].transform.position = new Vector2(casillas[i, j].transform.position.x, casillas[i, j].transform.position.y - 0.5f);
                                 countWalls++;
                             }
-                         
+
                         }
                         else
                         {
@@ -141,7 +150,7 @@ public class MatrixCasillas : MonoBehaviour
                                 walls[countWalls].transform.position = new Vector2(casillas[i, j].transform.position.x - 0.5f, casillas[i, j].transform.position.y);
                                 countWalls++;
                             }
-                            
+
                         }
 
 
