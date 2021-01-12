@@ -43,6 +43,7 @@ public class PlayerControl : MonoBehaviour
         {
             moving = true;
             levelManager.MovePlayer(dir);
+            dir = Dir.STOP;
         }
     }
 

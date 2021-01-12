@@ -297,45 +297,37 @@ public class LevelManager : MonoBehaviour
     {
         if (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[0])
         {
-            print("sigue");
             playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos - 1].GetComponent<Casilla>();
             mat.playerYPos--;
             playerMoveUp();
         }
-        else print("parate");
     }
     private void playerMoveDown()
     {
         if (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[2])
         {
-            print("sigue");
             playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos + 1].GetComponent<Casilla>();
             mat.playerYPos++;
             playerMoveDown();
         }
-        else print("parate");
     }
     private void playerMoveRight()
     {
         if (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[1])
         {
-            print("sigue");
             playerCasilla = mat.casillas[mat.playerXPos + 1, mat.playerYPos].GetComponent<Casilla>();
             mat.playerXPos++;
             playerMoveRight();
         }
-        else print("parate");
     }
     private void playerMoveLeft()
     {
         if (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[3])
         {
-            print("sigue");
             playerCasilla = mat.casillas[mat.playerXPos - 1, mat.playerYPos].GetComponent<Casilla>();
             mat.playerXPos--;
             playerMoveLeft();
         }
-        else print("parate");
     }
 
     // Update is called once per frame
