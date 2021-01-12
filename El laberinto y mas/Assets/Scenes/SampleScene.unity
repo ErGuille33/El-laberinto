@@ -609,7 +609,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mat: {fileID: 1603967679}
-  level: {fileID: 4900000, guid: 4c287b8542e51764cbcabb045f9e4a7c, type: 3}
+  level: {fileID: 4900000, guid: 68a67dcc244b9ce46a27496f149db4ef, type: 3}
   playerCasilla: {fileID: 0}
 --- !u!4 &1207127373
 Transform:
@@ -857,10 +857,10 @@ MonoBehaviour:
     type: 3}
   prefabWall: {fileID: 6678331455984844249, guid: 2dde36ea51ffef84ab3e052479c2af51,
     type: 3}
-  playerXPos: 0
-  playerYPos: 0
   hintLine: {fileID: 4303388646785988897, guid: dd48d2475b5ef1343b34e71b937bcd41,
     type: 3}
+  playerXPos: 0
+  playerYPos: 0
   widthCasilla: 1
   heigthCasilla: 1
   levelManager: {fileID: 1207127372}
@@ -1089,5 +1089,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9c48f307df310374d870d247fdacb30b, type: 2}
   levelManager: {fileID: 1207127372}
   textLevel: {fileID: 1542155577}
-  levelToPlay: 0
+  levelToPlay: 8
   iceLevelsToPlay: 0
