@@ -27,12 +27,12 @@ public class LevelManager : MonoBehaviour
 
     void Awake()
     {
-        cargaJson();
+        
     }
     // Start is called before the first frame update
     void Start()
     {
-        
+        cargaJson();
     }
 
 
@@ -151,7 +151,7 @@ public class LevelManager : MonoBehaviour
             }
             else
             {
-                hintsArray[(int)lvlData.h[i].x, auxInvertedCoord - 1 - (int)lvlData.h[i].y] = true;
+                //hintsArray[(int)lvlData.h[i].x, auxInvertedCoord - 1 - (int)lvlData.h[i].y] = true;
             }
             if (i < lvlData.h.Length - 1)
             {
@@ -259,55 +259,83 @@ public class LevelManager : MonoBehaviour
         switch(dir)
         {
             case PlayerControl.Dir.UP:
-                playerMoveUp();
+                if (playerCasilla._casillaAdyacente[0])
+                {
+                    playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos - 1].GetComponent<Casilla>();
+                    mat.playerYPos--;
+                    playerMoveUp();
+                }
                 break;
             case PlayerControl.Dir.DOWN:
-                playerMoveDown();
+                if (playerCasilla._casillaAdyacente[2])
+                {
+                    playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos + 1].GetComponent<Casilla>();
+                    mat.playerYPos++;
+                    playerMoveDown();
+                }
                 break;
             case PlayerControl.Dir.RIGHT:
-                playerMoveRight();
+                if (playerCasilla._casillaAdyacente[1])
+                {
+                    playerCasilla = mat.casillas[mat.playerXPos + 1, mat.playerYPos].GetComponent<Casilla>();
+                    mat.playerXPos++;
+                    playerMoveRight();
+                }
                 break;
             case PlayerControl.Dir.LEFT:
-                playerMoveLeft();
+                if (playerCasilla._casillaAdyacente[3])
+                {
+                    playerCasilla = mat.casillas[mat.playerXPos - 1, mat.playerYPos].GetComponent<Casilla>();
+                    mat.playerXPos--;
+                    playerMoveLeft();
+                }
                 break;
         }
     }
 
     private void playerMoveUp()
     {
-        if(playerCasilla._casillaAdyacente[0])
+        if (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[0])
         {
+            print("sigue");
             playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos - 1].GetComponent<Casilla>();
             mat.playerYPos--;
             playerMoveUp();
         }
+        else print("parate");
     }
     private void playerMoveDown()
     {
-        if (playerCasilla._casillaAdyacente[2])
+        if (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[2])
         {
+            print("sigue");
             playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos + 1].GetComponent<Casilla>();
             mat.playerYPos++;
             playerMoveDown();
         }
+        else print("parate");
     }
     private void playerMoveRight()
     {
-        if (playerCasilla._casillaAdyacente[1])
+        if (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[1])
         {
+            print("sigue");
             playerCasilla = mat.casillas[mat.playerXPos + 1, mat.playerYPos].GetComponent<Casilla>();
             mat.playerXPos++;
             playerMoveRight();
         }
+        else print("parate");
     }
     private void playerMoveLeft()
     {
-        if (playerCasilla._casillaAdyacente[3])
+        if (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[3])
         {
+            print("sigue");
             playerCasilla = mat.casillas[mat.playerXPos - 1, mat.playerYPos].GetComponent<Casilla>();
             mat.playerXPos--;
             playerMoveLeft();
         }
+        else print("parate");
     }
 
     // Update is called once per frame

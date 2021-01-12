@@ -13,25 +13,46 @@ public class PlayerControl : MonoBehaviour
     private Vector3 touchStartPos, touchEndPos;
     private Touch touch;
 
+    bool inicializado = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = levelManager.playerCasilla.transform.position;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        touchMovement();
+        if (!inicializado)
+        {
+            inicializado = true;
+            transform.position = levelManager.playerCasilla.transform.position;
+        }
+
+        if (!moving && touchMovement() != Dir.STOP) moving = true;
+        else
+        {
+            if (transform.position == levelManager.playerCasilla.transform.position)
+            {
+                dir = Dir.STOP;
+                moving = false;
+            }
+        }
         if (dir != Dir.STOP)
         {
+            moving = true;
             levelManager.MovePlayer(dir);
-            transform.position = levelManager.playerCasilla.transform.position;
-            dir = Dir.STOP;
         }
     }
 
-    void touchMovement()
+    void FixedUpdate()
+    {
+        if(moving)
+            transform.position = Vector3.MoveTowards(transform.position, levelManager.playerCasilla.transform.position, 0.1f);
+    }
+
+    Dir touchMovement()
     {
         if (Input.touchCount > 0)
         {
@@ -57,6 +78,10 @@ public class PlayerControl : MonoBehaviour
                     else if (y < 0) dir = Dir.DOWN;
                 }
             }
+            else dir = Dir.STOP;
         }
+        else dir = Dir.STOP;
+        return dir;
     }
+
 }

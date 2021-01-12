@@ -42,4 +42,14 @@ public class Casilla : MonoBehaviour
     {
         
     }
+
+    public int getSalidas()
+    {
+        int aux = 0;
+        if (_casillaAdyacente[0]) aux++;
+        if (_casillaAdyacente[1]) aux++;
+        if (_casillaAdyacente[2]) aux++;
+        if (_casillaAdyacente[3]) aux++;
+        return aux;
+    }
 }
