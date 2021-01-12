@@ -137,10 +137,11 @@ public class LevelManager : MonoBehaviour
         {
             for (int j = 0; j < hintsArray.GetLength(1); j++)
             {
-                hintsArray[i, j] = false;
+        
                 for (int l = 0; l < hintsDir.GetLength(2); l++)
                 {
-                    hintsDir[i, j,l] = 0;
+                    hintsArray[i, j] = false;
+                    hintsDir[i, j,l] = 1;
                 }
             }
         }
@@ -154,93 +155,13 @@ public class LevelManager : MonoBehaviour
             }
             else
             {
-                //hintsArray[(int)lvlData.h[i].x, auxInvertedCoord - 1 - (int)lvlData.h[i].y] = true;
+                hintsArray[(int)lvlData.h[i].x, auxInvertedCoord - 1  - (int)lvlData.h[i].y] = true;
             }
             if (i < lvlData.h.Length - 1)
             {
                 if (lvlData.h[i].x > lvlData.h[i + 1].x)
                 {
 
-                }
-            }
-        }
-        bool auxDir = true;
-        for (int i = 0; i < hintsArray.GetLength(0); i++)
-        {
-            for (int j = 0; j < hintsArray.GetLength(1); j++)
-            {
-                if(hintsArray[i,j] == true)
-                {
-                    for (int l = 0; l < hintsDir.GetLength(2); l++)
-                    {
-
-                        if (i > 0 && i < auxTotalCols)
-                        {
-                            if (hintsArray[i - 1, j] && wallsArray[i,j,3] && auxDir)
-                            {
-                                hintsDir[i, j,l] = 3;
-                                auxDir = false;
-                            }
-                            else if (hintsArray[i + 1, j] && wallsArray[i, j, 1] && auxDir)
-                            {
-                                hintsDir[i, j, l] = 1;
-                                auxDir = false;
-                            }
-                        }
-                        else
-                        {
-                            if (i == 0)
-                            {
-                                if (hintsArray[i + 1, j] && wallsArray[i, j, 3] && auxDir)
-                                {
-                                    hintsDir[i, j, l] = 1;
-                                    auxDir = false;
-                                }
-                            }
-                            else if(i < auxTotalCols)
-                            {
-                                if (hintsArray[i - 1, j] && wallsArray[i, j, 3] && auxDir)
-                                {
-                                    hintsDir[i, j, l] = 3;
-                                    auxDir = false;
-                                }
-                            }
-                        }
-                        if (j > 0 && j < auxInvertedCoord)
-                        {
-                            if (hintsArray[i, j+1] && wallsArray[i, j, 0] && auxDir)
-                            {
-                                hintsDir[i, j,l] = 0;
-                                auxDir = false;
-                            }
-                            else if (hintsArray[i, j - 1] && wallsArray[i, j, 2] && auxDir)
-                            {
-                                hintsDir[i, j, l] = 2;
-                                auxDir = false;
-                            }
-                        }
-                        else
-                        {
-                            if (j == 0)
-                            {
-                                if (hintsArray[i, j + 1] && wallsArray[i, j, 0] && auxDir)
-                                {
-                                    hintsDir[i, j, l] = 0;
-                                    auxDir = false;
-                                }
-                            }
-                            else if (j < auxInvertedCoord)
-                            {
-                                if (hintsArray[i, j - 1] && wallsArray[i, j, 2] && auxDir)
-                                {
-                                    hintsDir[i, j, l] = 2;
-                                    auxDir = false;
-                                }
-                            }
-                        }
-
-                    }
-                    auxDir = true;
                 }
             }
         }

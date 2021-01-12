@@ -41,6 +41,7 @@ public class MatrixCasillas : MonoBehaviour
 
     public void setHints(bool[,] _hints, int[,,] _hintsDir)
     {
+        bool auxDir = true;
         int countHints = 0;
         for (int i = 0; i < numCasillasX; i++)
         {
@@ -53,6 +54,74 @@ public class MatrixCasillas : MonoBehaviour
                         hints.Add(Instantiate(hintLine, casillas[i, j].transform));
                         hints[countHints].transform.position = new Vector2(casillas[i, j].transform.position.x, casillas[i, j].transform.position.y);
                         hints[countHints].transform.localScale = new Vector2((float)(numCasillasX * 0.0176), (float)(numCasillasX * 0.02));
+
+
+                        if (i > 0 && i < numCasillasY)
+                        {
+                            if (_hints[i - 1, j] && casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[3] && auxDir)
+                            {
+                                _hintsDir[i, j, l] = 3;
+                                auxDir = false;
+                            }
+                            else if (_hints[i + 1, j] && casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[1] && auxDir)
+                            {
+                                _hintsDir[i, j, l] = 1;
+                                auxDir = false;
+                            }
+                        }
+                        else
+                        {
+                            if (i == 0)
+                            {
+                                if (_hints[i + 1, j] && casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[1] && auxDir)
+                                {
+                                    _hintsDir[i, j, l] = 1;
+                                    auxDir = false;
+                                }
+                            }
+                            else if (i >= numCasillasY)
+                            {
+                                if (_hints[i - 1, j] && casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[3] && auxDir)
+                                {
+                                    _hintsDir[i, j, l] = 3;
+                                    auxDir = false;
+                                }
+                            }
+                        }
+                        if (j > 0 && j < numCasillasX)
+                        {
+                            if (_hints[i, j + 1] && casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[0] && auxDir)
+                            {
+
+                                _hintsDir[i, j, l] = 0;
+                                auxDir = false;
+                            }
+                            else if (_hints[i, j - 1] && casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[2] && auxDir)
+                            {
+                                _hintsDir[i, j, l] = 2;
+                                auxDir = false;
+                            }
+                        }
+                        else
+                        {
+                            if (j == 0)
+                            {
+                                if (_hints[i, j + 1] && casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[2] && auxDir)
+                                {
+                                    _hintsDir[i, j, l] = 2;
+                                    auxDir = false;
+                                }
+                            }
+                            else if (j < numCasillasX)
+                            {
+                                if (_hints[i, j - 1] && casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[0] && auxDir)
+                                {
+                                    _hintsDir[i, j, l] = 0;
+                                    auxDir = false;
+                                }
+                            }
+                        }
+
                         if (_hintsDir[i, j, l] == 0)
                         {
                             hints[countHints].transform.Rotate(0, 0, 90);
@@ -64,8 +133,9 @@ public class MatrixCasillas : MonoBehaviour
 
                         }
                         countHints++;
+                   
                     }
-
+                    auxDir = true;
                 }
             }
         }
