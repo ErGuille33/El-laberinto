@@ -122,7 +122,7 @@ public class LevelManager : MonoBehaviour
                 isIcedarray[(int)lvlData.i[i].x, auxInvertedCoord - (int)lvlData.i[i].y] = true;
 
             }
-            else
+            else if((int)lvlData.i[i].y > 0)
             {
                 isIcedarray[(int)lvlData.i[i].x, auxInvertedCoord - 1 - (int)lvlData.i[i].y] = true;
             }
@@ -148,21 +148,22 @@ public class LevelManager : MonoBehaviour
 
         for (int i = 0; i < lvlData.h.Length; i++)
         {
-            if (lvlData.h[i].y == auxInvertedCoord)
+            if ((int)lvlData.h[i].x < 0) {
+                lvlData.h[i].x = 0;
+            }
+            if ((int)lvlData.h[i].y < 0)
+            {
+                lvlData.h[i].y = 0;
+            }
+            if (lvlData.h[i].y >= auxInvertedCoord )
             {
                 hintsArray[(int)lvlData.h[i].x, auxInvertedCoord - (int)lvlData.h[i].y] = true;
 
             }
             else
             {
-                hintsArray[(int)lvlData.h[i].x, auxInvertedCoord - 1  - (int)lvlData.h[i].y] = true;
-            }
-            if (i < lvlData.h.Length - 1)
-            {
-                if (lvlData.h[i].x > lvlData.h[i + 1].x)
-                {
 
-                }
+                hintsArray[(int)lvlData.h[i].x, auxInvertedCoord - 1 - (int)lvlData.h[i].y] = true;
             }
         }
     }
