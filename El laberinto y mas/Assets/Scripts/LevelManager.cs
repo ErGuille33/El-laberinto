@@ -3,27 +3,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class LevelManager : MonoBehaviour
 {
+    //Archivo y matriz
     public MatrixCasillas mat;
     public TextAsset level;
 
+    //Datos del nivel
     protected LevelData lvlData;
     protected WallsData[] walls;
     protected bool[,,] wallsArray = new bool [500, 500, 4];
     protected bool[,] isIcedarray = new bool[500, 500];
-    protected bool[,] hintsArray = new bool[500, 500];
-    //False es horizontal, true vertical
-    protected int[,,] hintsDir = new int[500, 500, 2];
-
+    //Casilla del jugador
     public Casilla playerCasilla;
 
     Vector2 endCasilla;
     Vector2 startCasilla;
 
+    //Variables para la partida
     public bool finishedLevel = false;
+    int totalHints;
+    public int actualHints;
 
+    //Variables auxiliares
     private int auxInvertedCoord;
     private int auxTotalCols;
 
@@ -36,7 +40,7 @@ public class LevelManager : MonoBehaviour
     {
     
     }
-
+    
 
     //Para poner el nivel 
     public void setTextAsset(TextAsset lvl)
@@ -53,12 +57,8 @@ public class LevelManager : MonoBehaviour
             for (int j = 0; j < wallsArray.GetLength(1); j++)
             {
                 for (int l = 0; l < wallsArray.GetLength(2); l++)
-                {/*
-                    if ((i == 0 && l == 3) || (i == wallsArray.GetLength(0) && l == 1) || (j == 0 && l == 0) || (j == wallsArray.GetLength(1) && l == 2))
-                    {
-                        wallsArray[i, j, l] = false;
-                    }
-                    else*/ wallsArray[i, j, l] = true;
+                {
+                     wallsArray[i, j, l] = true;
                 }
             }
         }
@@ -77,12 +77,12 @@ public class LevelManager : MonoBehaviour
                 }
                 else
                 {
-                    if ((int)walls[i].o.x == auxTotalCols+1) {
-                        wallsArray[(int)walls[i].o.x, auxInvertedCoord - (int)walls[i].o.y, 1] = false; 
+                    if ((int)walls[i].o.x == auxTotalCols) {
+                        wallsArray[(int)walls[i].o.x-1, auxInvertedCoord - (int)walls[i].o.y, 1] = false; 
                     }
                     else
                     {
-                        wallsArray[(int)walls[i].o.x - 1, auxInvertedCoord - (int)walls[i].o.y, 1] = false;
+                
                         wallsArray[(int)walls[i].o.x, auxInvertedCoord - (int)walls[i].o.y, 3] = false;
                     }
                        
@@ -100,10 +100,42 @@ public class LevelManager : MonoBehaviour
                 else
                 {
                     wallsArray[(int)walls[i].o.x , auxInvertedCoord-1 - (int)walls[i].o.y, 2] = false;
-                    wallsArray[(int)walls[i].o.x, auxInvertedCoord - (int)walls[i].o.y, 0] = false;
                 }
             }
         }
+
+        for (int i = 0; i < wallsArray.GetLength(0); i++)
+        {
+            for (int j = 0; j < wallsArray.GetLength(1); j++)
+            {
+               
+                if(i < auxTotalCols)
+                {
+                    if(!wallsArray[i+1, j, 3])
+                        wallsArray[i, j, 1] = false;
+                }
+
+                if (j >0)
+                {
+                    if (!wallsArray[i, j-1, 2])
+                        wallsArray[i, j, 0] = false;
+                }
+
+            }
+        }
+
+        //ESquinas
+        wallsArray[0, 0, 3] = false;
+        wallsArray[0, 0, 0] = false;
+
+        wallsArray[0, auxInvertedCoord-1, 3] = false;
+        wallsArray[0, auxInvertedCoord-1, 2] = false;
+
+        wallsArray[auxTotalCols-1, 0, 0] = false;
+        wallsArray[auxTotalCols-1, 0, 1] = false;
+
+        wallsArray[auxTotalCols-1, auxInvertedCoord-1, 2] = false;
+        wallsArray[auxTotalCols-1, auxInvertedCoord-1, 1] = false;
     }
 
     protected void setIcedArray()
@@ -132,43 +164,7 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    protected void setHintsArray()
-    {
-
-        for (int i = 0; i < hintsArray.GetLength(0); i++)
-        {
-            for (int j = 0; j < hintsArray.GetLength(1); j++)
-            {
-        
-                for (int l = 0; l < hintsDir.GetLength(2); l++)
-                {
-                    hintsArray[i, j] = false;
-                    hintsDir[i, j,l] = 1;
-                }
-            }
-        }
-
-        for (int i = 0; i < lvlData.h.Length; i++)
-        {
-            if ((int)lvlData.h[i].x < 0) {
-                lvlData.h[i].x = 0;
-            }
-            if ((int)lvlData.h[i].y < 0)
-            {
-                lvlData.h[i].y = 0;
-            }
-            if (lvlData.h[i].y >= auxInvertedCoord )
-            {
-                hintsArray[(int)lvlData.h[i].x, auxInvertedCoord - (int)lvlData.h[i].y] = true;
-
-            }
-            else
-            {
-
-               // hintsArray[(int)lvlData.h[i].x, auxInvertedCoord - 1 - (int)lvlData.h[i].y] = true;
-            }
-        }
-    }
+   
 
     protected void setEnd()
     {
@@ -211,28 +207,23 @@ public class LevelManager : MonoBehaviour
                 lvlData.h[i].y = 0;
             }
         }
-        /* print("WAllsrx " + lvlData.r);
-         print("WAlls1x " + lvlData.s.x);
-         print("WAlls1y " + lvlData.s.y);
-
-         print("WAlls2x " + lvlData.mx);
-         print("WAlls2y " + lvlData.my);
-
-         print("owo " + walls[0].o.x);
-         print("owo " + walls[0].o.y);*/
 
         auxInvertedCoord = lvlData.r;
         auxTotalCols = lvlData.c;
 
         setWallsArray();
         setIcedArray();
-        setHintsArray();
+   
         setEnd();
         setStart();
 
         mat.createNewMap(lvlData.r, lvlData.c, wallsArray, isIcedarray,endCasilla,startCasilla);
-        mat.setHints(hintsArray,hintsDir);
         playerCasilla = mat.casillas[(int)startCasilla.x, (int)startCasilla.y].GetComponent<Casilla>();
+        totalHints = lvlData.h.Length;
+        actualHints = 0;
+
+
+
     }
 
     public void MovePlayer(PlayerControl.Dir dir)
@@ -242,34 +233,46 @@ public class LevelManager : MonoBehaviour
             case PlayerControl.Dir.UP:
                 if (playerCasilla._casillaAdyacente[0])
                 {
-                    playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos - 1].GetComponent<Casilla>();
-                    mat.playerYPos--;
-                    playerMoveUp();
+                 
+                        mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 0);
+                        playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos - 1].GetComponent<Casilla>();
+                        mat.playerYPos--;
+                        mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 2);
+                        playerMoveUp();
+                  
                 }
                 break;
             case PlayerControl.Dir.DOWN:
                 if (playerCasilla._casillaAdyacente[2])
                 {
+                    mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 2);
                     playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos + 1].GetComponent<Casilla>();
                     mat.playerYPos++;
+                    mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 0);
                     playerMoveDown();
                 }
                 break;
             case PlayerControl.Dir.RIGHT:
                 if (playerCasilla._casillaAdyacente[1])
                 {
-                    playerCasilla = mat.casillas[mat.playerXPos + 1, mat.playerYPos].GetComponent<Casilla>();
-                    mat.playerXPos++;
-                    playerMoveRight();
+                    if (mat.casillas[mat.playerXPos + 1, mat.playerYPos].GetComponent<Casilla>()._casillaAdyacente[3])
+                    {
+                        mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 1);
+                        playerCasilla = mat.casillas[mat.playerXPos + 1, mat.playerYPos].GetComponent<Casilla>();
+                        mat.playerXPos++;
+                        mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 3);
+                        playerMoveRight();
+                    }
                 }
                 break;
             case PlayerControl.Dir.LEFT:
-                if (playerCasilla._casillaAdyacente[3])
-                {
+            
+                    mat.setPlayerPath(mat.playerXPos, mat.playerYPos,  3);
                     playerCasilla = mat.casillas[mat.playerXPos - 1, mat.playerYPos].GetComponent<Casilla>();
                     mat.playerXPos--;
+                    mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 1);
                     playerMoveLeft();
-                }
+             
                 break;
         }
     }
@@ -279,37 +282,50 @@ public class LevelManager : MonoBehaviour
     private void playerMoveUp()
     {
         if (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[0])
-        {
-            playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos - 1].GetComponent<Casilla>();
-            mat.playerYPos--;
-            playerMoveUp();
+        {           
+                playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos - 1].GetComponent<Casilla>();
+                mat.setPlayerPath(mat.playerXPos, mat.playerYPos,  0);
+                mat.playerYPos--;
+                mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 2);
+                playerMoveUp();          
         }
     }
     private void playerMoveDown()
     {
         if (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[2])
         {
-            playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos + 1].GetComponent<Casilla>();
-            mat.playerYPos++;
-            playerMoveDown();
+
+                playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos + 1].GetComponent<Casilla>();
+                mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 2);
+                mat.playerYPos++;
+                mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 0);
+                playerMoveDown();
+
         }
     }
     private void playerMoveRight()
     {
         if (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[1])
-        {
-            playerCasilla = mat.casillas[mat.playerXPos + 1, mat.playerYPos].GetComponent<Casilla>();
-            mat.playerXPos++;
-            playerMoveRight();
+        {           
+                playerCasilla = mat.casillas[mat.playerXPos + 1, mat.playerYPos].GetComponent<Casilla>();
+                mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 1);
+                mat.playerXPos++;
+                mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 3);
+                playerMoveRight();
+            
         }
     }
     private void playerMoveLeft()
     {
         if (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[3])
         {
-            playerCasilla = mat.casillas[mat.playerXPos - 1, mat.playerYPos].GetComponent<Casilla>();
-            mat.playerXPos--;
-            playerMoveLeft();
+
+                playerCasilla = mat.casillas[mat.playerXPos - 1, mat.playerYPos].GetComponent<Casilla>();
+                mat.setPlayerPath(mat.playerXPos, mat.playerYPos,  3);
+                mat.playerXPos--;
+                mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 1);
+                playerMoveLeft();
+            
         }
     }
 
@@ -343,9 +359,161 @@ public class LevelManager : MonoBehaviour
     void Update()
     {
         checkWin();
+
+        setHintsArray();
     }
 
+    protected void setHintsArray()
+    {
+        int from = -1;
+        int to = -1;
+        int x = -1;
+        int y = -1;
+
+        int countHints = (totalHints / 3) * actualHints;
+
+        if(countHints > totalHints || actualHints == 3)
+        {
+            countHints = totalHints;
+        }
+
+        for (int i = 0; i < countHints; i++)
+        {
+           
     
+            if (i != lvlData.h.Length - 1)
+            {
+                //Vertical
+                if (lvlData.h[i].x == lvlData.h[i + 1].x)
+                {
+                    if (lvlData.h[i].y > lvlData.h[i + 1].y)
+                    {
+                        to = 2;
+                    }
+                    else
+                    {
+                        to = 0;
+                    }
+
+                }
+                //Horizontal
+                else if (lvlData.h[i].y == lvlData.h[i + 1].y)
+                {
+                    if (lvlData.h[i].x > lvlData.h[i + 1].x)
+                    {
+                        to = 3;
+                    }
+                    else
+                    {
+                        to = 1;
+                    }
+
+                }
+                //Para la primera casilla
+                if (i == 0)
+                {
+                    if(lvlData.s.y== lvlData.h[i].y)
+                    {
+                        if(lvlData.h[i].x > lvlData.s.x)
+                        {
+                            from = 3;
+                        }
+                        else
+                        {
+                            from = 1;
+
+                        }
+                    }
+                    else
+                    {
+                        if (lvlData.h[i].y > lvlData.s.y)
+                        {
+                            from = 2;
+                        }
+                        else {
+                            from = 0;
+                        }
+                    }
+                }
+            }
+            //Ultimo caso
+            if (i != 0)
+            {
+                if (lvlData.h[i].x == lvlData.h[i - 1].x)
+                {
+                    if (lvlData.h[i].y > lvlData.h[i - 1].y)
+                    {
+                        from = 2;
+                
+                    }
+                    else
+                    {
+                        from = 0;
+              
+                    }
+
+                }
+                //Horizontal
+                else if (lvlData.h[i].y == lvlData.h[i - 1].y)
+                {
+                    if (lvlData.h[i].x > lvlData.h[i - 1].x)
+                    {
+                        from = 3;
+                    
+                    }
+                    else
+                    {
+                        from = 1;
+                    }
+
+                }
+                //Ultimo caso
+                if (i == lvlData.h.Length - 1)
+                {
+                    if (lvlData.f.y == lvlData.h[i].y)
+                    {
+                        if (lvlData.h[i].x > lvlData.f.x)
+                        {
+                            to = 3;
+                        }
+                        else
+                        {
+                            to = 1;
+
+                        }
+                    }
+                    else
+                    {
+                        if (lvlData.h[i].y > lvlData.f.y)
+                        {
+                            to = 2;
+                        }
+                        else
+                        {
+                            to = 0;
+                        }
+                    }
+                }
+            }
+                
+             if ((int)lvlData.h[i].x == auxTotalCols)
+             {
+                 x = (int)lvlData.h[i].x - 1;
+             }
+             else
+             {
+
+                x = (int)lvlData.h[i].x;
+             }
+
+                        
+             y = auxInvertedCoord - 1 - (int)lvlData.h[i].y;
+           
+            //mat.setHints((int)lvlData.h[i].x, auxInvertedCoord - (int)lvlData.h[i].y, 0, -1);
+            mat.setHints(x, y, from, to,true);
+
+        }
+    }
 
     //r es la altura
     //C es la ancura 

@@ -55,124 +55,67 @@ public class MatrixCasillas : MonoBehaviour
         countWalls = 0;
     }
 
-    public void setHints(bool[,] _hints, int[,,] _hintsDir)
+    public void setHints(int casillaX, int casillaY, int from, int to, bool set)
     {
-
-        print(casillas[0, 0].GetComponent<Casilla>()._casillaAdyacente[0]);
-        bool auxDir0 = true;
-        bool auxDir1 = true;
-        bool auxDir2 = true;
-        bool auxDir3 = true;
-        int countHints = 0;
-        for (int i = 0; i < numCasillasX; i++)
+        switch (from)
         {
-            for (int j = 0; j < numCasillasY; j++)
-            {
-
-
-                if (_hints[i, j] == true)
-                {
-                    for (int l = 0; l < 2; l++)
-                    {
-                        hints.Add(Instantiate(hintLine, casillas[i, j].transform));
-                        hints[countHints].transform.position = new Vector2(casillas[i, j].transform.position.x, casillas[i, j].transform.position.y);
-                        hints[countHints].transform.localScale = new Vector2((float)(numCasillasX * 0.008), (float)(numCasillasX * 0.025));
-
-
-                        if (i > 0 && i < numCasillasY)
-                        {
-                            if (_hints[i - 1, j] && casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[3] && auxDir3)
-                            {
-                                _hintsDir[i, j, l] = 3;
-                                hints[countHints].transform.position = new Vector2(casillas[i, j].transform.position.x-0.5f, casillas[i, j].transform.position.y);
-                                auxDir3 = false;
-                            }
-                            if (_hints[i + 1, j] && casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[1] && auxDir1)
-                            {
-                                _hintsDir[i, j, l] = 1;
-                                hints[countHints].transform.position = new Vector2(casillas[i, j].transform.position.x + 0.5f, casillas[i, j].transform.position.y);
-                                auxDir1 = false;
-                            }
-                        }
-                        else
-                        {
-                            if (i == 0)
-                            {
-                                if (_hints[i + 1, j] && casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[1] && auxDir1)
-                                {
-                                    _hintsDir[i, j, l] = 1;
-                                    hints[countHints].transform.position = new Vector2(casillas[i, j].transform.position.x + 0.5f, casillas[i, j].transform.position.y);
-                                    auxDir1 = false;
-                                }
-                            }
-                            else if (i >= numCasillasY-1)
-                            {
-                                if (_hints[i - 1, j] && casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[3] && auxDir3)
-                                {
-                                    _hintsDir[i, j, l] = 3;
-                                    hints[countHints].transform.position = new Vector2(casillas[i, j].transform.position.x - 0.5f, casillas[i, j].transform.position.y);
-                                    auxDir3 = false;
-                                }
-                            }
-                        }
-                        if (j > 0 && j < numCasillasX)
-                        {
-                            if (_hints[i, j + 1] && casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[0] && auxDir0)
-                            {
-
-                                _hintsDir[i, j, l] = 0;
-                                hints[countHints].transform.position = new Vector2(casillas[i, j].transform.position.x , casillas[i, j].transform.position.y + 0.25f);
-                                auxDir0 = false;
-                            }
-                            if (_hints[i, j - 1] && casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[2] && auxDir2)
-                            {
-                                _hintsDir[i, j, l] = 2;
-                                hints[countHints].transform.position = new Vector2(casillas[i, j].transform.position.x, casillas[i, j].transform.position.y - 0.25f);
-                                auxDir2 = false;
-                            }
-                        }
-                        else
-                        {
-                            if (j == 0)
-                            {
-                                if (_hints[i, j + 1] && casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[2] && auxDir2)
-                                {
-                                    _hintsDir[i, j, l] = 2;
-                                    hints[countHints].transform.position = new Vector2(casillas[i, j].transform.position.x, casillas[i, j].transform.position.y - 0.25f);
-                                    auxDir2 = false;
-                                }
-                            }
-                            else if (j < numCasillasX)
-                            {
-                                if (_hints[i, j - 1] && casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[0] && auxDir0)
-                                {
-                                    _hintsDir[i, j, l] = 0;
-                                    hints[countHints].transform.position = new Vector2(casillas[i, j].transform.position.x, casillas[i, j].transform.position.y + 0.25f);
-                                    auxDir0 = false;
-                                }
-                            }
-                        }
-
-                        if (_hintsDir[i, j, l] == 0)
-                        {
-                            hints[countHints].transform.Rotate(0, 0, 90);
-
-                        }
-                        if (_hintsDir[i, j, l] == 2)
-                        {
-                            hints[countHints].transform.Rotate(0, 0, 90);
-
-                        }
-                        countHints++;
-                        
-                    }
-                    auxDir0 = true;
-                    auxDir1 = true;
-                    auxDir2 = true;
-                    auxDir3 = true;
-                }
-            }
+            case 0:
+                casillas[casillaX, casillaY].transform.Find("HintLine").gameObject.active = set; 
+                break;
+            case 1:
+                casillas[casillaX, casillaY].transform.Find("HintLine 1").gameObject.active = set;
+                break;
+            case 2:
+                casillas[casillaX, casillaY].transform.Find("HintLine 2").gameObject.active = set;
+                break;
+            case 3:
+                casillas[casillaX, casillaY].transform.Find("HintLine 3").gameObject.active = set;
+                break;
         }
+        switch (to)
+        {
+            case 0:
+                casillas[casillaX, casillaY].transform.Find("HintLine").gameObject.active = set;
+                break;
+            case 1:
+                casillas[casillaX, casillaY].transform.Find("HintLine 1").gameObject.active = set;
+                break;
+            case 2:
+                casillas[casillaX, casillaY].transform.Find("HintLine 2").gameObject.active = set;
+                break;
+            case 3:
+                casillas[casillaX, casillaY].transform.Find("HintLine 3").gameObject.active = set;
+                break;
+        }
+
+    }
+
+    public void setPlayerPath(int casillaX, int casillaY, int from)
+    {
+        switch (from)
+        {
+            case 0:
+                if (casillas[casillaX, casillaY].transform.Find("PlayerPath").gameObject.active)
+                    casillas[casillaX, casillaY].transform.Find("PlayerPath").gameObject.SetActive(false);
+                else casillas[casillaX, casillaY].transform.Find("PlayerPath").gameObject.SetActive(true);
+                break; 
+            case 1:
+                if (casillas[casillaX, casillaY].transform.Find("PlayerPath 1").gameObject.active)
+                    casillas[casillaX, casillaY].transform.Find("PlayerPath 1").gameObject.SetActive(false);
+                else casillas[casillaX, casillaY].transform.Find("PlayerPath 1").gameObject.SetActive(true);
+                break;
+            case 2:
+                if (casillas[casillaX, casillaY].transform.Find("PlayerPath 2").gameObject.active)
+                    casillas[casillaX, casillaY].transform.Find("PlayerPath 2").gameObject.SetActive(false);
+                else casillas[casillaX, casillaY].transform.Find("PlayerPath 2").gameObject.SetActive(true);
+                break;
+            case 3:
+                if (casillas[casillaX, casillaY].transform.Find("PlayerPath 3").gameObject.active)
+                    casillas[casillaX, casillaY].transform.Find("PlayerPath 3").gameObject.SetActive(false);
+                else casillas[casillaX, casillaY].transform.Find("PlayerPath 3").gameObject.SetActive(true);
+                break;
+        }
+
     }
 
     public void createNewMap(int rows, int cols, bool[,,] wallsArray, bool[,] isIced, Vector2 isEnd, Vector2 isStart)
@@ -224,19 +167,14 @@ public class MatrixCasillas : MonoBehaviour
                         {
                             if (l == 0)
                             {
-                                walls.Add(Instantiate(prefabWall, casillas[i, j].transform));
-                                walls[countWalls].transform.localScale = new Vector2(1, (float)(numCasillasX * 0.01));
-                                walls[countWalls].transform.position = new Vector2(casillas[i, j].transform.position.x, casillas[i, j].transform.position.y + 0.5f);
 
-                                countWalls++;
+                                casillas[i, j].transform.Find("Wall").gameObject.active = true;
+                   
                             }
 
                             else if (l == 2)
                             {
-                                walls.Add(Instantiate(prefabWall, casillas[i, j].transform));
-                                walls[countWalls].transform.localScale = new Vector2(1, (float)(numCasillasX * 0.01));
-                                walls[countWalls].transform.position = new Vector2(casillas[i, j].transform.position.x, casillas[i, j].transform.position.y - 0.5f);
-                                countWalls++;
+                                casillas[i, j].transform.Find("Wall 2").gameObject.active = true;
                             }
 
                         }
@@ -245,18 +183,12 @@ public class MatrixCasillas : MonoBehaviour
 
                             if (l == 1)
                             {
-                                walls.Add(Instantiate(prefabWall, casillas[i, j].transform));
-                                walls[countWalls].transform.localScale = new Vector2((float)(numCasillasX * 0.01), 1);
-                                walls[countWalls].transform.position = new Vector2(casillas[i, j].transform.position.x + 0.5f, casillas[i, j].transform.position.y);
-                                countWalls++;
+                                casillas[i, j].transform.Find("Wall 1").gameObject.active = true;
                             }
 
                             else if (l == 3)
                             {
-                                walls.Add(Instantiate(prefabWall, casillas[i, j].transform));
-                                walls[countWalls].transform.localScale = new Vector2((float)(numCasillasX * 0.01), 1);
-                                walls[countWalls].transform.position = new Vector2(casillas[i, j].transform.position.x - 0.5f, casillas[i, j].transform.position.y);
-                                countWalls++;
+                                casillas[i, j].transform.Find("Wall 3").gameObject.active = true;
                             }
 
                         }

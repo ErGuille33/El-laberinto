@@ -140,6 +140,27 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1119884857396611236, guid: 374a09abbd9cd1f40ba31fb0f4fbe2f1,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: fd622e6bba4e7b547a5f48a7bd748198,
+        type: 3}
+    - target: {fileID: 1119884857396611236, guid: 374a09abbd9cd1f40ba31fb0f4fbe2f1,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.19607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 1119884857396611236, guid: 374a09abbd9cd1f40ba31fb0f4fbe2f1,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.74509805
+      objectReference: {fileID: 0}
+    - target: {fileID: 1119884857396611236, guid: 374a09abbd9cd1f40ba31fb0f4fbe2f1,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.08235294
+      objectReference: {fileID: 0}
     - target: {fileID: 1119884857396611237, guid: 374a09abbd9cd1f40ba31fb0f4fbe2f1,
         type: 3}
       propertyPath: m_Name
@@ -153,12 +174,12 @@ PrefabInstance:
     - target: {fileID: 1119884857396611243, guid: 374a09abbd9cd1f40ba31fb0f4fbe2f1,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.07
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1119884857396611243, guid: 374a09abbd9cd1f40ba31fb0f4fbe2f1,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.07
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1119884857396611243, guid: 374a09abbd9cd1f40ba31fb0f4fbe2f1,
         type: 3}
@@ -282,7 +303,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.2189264
+  orthographic size: 5.833333
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -857,8 +878,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 157.30005, y: -110.3999}
-  m_SizeDelta: {x: 221.9, y: 112.24}
+  m_AnchoredPosition: {x: 157.30005, y: -121.3999}
+  m_SizeDelta: {x: 221.9, y: 126}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1542155577
 MonoBehaviour:
@@ -1192,5 +1213,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9c48f307df310374d870d247fdacb30b, type: 2}
   levelManager: {fileID: 1207127372}
   textLevel: {fileID: 1542155577}
-  levelToPlay: 4
+  levelToPlay: 1
   iceLevelsToPlay: 0

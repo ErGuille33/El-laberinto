@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     {
         if (levelManager.finishedLevel)
         {
+            levelToPlay++;
             StartNewLevel();
         }
     }
@@ -43,7 +44,7 @@ public class GameManager : MonoBehaviour
     {
         print("fasfdsa");
         levelManager.setFinishedLevel(false);
-        levelToPlay++;
+        
         if (!iceLevelsToPlay)
         {
             levelManager.setNewLevel(levelPackages[0].levels[levelToPlay]);
