@@ -22,6 +22,8 @@ public class LevelManager : MonoBehaviour
     Vector2 endCasilla;
     Vector2 startCasilla;
 
+    public bool finishedLevel = false;
+
     private int auxInvertedCoord;
     private int auxTotalCols;
 
@@ -32,7 +34,7 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cargaJson();
+    
     }
 
 
@@ -163,7 +165,7 @@ public class LevelManager : MonoBehaviour
             else
             {
 
-                hintsArray[(int)lvlData.h[i].x, auxInvertedCoord - 1 - (int)lvlData.h[i].y] = true;
+               // hintsArray[(int)lvlData.h[i].x, auxInvertedCoord - 1 - (int)lvlData.h[i].y] = true;
             }
         }
     }
@@ -185,7 +187,6 @@ public class LevelManager : MonoBehaviour
             startCasilla = new Vector2(lvlData.s.x, auxInvertedCoord - lvlData.s.y);
         }
         else startCasilla = new Vector2(lvlData.s.x, auxInvertedCoord - 1 - lvlData.s.y);
-
     }
 
     public Vector3 getStart()
@@ -231,6 +232,7 @@ public class LevelManager : MonoBehaviour
 
         mat.createNewMap(lvlData.r, lvlData.c, wallsArray, isIcedarray,endCasilla,startCasilla);
         mat.setHints(hintsArray,hintsDir);
+        playerCasilla = mat.casillas[(int)startCasilla.x, (int)startCasilla.y].GetComponent<Casilla>();
     }
 
     public void MovePlayer(PlayerControl.Dir dir)
@@ -272,6 +274,8 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+  
+
     private void playerMoveUp()
     {
         if (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[0])
@@ -309,10 +313,36 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    public void checkWin()
+    {
+        if (playerCasilla != null)
+        {
+            if (playerCasilla._end)
+            {
+                finishedLevel = true;
+            }
+        }
+    }
+
+    public void setFinishedLevel(bool finish)
+    {
+        finishedLevel = finish;
+    }
+    public void setNewLevel(TextAsset newLevel)
+    {
+        level = newLevel;
+    }
+
+    public void startNewLevel()
+    {
+        mat.resetMap();
+        cargaJson();
+
+    }
     // Update is called once per frame
     void Update()
     {
-
+        checkWin();
     }
 
     

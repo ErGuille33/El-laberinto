@@ -24,16 +24,16 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!inicializado)
+        if (!inicializado && levelManager.playerCasilla != null)
         {
             inicializado = true;
             transform.position = levelManager.playerCasilla.transform.position;
         }
 
         if (!moving && touchMovement() != Dir.STOP) moving = true;
-        else
+        else if( levelManager.playerCasilla != null)
         {
-            if (transform.position == levelManager.playerCasilla.transform.position)
+            if (transform.position == levelManager.playerCasilla.transform.position )
             {
                 dir = Dir.STOP;
                 moving = false;

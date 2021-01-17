@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
     public LevelManager levelManager;
 
     public Text textLevel;
+
+
+
 #if UNITY_EDITOR
     public int levelToPlay;
     public bool iceLevelsToPlay;
@@ -20,9 +23,36 @@ public class GameManager : MonoBehaviour
         if(_instance != null)
         {
             _instance.levelManager = levelManager;
+            StartNewLevel();
             DestroyImmediate(gameObject);
             return;
         }
+        StartNewLevel();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (levelManager.finishedLevel)
+        {
+            StartNewLevel();
+        }
+    }
+
+    private void StartNewLevel()
+    {
+        print("fasfdsa");
+        levelManager.setFinishedLevel(false);
+        levelToPlay++;
+        if (!iceLevelsToPlay)
+        {
+            levelManager.setNewLevel(levelPackages[0].levels[levelToPlay]);
+        }
+        else levelManager.setTextAsset(levelPackages[1].levels[levelToPlay]);
+  
+        levelManager.startNewLevel();
+
+
         if (iceLevelsToPlay)
         {
             levelManager.setTextAsset(levelPackages[1].levels[levelToPlay]);
@@ -32,21 +62,6 @@ public class GameManager : MonoBehaviour
         {
             levelManager.setTextAsset(levelPackages[0].levels[levelToPlay]);
             textLevel.text = "CLASICO" + " - " + (levelToPlay + 1);
-        }
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void StartNewScene()
-    {
-        if (levelManager)
-        {
-            //LAnzar el nivel
         }
     }
 

@@ -12,16 +12,20 @@ public class MatrixCasillas : MonoBehaviour
     public GameObject prefabCasilla;
     public GameObject prefabWall;
     public GameObject[,] casillas;
+
     public GameObject hintLine;
+    public Casilla endCasilla;
 
     public int playerXPos, playerYPos;
 
     List<GameObject> walls = new List<GameObject>();
     List<GameObject> hints = new List<GameObject>();
+
+
     private int countWalls = 0;
 
-    public float widthCasilla;
-    public float heigthCasilla;
+    public float widthCasilla = 0;
+    public float heigthCasilla = 0;
 
     public LevelManager levelManager;
 
@@ -37,6 +41,18 @@ public class MatrixCasillas : MonoBehaviour
     void Update()
     {
 
+    }
+    public void resetMap()
+    {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+      
+        endCasilla = null;
+        walls.Clear();
+        hints.Clear();
+        countWalls = 0;
     }
 
     public void setHints(bool[,] _hints, int[,,] _hintsDir)
@@ -167,10 +183,12 @@ public class MatrixCasillas : MonoBehaviour
 
         prefabCasilla.GetComponent<Casilla>()._width = (5.3f / numCasillasX);
         prefabCasilla.GetComponent<Casilla>()._heigth = (5.3f / numCasillasX);
+   
 
 
         widthCasilla = prefabCasilla.GetComponent<Casilla>()._width;
         heigthCasilla = prefabCasilla.GetComponent<Casilla>()._heigth;
+
 
         transform.position = new Vector2((widthCasilla / 2) - ((numCasillasX * widthCasilla) / 2), -(heigthCasilla / 2) + ((numCasillasY * heigthCasilla) / 2));
 
@@ -185,6 +203,8 @@ public class MatrixCasillas : MonoBehaviour
                 if (i == isEnd.x && j == isEnd.y)
                 {
                     casillas[i, j].GetComponent<Casilla>()._end = true;
+
+
                 }
                 else casillas[i, j].GetComponent<Casilla>()._end = false;
 
@@ -246,5 +266,6 @@ public class MatrixCasillas : MonoBehaviour
                 }
             }
         }
+
     }
 }
