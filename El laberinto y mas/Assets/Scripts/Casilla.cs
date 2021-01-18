@@ -2,17 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//Este script consta de la informacion que contiene cada casilla
 public class Casilla : MonoBehaviour
 {
-
+    //SI es helada
     public bool _isIced;
+    //Si es la casilla de meta
     public bool _end;
 
     public bool[] _casillaAdyacente = { true, false, true, true }; //Array de las casillas adyacentes: Arriba, derecha, abajo, izquierda. True = libre, False = ocupada
-
+    //Ancho y alto
     public float _width;
     public float _heigth;
-
+    //Sprite de acabado
     public GameObject endSprite;
 
 
@@ -24,6 +27,7 @@ public class Casilla : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Escalamos la casilla y dibujamos con sus caracteristicas
         transform.localScale = new Vector2( _width,_heigth);
         if (!_isIced)
         {
@@ -35,12 +39,6 @@ public class Casilla : MonoBehaviour
         {
             Instantiate(endSprite, transform);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public int getSalidas()
