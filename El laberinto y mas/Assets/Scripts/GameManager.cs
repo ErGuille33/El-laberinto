@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
-
+//Game manager de todo el juego
 public class GameManager : MonoBehaviour
 {
     public LevelPackage[] levelPackages; 
@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
             StartNewLevel();
         }
     }
-
+    //Inicio de nuevo nivel
     private void StartNewLevel()
     {
         print("fasfdsa");

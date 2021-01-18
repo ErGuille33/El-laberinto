@@ -3,45 +3,33 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
+//Método consistente en preparar el tablero de juego
 public class MatrixCasillas : MonoBehaviour
 {
+    //Número de casillas en x e Y
     public int numCasillasX;
     public int numCasillasY;
-
+    //Prefabs a usar
     public GameObject prefabCasilla;
     public GameObject prefabWall;
+    //Array de casillas
     public GameObject[,] casillas;
-
-    public GameObject hintLine;
+    //Casilla que corresponde al final
     public Casilla endCasilla;
-
+    //Posicion del jugador
     public int playerXPos, playerYPos;
-
-    List<GameObject> walls = new List<GameObject>();
-    List<GameObject> hints = new List<GameObject>();
-
-
-    private int countWalls = 0;
 
     public float widthCasilla = 0;
     public float heigthCasilla = 0;
 
     public LevelManager levelManager;
 
-    // Start is called before the first frame update
     void Start()
     {
-        //Camera cam = Camera.main;
-        // transform.localScale = new Vector2(cam.pixelWidth/5, cam.pixelWidth/5);
+
 
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    //Resetear mapa y borrar todas las casillas
     public void resetMap()
     {
         foreach (Transform child in transform)
@@ -50,11 +38,8 @@ public class MatrixCasillas : MonoBehaviour
         }
       
         endCasilla = null;
-        walls.Clear();
-        hints.Clear();
-        countWalls = 0;
     }
-
+    //Método que activa o desactiva las pistas en una casilla
     public void setHints(int casillaX, int casillaY, int from, int to, bool set)
     {
         switch (from)
@@ -89,7 +74,7 @@ public class MatrixCasillas : MonoBehaviour
         }
 
     }
-
+    //Método que activa o desactiva el rastro del jugador en una casilla
     public void setPlayerPath(int casillaX, int casillaY, int from)
     {
         switch (from)
@@ -117,7 +102,7 @@ public class MatrixCasillas : MonoBehaviour
         }
 
     }
-
+    //Método que recibe los datos necesarios para crear el tablero, y lo crea.
     public void createNewMap(int rows, int cols, bool[,,] wallsArray, bool[,] isIced, Vector2 isEnd, Vector2 isStart)
     {
         numCasillasX = cols;

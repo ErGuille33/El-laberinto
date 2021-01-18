@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Control de jugador
 public class PlayerControl : MonoBehaviour
 {
+    //Direcciones
     public enum Dir { UP, DOWN, RIGHT, LEFT, STOP }
 
     private Dir dir = Dir.STOP;
@@ -14,12 +16,6 @@ public class PlayerControl : MonoBehaviour
     private Touch touch;
 
     bool inicializado = false;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
@@ -52,7 +48,7 @@ public class PlayerControl : MonoBehaviour
         if(moving)
             transform.position = Vector3.MoveTowards(transform.position, levelManager.playerCasilla.transform.position, 0.1f);
     }
-
+    //Input táctil
     Dir touchMovement()
     {
         if (Input.touchCount > 0)

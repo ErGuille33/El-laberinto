@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
-
+//EL level manager leerá los niveles y pasará los datos pertinentes al tablero, y tambien se encargará de la lógica de cada nivel
 public class LevelManager : MonoBehaviour
 {
     //Archivo y matriz
@@ -31,10 +31,6 @@ public class LevelManager : MonoBehaviour
     private int auxInvertedCoord;
     private int auxTotalCols;
 
-    void Awake()
-    {
-  
-    }
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +44,7 @@ public class LevelManager : MonoBehaviour
         level = lvl;
     }
 
+    //Adaptamos los datos del json y preparamos el array de paredes
     protected void setWallsArray()
     {
         
@@ -137,7 +134,7 @@ public class LevelManager : MonoBehaviour
         wallsArray[auxTotalCols-1, auxInvertedCoord-1, 2] = false;
         wallsArray[auxTotalCols-1, auxInvertedCoord-1, 1] = false;
     }
-
+    //Adaptamos los datos del json y preparamos el array de casillas heladas
     protected void setIcedArray()
     {
 
@@ -164,8 +161,7 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-   
-
+   //MArca la casilla final
     protected void setEnd()
     {
         if(lvlData.f.y == auxInvertedCoord)
@@ -176,6 +172,7 @@ public class LevelManager : MonoBehaviour
 
     }
 
+    //MArca la casilla inicial
     protected void setStart()
     {
         if (lvlData.s.y == auxInvertedCoord)
@@ -184,12 +181,12 @@ public class LevelManager : MonoBehaviour
         }
         else startCasilla = new Vector2(lvlData.s.x, auxInvertedCoord - 1 - lvlData.s.y);
     }
-
+    
     public Vector3 getStart()
     {
         return new Vector3(startCasilla.x, startCasilla.y, 0);
     }
-
+    //Carga los datos del json y llama a los metodos pertinentes para crear el mapa del nivel
     void cargaJson()
     {
         lvlData = JsonUtility.FromJson<LevelData>(level.ToString());
@@ -222,10 +219,8 @@ public class LevelManager : MonoBehaviour
         totalHints = lvlData.h.Length;
         actualHints = 0;
 
-
-
     }
-
+    //Método que mueve la posición del jugador
     public void MovePlayer(PlayerControl.Dir dir)
     {
         switch(dir)
@@ -255,30 +250,29 @@ public class LevelManager : MonoBehaviour
             case PlayerControl.Dir.RIGHT:
                 if (playerCasilla._casillaAdyacente[1])
                 {
-                    if (mat.casillas[mat.playerXPos + 1, mat.playerYPos].GetComponent<Casilla>()._casillaAdyacente[3])
-                    {
+                    
                         mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 1);
                         playerCasilla = mat.casillas[mat.playerXPos + 1, mat.playerYPos].GetComponent<Casilla>();
                         mat.playerXPos++;
                         mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 3);
                         playerMoveRight();
-                    }
+                    
                 }
                 break;
             case PlayerControl.Dir.LEFT:
-            
-                    mat.setPlayerPath(mat.playerXPos, mat.playerYPos,  3);
+                if (playerCasilla._casillaAdyacente[3])
+                {
+                    mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 3);
                     playerCasilla = mat.casillas[mat.playerXPos - 1, mat.playerYPos].GetComponent<Casilla>();
                     mat.playerXPos--;
                     mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 1);
                     playerMoveLeft();
+                }
              
                 break;
         }
     }
-
-  
-
+    //Método que mueve el jugador reiterativamente mientras sea necesario
     private void playerMoveUp()
     {
         if (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[0])
@@ -290,6 +284,7 @@ public class LevelManager : MonoBehaviour
                 playerMoveUp();          
         }
     }
+    //Método que mueve el jugador reiterativamente mientras sea necesario
     private void playerMoveDown()
     {
         if (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[2])
@@ -303,6 +298,7 @@ public class LevelManager : MonoBehaviour
 
         }
     }
+    //Método que mueve el jugador reiterativamente mientras sea necesario
     private void playerMoveRight()
     {
         if (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[1])
@@ -315,6 +311,7 @@ public class LevelManager : MonoBehaviour
             
         }
     }
+    //Método que mueve el jugador reiterativamente mientras sea necesario
     private void playerMoveLeft()
     {
         if (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[3])
@@ -328,7 +325,7 @@ public class LevelManager : MonoBehaviour
             
         }
     }
-
+    //Comprueba victoria
     public void checkWin()
     {
         if (playerCasilla != null)
@@ -339,16 +336,17 @@ public class LevelManager : MonoBehaviour
             }
         }
     }
-
+    //Ultimo nivel
     public void setFinishedLevel(bool finish)
     {
         finishedLevel = finish;
     }
+    //Nuevo nivel
     public void setNewLevel(TextAsset newLevel)
     {
         level = newLevel;
     }
-
+    //Empezar un nuevo nivel
     public void startNewLevel()
     {
         mat.resetMap();
@@ -362,7 +360,7 @@ public class LevelManager : MonoBehaviour
 
         setHintsArray();
     }
-
+    //Adaptamos los datos del json y preparamos el array de hints dependiendo del número que tengamos
     protected void setHintsArray()
     {
         int from = -1;
@@ -505,15 +503,21 @@ public class LevelManager : MonoBehaviour
 
                 x = (int)lvlData.h[i].x;
              }
-
-                        
+                       
              y = auxInvertedCoord - 1 - (int)lvlData.h[i].y;
            
-            //mat.setHints((int)lvlData.h[i].x, auxInvertedCoord - (int)lvlData.h[i].y, 0, -1);
-            mat.setHints(x, y, from, to,true);
+             mat.setHints(x, y, from, to,true);
 
         }
+        void addHints()
+        {
+            if(actualHints < 3){
+                actualHints++;
+            }
+        }
     }
+
+    //Datos de recogidos del array
 
     //r es la altura
     //C es la ancura 
