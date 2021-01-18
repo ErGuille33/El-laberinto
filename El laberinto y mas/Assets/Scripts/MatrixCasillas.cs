@@ -39,6 +39,8 @@ public class MatrixCasillas : MonoBehaviour
       
         endCasilla = null;
     }
+    //En estos metodos hacemos Find () ,pero hay que tener en cuenta en cuenta que estamos buscando a un hijo de casilla que va a existir siempre ya que forma parte del prefab
+    //por lo tanto no se va a dar el caso en el que de problemas. Somos conscientes de que en otros contextos puede causar problemas, pero como en este no decidimos activamente usarlo ya que facilita ligreramente el código
     //Método que activa o desactiva las pistas en una casilla
     public void setHints(int casillaX, int casillaY, int from, int to, bool set)
     {
