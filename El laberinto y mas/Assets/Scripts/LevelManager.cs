@@ -47,7 +47,7 @@ public class LevelManager : MonoBehaviour
     //Adaptamos los datos del json y preparamos el array de paredes
     protected void setWallsArray()
     {
-        
+
 
         for (int i = 0; i < wallsArray.GetLength(0); i++)
         {
@@ -79,8 +79,14 @@ public class LevelManager : MonoBehaviour
                     }
                     else
                     {
-                
-                        wallsArray[(int)walls[i].o.x, auxInvertedCoord - (int)walls[i].o.y, 3] = false;
+                        if (walls[i].o.y < walls[i].d.y)
+                        {
+                            wallsArray[(int)walls[i].o.x, auxInvertedCoord - 1-(int)walls[i].o.y, 3] = false;
+                        }
+                        if (walls[i].o.y > walls[i].d.y)
+                        {
+                            wallsArray[(int)walls[i].o.x, auxInvertedCoord - (int)walls[i].o.y, 3] = false;
+                        }
                     }
                        
                 }
@@ -96,7 +102,14 @@ public class LevelManager : MonoBehaviour
                 }
                 else
                 {
-                    wallsArray[(int)walls[i].o.x , auxInvertedCoord-1 - (int)walls[i].o.y, 2] = false;
+                    if (walls[i].o.x < walls[i].d.x)
+                    {
+                        wallsArray[(int)walls[i].o.x, auxInvertedCoord - 1 - (int)walls[i].o.y, 2] = false;
+                    }
+                    if (walls[i].o.x > walls[i].d.x)
+                    {
+                        wallsArray[(int)walls[i].o.x-1, auxInvertedCoord - 1 - (int)walls[i].o.y, 2] = false;
+                    }
                 }
             }
         }
@@ -275,25 +288,27 @@ public class LevelManager : MonoBehaviour
     //Método que mueve el jugador reiterativamente mientras sea necesario
     private void playerMoveUp()
     {
-        if (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[0])
+        if ((playerCasilla.getIced() && playerCasilla._casillaAdyacente[0]) || (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[0]))
         {           
                 playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos - 1].GetComponent<Casilla>();
                 mat.setPlayerPath(mat.playerXPos, mat.playerYPos,  0);
                 mat.playerYPos--;
                 mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 2);
+                checkWin();
                 playerMoveUp();          
         }
     }
     //Método que mueve el jugador reiterativamente mientras sea necesario
     private void playerMoveDown()
     {
-        if (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[2])
+        if ((playerCasilla.getIced() && playerCasilla._casillaAdyacente[2]) || (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[2]))
         {
 
                 playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos + 1].GetComponent<Casilla>();
                 mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 2);
                 mat.playerYPos++;
                 mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 0);
+                checkWin();
                 playerMoveDown();
 
         }
@@ -301,12 +316,13 @@ public class LevelManager : MonoBehaviour
     //Método que mueve el jugador reiterativamente mientras sea necesario
     private void playerMoveRight()
     {
-        if (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[1])
+        if ((playerCasilla.getIced() && playerCasilla._casillaAdyacente[1]) || (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[1]))
         {           
                 playerCasilla = mat.casillas[mat.playerXPos + 1, mat.playerYPos].GetComponent<Casilla>();
                 mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 1);
                 mat.playerXPos++;
                 mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 3);
+                checkWin();
                 playerMoveRight();
             
         }
@@ -314,13 +330,14 @@ public class LevelManager : MonoBehaviour
     //Método que mueve el jugador reiterativamente mientras sea necesario
     private void playerMoveLeft()
     {
-        if (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[3])
+        if ((playerCasilla.getIced() && playerCasilla._casillaAdyacente[3]) || (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[3]))
         {
 
                 playerCasilla = mat.casillas[mat.playerXPos - 1, mat.playerYPos].GetComponent<Casilla>();
                 mat.setPlayerPath(mat.playerXPos, mat.playerYPos,  3);
                 mat.playerXPos--;
                 mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 1);
+                checkWin();
                 playerMoveLeft();
             
         }
