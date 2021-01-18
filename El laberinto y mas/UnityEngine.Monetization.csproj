@@ -9,10 +9,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{E7FF3348-0A5F-93CD-1BD8-EBD3C176CF50}</ProjectGuid>
+    <ProjectGuid>{E622889B-24E1-953C-2295-F891C2280C80}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <AssemblyName>UnityEngine.Monetization</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -63,17 +63,43 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ObjetoScriptable\LevelPackage.cs" />
-    <Compile Include="Assets\Scripts\AdsManager.cs" />
-    <Compile Include="Assets\Scripts\ButtonScript\RestartButton.cs" />
-    <Compile Include="Assets\Scripts\Casilla.cs" />
-    <Compile Include="Assets\Scripts\GameManager.cs" />
-    <Compile Include="Assets\Scripts\LevelManager.cs" />
-    <Compile Include="Assets\Scripts\MatchCameraToRes.cs" />
-    <Compile Include="Assets\Scripts\MatrixCasillas.cs" />
-    <Compile Include="Assets\Scripts\PlayerControl.cs" />
-    <Compile Include="Assets\Scripts\RewardedAd.cs" />
-    <Compile Include="Assets\Scripts\ViewportHandler.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\Analytics.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\AndroidAnalytics.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\AndroidJavaObjectExtensions.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\AndroidNativePromoAdapter.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\AndroidPlacementContentOperations.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\AssemblyInfo.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\Configuration.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\Creator.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\EditorNativePromoAdapter.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\EditorPlacementContentOperations.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\IMonetizationPlatform.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\INativePromoAdapter.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\IPlacementContentOperations.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\IPurchasingAdapter.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\IosAnalytics.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\IosNativePromoAdapter.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\IosPlacementContentOperations.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\JavaEnumUtilities.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\JavaMapUtilities.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\MetaData.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\MiniJSON.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\Monetization.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\MonetizationPlatform.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\Placeholder.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\PlacementContent.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\PlacementContentReadyEventArgs.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\PlacementContentState.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\PlacementContentStateChangeEventArgs.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\PlacementContentType.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\Product.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\PromoMetadata.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\PurchasingAdapterCallbacks.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\Store.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\TransactionError.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\UnityServicesErrorEventArgs.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\UnsupportedPlatform.cs" />
+    <None Include="Library\PackageCache\com.unity.ads@3.5.2\Runtime\Monetization\UnityEngine.Monetization.asmdef" />
     <Reference Include="UnityEngine">
       <HintPath>D:/Program Files/Unity/Versions/2019.4.16f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -256,6 +282,21 @@
     </Reference>
     <Reference Include="UnityEditor">
       <HintPath>D:/Program Files/Unity/Versions/2019.4.16f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.VR">
+      <HintPath>D:/Program Files/Unity/Versions/2019.4.16f1/Editor/Data/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Graphs">
+      <HintPath>D:/Program Files/Unity/Versions/2019.4.16f1/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.WindowsStandalone.Extensions">
+      <HintPath>D:/Program Files/Unity/Versions/2019.4.16f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Android.Extensions">
+      <HintPath>D:/Program Files/Unity/Versions/2019.4.16f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
+      <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/16.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>D:/El lab/El-laberinto/El laberinto y mas/Library/PackageCache/com.unity.ext.nunit@1.0.5/net35/unity-custom/nunit.framework.dll</HintPath>
@@ -607,133 +648,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Unity.Timeline.Editor.csproj">
-      <Project>{89DC212A-CC56-EF43-F51A-864F0C61C047}</Project>
-      <Name>Unity.Timeline.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="UnityEngine.Monetization.csproj">
-      <Project>{E622889B-24E1-953C-2295-F891C2280C80}</Project>
-      <Name>UnityEngine.Monetization</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.2D.Animation.Runtime.csproj">
-      <Project>{32C08AA3-F750-9C5F-DA47-84A3E73BC7CC}</Project>
-      <Name>Unity.2D.Animation.Runtime</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.2D.PixelPerfect.Editor.csproj">
-      <Project>{971D45E5-9FB9-7FB9-EB4B-7F9BDAB82718}</Project>
-      <Name>Unity.2D.PixelPerfect.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.VSCode.Editor.csproj">
-      <Project>{EA8A2E57-0FB6-60D9-4DF6-4C6A6E86E86C}</Project>
-      <Name>Unity.VSCode.Editor</Name>
-    </ProjectReference>
     <ProjectReference Include="UnityEngine.Advertisements.csproj">
       <Project>{2D91FF23-149C-D69D-253D-E21A1B021977}</Project>
       <Name>UnityEngine.Advertisements</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.2D.SpriteShape.Editor.csproj">
-      <Project>{96D28238-E136-F702-DF25-40A4D0E5B71F}</Project>
-      <Name>Unity.2D.SpriteShape.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.TextMeshPro.Editor.csproj">
-      <Project>{CFA4711D-2990-FD4B-2047-5C871A8F75B4}</Project>
-      <Name>Unity.TextMeshPro.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.2D.Path.Editor.csproj">
-      <Project>{F6C06A2B-B728-2E37-D393-EE0A6082B5F9}</Project>
-      <Name>Unity.2D.Path.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.DeviceSimulator.Tests.Common.csproj">
-      <Project>{75B90231-8869-8070-8C91-8C0F56DAE45A}</Project>
-      <Name>Unity.DeviceSimulator.Tests.Common</Name>
+    <ProjectReference Include="UnityEditor.UI.csproj">
+      <Project>{9D9E486B-0DB7-E5BF-8558-997AC64A4EF1}</Project>
+      <Name>UnityEditor.UI</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngine.UI.csproj">
       <Project>{C7AFC25C-F0C8-5546-E56B-F2D11F240829}</Project>
       <Name>UnityEngine.UI</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Timeline.csproj">
-      <Project>{852D011F-3DB9-56F9-537B-E27D4E5D02E4}</Project>
-      <Name>Unity.Timeline</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.2D.Animation.Triangle.Runtime.csproj">
-      <Project>{41D54EC6-5997-B8AB-11B8-1050F5007A79}</Project>
-      <Name>Unity.2D.Animation.Triangle.Runtime</Name>
-    </ProjectReference>
-    <ProjectReference Include="PsdPlugin.csproj">
-      <Project>{A2EF195C-FC3E-664B-45D3-74EC90B18DFE}</Project>
-      <Name>PsdPlugin</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.CollabProxy.Editor.csproj">
-      <Project>{99EB4D3F-3491-87D3-6029-CF15271965E7}</Project>
-      <Name>Unity.CollabProxy.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Rider.Editor.csproj">
-      <Project>{069A27ED-CB6B-3EF6-75AE-872050243646}</Project>
-      <Name>Unity.Rider.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.DeviceSimulator.Editor.csproj">
-      <Project>{0A4BA2E6-62FD-C826-58A9-2C245235B0E8}</Project>
-      <Name>Unity.DeviceSimulator.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Mathematics.csproj">
-      <Project>{3EBC80CB-C3C3-2558-66EA-A78CE0E57228}</Project>
-      <Name>Unity.Mathematics</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.2D.Psdimporter.Editor.csproj">
-      <Project>{E9C77F12-0B06-3D53-16D6-06541004265F}</Project>
-      <Name>Unity.2D.Psdimporter.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.InternalAPIEngineBridge.001.csproj">
-      <Project>{7078BF0B-69D3-1D54-30A4-378451894D33}</Project>
-      <Name>Unity.InternalAPIEngineBridge.001</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.2D.Sprite.Editor.csproj">
-      <Project>{77D42D27-7E95-80CE-C8B1-14FCBBA67FB5}</Project>
-      <Name>Unity.2D.Sprite.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.2D.Common.Runtime.csproj">
-      <Project>{57EB25C3-C33D-590E-5174-26918CD83700}</Project>
-      <Name>Unity.2D.Common.Runtime</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.2D.Tilemap.Editor.csproj">
-      <Project>{6CA430FE-9744-B40F-AF9B-E7A1FB02E018}</Project>
-      <Name>Unity.2D.Tilemap.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.2D.SpriteShape.Runtime.csproj">
-      <Project>{C89219F4-A3FD-5BF6-3857-73C040AB8C77}</Project>
-      <Name>Unity.2D.SpriteShape.Runtime</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.2D.PixelPerfect.csproj">
-      <Project>{130A9BFD-CFE6-EE17-0CB8-5BCDAF1D98C1}</Project>
-      <Name>Unity.2D.PixelPerfect</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.2D.Animation.Editor.csproj">
-      <Project>{E7F534D2-9035-98EB-5094-980F0DC387BF}</Project>
-      <Name>Unity.2D.Animation.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="UnityEngine.Advertisements.Editor.csproj">
-      <Project>{E4844053-1024-5B91-AB9B-60E8207D5BC2}</Project>
-      <Name>UnityEngine.Advertisements.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Mathematics.Editor.csproj">
-      <Project>{0D614850-3DB8-2082-B5B4-5F2C1E8F545E}</Project>
-      <Name>Unity.Mathematics.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.TextMeshPro.csproj">
-      <Project>{503337E6-3D71-FAA9-592E-D52B85D20FF5}</Project>
-      <Name>Unity.TextMeshPro</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.2D.Common.Editor.csproj">
-      <Project>{3D4C19E6-16E1-9E8F-7B2A-E0B16BF15F63}</Project>
-      <Name>Unity.2D.Common.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.InternalAPIEditorBridge.001.csproj">
-      <Project>{9B53C315-E71C-9367-FBD5-77BC1580E5A7}</Project>
-      <Name>Unity.InternalAPIEditorBridge.001</Name>
-    </ProjectReference>
-    <ProjectReference Include="UnityEditor.UI.csproj">
-      <Project>{9D9E486B-0DB7-E5BF-8558-997AC64A4EF1}</Project>
-      <Name>UnityEditor.UI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
