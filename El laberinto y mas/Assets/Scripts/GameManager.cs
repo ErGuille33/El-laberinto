@@ -10,24 +10,50 @@ public class GameManager : MonoBehaviour
     public LevelManager levelManager;
 
     public Text textLevel;
+    SaveGame saveGame;
+
+    public int[] packsLevel;
+    public int nHints;
 
 
-
-#if UNITY_EDITOR
     public int levelToPlay;
     public bool iceLevelsToPlay;
-#endif
+
 
     void Awake()
     {
         if(_instance != null)
         {
             _instance.levelManager = levelManager;
-            StartNewLevel();
+
             DestroyImmediate(gameObject);
             return;
         }
+        saveGame = gameObject.AddComponent<SaveGame>();
+
+    }
+
+    private void Start()
+    {
+        int maxSize = 1;
+        int auxSize = 0;
+
+        for(int i = 0; i< levelPackages.Length; i++)
+        {
+            auxSize = levelPackages[i].levels.Length;
+
+            if(auxSize > maxSize)
+                maxSize = levelPackages[i].levels.Length;
+        }
+
+        saveGame.setPacks(levelPackages.Length);
+        saveGame.loadLevels(out nHints, out packsLevel);
+
+        print(nHints);
+        print(packsLevel[0]);
+
         StartNewLevel();
+
     }
 
     // Update is called once per frame
@@ -42,18 +68,29 @@ public class GameManager : MonoBehaviour
     //Inicio de nuevo nivel
     private void StartNewLevel()
     {
-        print("fasfdsa");
+        
         levelManager.setFinishedLevel(false);
+        saveGame.saveLevel(nHints, packsLevel);
 
         if (!iceLevelsToPlay)
         {
        
             levelManager.setNewLevel(levelPackages[0].levels[levelToPlay]);
+            if(levelToPlay - 1 > packsLevel[0] )
+                packsLevel[0] = levelToPlay - 1;
+            saveGame.saveLevel(nHints, packsLevel);
+            
         }
         else {
             
-            levelManager.setTextAsset(levelPackages[1].levels[levelToPlay]); 
+            levelManager.setTextAsset(levelPackages[1].levels[levelToPlay]);
+
+            if (levelToPlay - 1 > packsLevel[0])
+                packsLevel[0] = levelToPlay - 1;
+            saveGame.saveLevel(nHints, packsLevel);
+            
         }
+        
   
         levelManager.startNewLevel(iceLevelsToPlay);
 

@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\MatrixCasillas.cs" />
     <Compile Include="Assets\Scripts\PlayerControl.cs" />
     <Compile Include="Assets\Scripts\RewardedAd.cs" />
+    <Compile Include="Assets\Scripts\SaveGame.cs" />
     <Compile Include="Assets\Scripts\ViewportHandler.cs" />
     <Reference Include="UnityEngine">
       <HintPath>D:/Program Files/Unity/Versions/2019.4.16f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>

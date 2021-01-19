@@ -291,7 +291,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 1.3594025
+  orthographic size: 4.6666665
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1193,5 +1193,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9c48f307df310374d870d247fdacb30b, type: 2}
   levelManager: {fileID: 1207127372}
   textLevel: {fileID: 1542155577}
-  levelToPlay: 15
+  packsLevel: 
+  levelToPlay: 36
   iceLevelsToPlay: 1

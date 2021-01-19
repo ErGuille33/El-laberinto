@@ -156,16 +156,18 @@ public class LevelManager : MonoBehaviour
 
         for(int i = 0; i < lvlData.i.Length; i++)
         {
-            if ((int)lvlData.i[i].y == auxInvertedCoord)
+            if (lvlData.i[i].x > 0 && lvlData.i[i].y > 0)
             {
-                isIcedarray[(int)lvlData.i[i].x, auxInvertedCoord - (int)lvlData.i[i].y] = true;
+                if ((int)lvlData.i[i].y == auxInvertedCoord)
+                {
+                    isIcedarray[(int)lvlData.i[i].x, auxInvertedCoord - (int)lvlData.i[i].y] = true;
 
-            }
-            else if((int)lvlData.i[i].y > 0)
-            {
-                isIcedarray[(int)lvlData.i[i].x, auxInvertedCoord - 1 - (int)lvlData.i[i].y] = true;
-            }
-       
+                }
+                else if ((int)lvlData.i[i].y > 0)
+                {
+                    isIcedarray[(int)lvlData.i[i].x, auxInvertedCoord - 1 - (int)lvlData.i[i].y] = true;
+                }
+            }       
         }
     }
 
@@ -212,8 +214,8 @@ public class LevelManager : MonoBehaviour
                 lvlData.h[i].y = 0;
             }
         }
-
-        auxInvertedCoord = lvlData.r;
+      
+            auxInvertedCoord = lvlData.r;
         auxTotalCols = lvlData.c;
 
         setWallsArray();
@@ -561,11 +563,11 @@ public class LevelManager : MonoBehaviour
         public Vector2 s;
         public Vector2 f;
 
-        public WallsData[] w = new WallsData[100];
-        public Vector2[] h = new Vector2[100];
-        public Vector2[] i = new Vector2[2];
-        public Vector2[] e = new Vector2[2];
-        public Vector2[] t = new Vector2[2];
+        public WallsData[] w ;
+        public Vector2[] h  ;
+        public Vector2[] i ;
+        public Vector2[] e ;
+        public Vector2[] t;
     }
 
     [Serializable]
