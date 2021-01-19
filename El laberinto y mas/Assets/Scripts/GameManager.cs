@@ -6,12 +6,22 @@ using UnityEngine.UI;
 //Game manager de todo el juego
 public class GameManager : MonoBehaviour
 {
+    public enum State { RUN, PAUSE }
+
     public LevelPackage[] levelPackages; 
     public LevelManager levelManager;
 
     public Text textLevel;
+    public Text hintsNum;
 
+    public GameObject panelFin;
+    public GameObject panelHint;
+    public GameObject grid;
+    public GameObject player;
 
+    public static State state;
+
+    private int hintsAvaiable;
 
 #if UNITY_EDITOR
     public int levelToPlay;
@@ -28,6 +38,7 @@ public class GameManager : MonoBehaviour
             return;
         }
         StartNewLevel();
+        state = State.RUN;
     }
 
     // Update is called once per frame
@@ -35,15 +46,17 @@ public class GameManager : MonoBehaviour
     {
         if (levelManager.finishedLevel)
         {
-            levelToPlay++;
-            StartNewLevel();
+            panelFin.SetActive(true);
+            grid.SetActive(false);
+            player.SetActive(false);
+            state = State.PAUSE;
         }
     }
     //Inicio de nuevo nivel
     private void StartNewLevel()
     {
-        print("fasfdsa");
         levelManager.setFinishedLevel(false);
+        state = State.RUN;
         
         if (!iceLevelsToPlay)
         {
@@ -64,6 +77,45 @@ public class GameManager : MonoBehaviour
             levelManager.setTextAsset(levelPackages[0].levels[levelToPlay]);
             textLevel.text = "CLASICO" + " - " + (levelToPlay + 1);
         }
+    }
+
+    public void nextLevel()
+    {
+        levelToPlay++;
+        StartNewLevel();
+        panelFin.SetActive(false);
+        grid.SetActive(true);
+        player.SetActive(true);
+    }
+
+    public void showHintsPanel()
+    {
+        panelHint.SetActive(true);
+        hintsNum.text = hintsAvaiable.ToString();
+        state = State.PAUSE;
+    }
+
+    public void hideHintsPanel()
+    {
+        panelHint.SetActive(false);
+        state = State.RUN;
+    }
+
+    public void useHint()
+    {
+        if (hintsAvaiable > 0)
+        {
+            // colocar pistas
+            hintsAvaiable -= 1;
+            hideHintsPanel();
+            state = State.RUN;
+        }
+    }
+
+    public void buyHint()
+    {
+        hintsAvaiable += 1;
+        hintsNum.text = hintsAvaiable.ToString();
     }
 
     static GameManager _instance;
