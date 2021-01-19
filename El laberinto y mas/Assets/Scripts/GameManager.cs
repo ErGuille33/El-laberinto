@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
             return;
         }
         saveGame = gameObject.AddComponent<SaveGame>();
+        QualitySettings.vSyncCount = 0;   // Deshabilitamos el vSync
+        Application.targetFrameRate = 60; // Forzamos un máximo de 15 fps.
 
     }
 
