@@ -113,7 +113,7 @@ public class MatrixCasillas : MonoBehaviour
 
     }
     //Método que recibe los datos necesarios para crear el tablero, y lo crea.
-    public void createNewMap(int rows, int cols, bool[,,] wallsArray, bool[,] isIced, Vector2 isEnd, Vector2 isStart)
+    public void createNewMap(int rows, int cols, bool[,,] wallsArray, bool[,] isIced, Vector2 isEnd, Vector2 isStart, Color color)
     {
         numCasillasX = cols;
         numCasillasY = rows;
@@ -135,6 +135,17 @@ public class MatrixCasillas : MonoBehaviour
             for (int j = 0; j < numCasillasY; j++)
             {
                 casillas[i, j] = Instantiate(prefabCasilla, transform);
+
+                casillas[i, j].transform.Find("PlayerPath").GetComponent<SpriteRenderer>().color = color;
+
+                casillas[i, j].transform.Find("PlayerPath 1").GetComponent<SpriteRenderer>().color = color;
+
+
+                casillas[i, j].transform.Find("PlayerPath 2").GetComponent<SpriteRenderer>().color = color;
+
+
+                casillas[i, j].transform.Find("PlayerPath 3").GetComponent<SpriteRenderer>().color = color;
+
 
                 casillas[i, j].transform.position = new Vector2(transform.position.x + (i * widthCasilla), transform.position.y - (j * heigthCasilla));
                 casillas[i, j].GetComponent<Casilla>()._isIced = isIced[i, j];
@@ -187,7 +198,6 @@ public class MatrixCasillas : MonoBehaviour
                             }
 
                         }
-
 
                     }
                 }

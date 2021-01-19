@@ -19,6 +19,7 @@ public class LevelManager : MonoBehaviour
     //Casilla del jugador
     public Casilla playerCasilla;
     public GameObject player;
+    public Color col;
 
     Vector2 endCasilla;
     Vector2 startCasilla;
@@ -221,7 +222,7 @@ public class LevelManager : MonoBehaviour
         setEnd();
         setStart();
 
-        mat.createNewMap(lvlData.r, lvlData.c, wallsArray, isIcedarray,endCasilla,startCasilla);
+        mat.createNewMap(lvlData.r, lvlData.c, wallsArray, isIcedarray,endCasilla,startCasilla,col);
         playerCasilla = mat.casillas[(int)startCasilla.x, (int)startCasilla.y].GetComponent<Casilla>();
         player.transform.localScale = new Vector2 ( mat.getSizeCasilla()*2.5f, 2.5f*mat.getSizeCasilla());
         totalHints = lvlData.h.Length;
@@ -280,6 +281,9 @@ public class LevelManager : MonoBehaviour
                 break;
         }
     }
+
+
+
     //Método que mueve el jugador reiterativamente mientras sea necesario
     private void playerMoveUp()
     {
@@ -362,9 +366,12 @@ public class LevelManager : MonoBehaviour
     public void startNewLevel(bool isIceLevel)
     {
         iceLevel = isIceLevel;
-        if(!iceLevel)
-            player.GetComponent<SpriteRenderer>().color = new Color(0.082f, 0.745f, 0.196f);
-        else player.GetComponent<SpriteRenderer>().color = new Color(0, 0.6f, 0.84f);
+        if (!iceLevel) 
+            col = new Color(0.082f, 0.745f, 0.196f);
+        else 
+            col = new Color(0, 0.6f, 0.84f);
+
+        player.GetComponent<SpriteRenderer>().color = col;
         mat.resetMap();
         cargaJson();
 
@@ -525,12 +532,16 @@ public class LevelManager : MonoBehaviour
              mat.setHints(x, y, from, to,true);
 
         }
-        void addHints()
+       
+    }
+    public bool addHints()
+    {
+        if (actualHints < 3)
         {
-            if(actualHints < 3){
-                actualHints++;
-            }
+            actualHints++;
+            return true;
         }
+        else return false;
     }
 
     //Datos de recogidos del array
