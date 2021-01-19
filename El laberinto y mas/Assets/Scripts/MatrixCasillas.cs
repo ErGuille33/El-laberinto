@@ -16,6 +16,7 @@ public class MatrixCasillas : MonoBehaviour
     public GameObject[,] casillas;
     //Casilla que corresponde al final
     public Casilla endCasilla;
+    public Casilla startCasilla;
     //Posicion del jugador
     public int playerXPos, playerYPos;
 

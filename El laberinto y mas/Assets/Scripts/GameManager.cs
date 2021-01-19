@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
         }
 
         saveGame.setPacks(levelPackages.Length);
-        saveGame.loadLevels(out nHints, out packsLevel);
+        saveGame.loadLevels(out hintsAvaiable, out packsLevel);
 
         print(nHints);
         print(packsLevel[0]);

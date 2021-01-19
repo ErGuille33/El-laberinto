@@ -26,7 +26,7 @@ public class LevelManager : MonoBehaviour
 
     //Variables para la partida
     public bool finishedLevel = false;
-    bool iceLevel;
+    public bool iceLevel;
     int totalHints;
     public int actualHints;
 
@@ -227,6 +227,8 @@ public class LevelManager : MonoBehaviour
         mat.createNewMap(lvlData.r, lvlData.c, wallsArray, isIcedarray,endCasilla,startCasilla,col);
         playerCasilla = mat.casillas[(int)startCasilla.x, (int)startCasilla.y].GetComponent<Casilla>();
         player.transform.localScale = new Vector2 ( mat.getSizeCasilla()*2.5f, 2.5f*mat.getSizeCasilla());
+        player.transform.position = playerCasilla.transform.position;
+
         totalHints = lvlData.h.Length;
         actualHints = 0;
 
@@ -374,6 +376,7 @@ public class LevelManager : MonoBehaviour
             col = new Color(0, 0.6f, 0.84f);
 
         player.GetComponent<SpriteRenderer>().color = col;
+       
         mat.resetMap();
         cargaJson();
 
