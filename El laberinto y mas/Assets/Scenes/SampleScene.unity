@@ -459,7 +459,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 1.3594025
+  orthographic size: 1.3719511
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1747,8 +1747,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 157.30005, y: -121.3999}
-  m_SizeDelta: {x: 221.9, y: 126}
+  m_AnchoredPosition: {x: 200, y: -121.3999}
+  m_SizeDelta: {x: 314.1, y: 126}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1542155577
 MonoBehaviour:
@@ -2001,6 +2001,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56967ec473ae40545b5dd2050249b605, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lvlManager: {fileID: 1207127372}
 --- !u!1 &1892821654
 GameObject:
   m_ObjectHideFlags: 0
@@ -2477,4 +2478,4 @@ MonoBehaviour:
   grid: {fileID: 889000195}
   player: {fileID: 603012186}
   levelToPlay: 0
-  iceLevelsToPlay: 0
+  iceLevelsToPlay: 1
