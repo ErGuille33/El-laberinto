@@ -20,7 +20,7 @@ public class Casilla : MonoBehaviour
 
 
     public void setIced (bool iced) { _isIced = iced; }
-    public bool getIced(bool iced) { return _isIced; }
+    public bool getIced() { return _isIced; }
 
     public void setAdyacent(bool[] adyacent) { _casillaAdyacente = adyacent; }
     public bool[] getAdyacent() { return _casillaAdyacente; }

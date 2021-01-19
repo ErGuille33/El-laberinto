@@ -24,10 +24,17 @@ public class MatrixCasillas : MonoBehaviour
 
     public LevelManager levelManager;
 
+    float sizeCasilla;
+
+
     void Start()
     {
 
 
+    }
+    public float getSizeCasilla()
+    {
+        return sizeCasilla;
     }
     //Resetear mapa y borrar todas las casillas
     public void resetMap()
@@ -79,6 +86,7 @@ public class MatrixCasillas : MonoBehaviour
     //Método que activa o desactiva el rastro del jugador en una casilla
     public void setPlayerPath(int casillaX, int casillaY, int from)
     {
+
         switch (from)
         {
             case 0:
@@ -105,7 +113,7 @@ public class MatrixCasillas : MonoBehaviour
 
     }
     //Método que recibe los datos necesarios para crear el tablero, y lo crea.
-    public void createNewMap(int rows, int cols, bool[,,] wallsArray, bool[,] isIced, Vector2 isEnd, Vector2 isStart)
+    public void createNewMap(int rows, int cols, bool[,,] wallsArray, bool[,] isIced, Vector2 isEnd, Vector2 isStart, Color color)
     {
         numCasillasX = cols;
         numCasillasY = rows;
@@ -113,8 +121,8 @@ public class MatrixCasillas : MonoBehaviour
 
         prefabCasilla.GetComponent<Casilla>()._width = (5.3f / numCasillasX);
         prefabCasilla.GetComponent<Casilla>()._heigth = (5.3f / numCasillasX);
-   
 
+        sizeCasilla = 5.3f / numCasillasX;
 
         widthCasilla = prefabCasilla.GetComponent<Casilla>()._width;
         heigthCasilla = prefabCasilla.GetComponent<Casilla>()._heigth;
@@ -127,6 +135,17 @@ public class MatrixCasillas : MonoBehaviour
             for (int j = 0; j < numCasillasY; j++)
             {
                 casillas[i, j] = Instantiate(prefabCasilla, transform);
+
+                casillas[i, j].transform.Find("PlayerPath").GetComponent<SpriteRenderer>().color = color;
+
+                casillas[i, j].transform.Find("PlayerPath 1").GetComponent<SpriteRenderer>().color = color;
+
+
+                casillas[i, j].transform.Find("PlayerPath 2").GetComponent<SpriteRenderer>().color = color;
+
+
+                casillas[i, j].transform.Find("PlayerPath 3").GetComponent<SpriteRenderer>().color = color;
+
 
                 casillas[i, j].transform.position = new Vector2(transform.position.x + (i * widthCasilla), transform.position.y - (j * heigthCasilla));
                 casillas[i, j].GetComponent<Casilla>()._isIced = isIced[i, j];
@@ -179,7 +198,6 @@ public class MatrixCasillas : MonoBehaviour
                             }
 
                         }
-
 
                     }
                 }

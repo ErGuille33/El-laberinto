@@ -60,11 +60,15 @@ public class GameManager : MonoBehaviour
         
         if (!iceLevelsToPlay)
         {
+       
             levelManager.setNewLevel(levelPackages[0].levels[levelToPlay]);
         }
-        else levelManager.setTextAsset(levelPackages[1].levels[levelToPlay]);
+        else {
+            
+            levelManager.setTextAsset(levelPackages[1].levels[levelToPlay]); 
+        }
   
-        levelManager.startNewLevel();
+        levelManager.startNewLevel(iceLevelsToPlay);
 
 
         if (iceLevelsToPlay)

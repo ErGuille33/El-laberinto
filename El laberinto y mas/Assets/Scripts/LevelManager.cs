@@ -18,12 +18,15 @@ public class LevelManager : MonoBehaviour
     protected bool[,] isIcedarray = new bool[500, 500];
     //Casilla del jugador
     public Casilla playerCasilla;
+    public GameObject player;
+    public Color col;
 
     Vector2 endCasilla;
     Vector2 startCasilla;
 
     //Variables para la partida
     public bool finishedLevel = false;
+    bool iceLevel;
     int totalHints;
     public int actualHints;
 
@@ -47,7 +50,7 @@ public class LevelManager : MonoBehaviour
     //Adaptamos los datos del json y preparamos el array de paredes
     protected void setWallsArray()
     {
-        
+
 
         for (int i = 0; i < wallsArray.GetLength(0); i++)
         {
@@ -79,8 +82,14 @@ public class LevelManager : MonoBehaviour
                     }
                     else
                     {
-                
-                        wallsArray[(int)walls[i].o.x, auxInvertedCoord - (int)walls[i].o.y, 3] = false;
+                        if (walls[i].o.y < walls[i].d.y)
+                        {
+                            wallsArray[(int)walls[i].o.x, auxInvertedCoord - 1-(int)walls[i].o.y, 3] = false;
+                        }
+                        if (walls[i].o.y > walls[i].d.y)
+                        {
+                            wallsArray[(int)walls[i].o.x, auxInvertedCoord - (int)walls[i].o.y, 3] = false;
+                        }
                     }
                        
                 }
@@ -96,7 +105,14 @@ public class LevelManager : MonoBehaviour
                 }
                 else
                 {
-                    wallsArray[(int)walls[i].o.x , auxInvertedCoord-1 - (int)walls[i].o.y, 2] = false;
+                    if (walls[i].o.x < walls[i].d.x)
+                    {
+                        wallsArray[(int)walls[i].o.x, auxInvertedCoord - 1 - (int)walls[i].o.y, 2] = false;
+                    }
+                    if (walls[i].o.x > walls[i].d.x)
+                    {
+                        wallsArray[(int)walls[i].o.x-1, auxInvertedCoord - 1 - (int)walls[i].o.y, 2] = false;
+                    }
                 }
             }
         }
@@ -121,18 +137,10 @@ public class LevelManager : MonoBehaviour
             }
         }
 
-        //ESquinas
+        //Esquina superior izquierdas
         wallsArray[0, 0, 3] = false;
         wallsArray[0, 0, 0] = false;
 
-        wallsArray[0, auxInvertedCoord-1, 3] = false;
-        wallsArray[0, auxInvertedCoord-1, 2] = false;
-
-        wallsArray[auxTotalCols-1, 0, 0] = false;
-        wallsArray[auxTotalCols-1, 0, 1] = false;
-
-        wallsArray[auxTotalCols-1, auxInvertedCoord-1, 2] = false;
-        wallsArray[auxTotalCols-1, auxInvertedCoord-1, 1] = false;
     }
     //Adaptamos los datos del json y preparamos el array de casillas heladas
     protected void setIcedArray()
@@ -214,8 +222,9 @@ public class LevelManager : MonoBehaviour
         setEnd();
         setStart();
 
-        mat.createNewMap(lvlData.r, lvlData.c, wallsArray, isIcedarray,endCasilla,startCasilla);
+        mat.createNewMap(lvlData.r, lvlData.c, wallsArray, isIcedarray,endCasilla,startCasilla,col);
         playerCasilla = mat.casillas[(int)startCasilla.x, (int)startCasilla.y].GetComponent<Casilla>();
+        player.transform.localScale = new Vector2 ( mat.getSizeCasilla()*2.5f, 2.5f*mat.getSizeCasilla());
         totalHints = lvlData.h.Length;
         actualHints = 0;
 
@@ -272,28 +281,33 @@ public class LevelManager : MonoBehaviour
                 break;
         }
     }
+
+
+
     //Método que mueve el jugador reiterativamente mientras sea necesario
     private void playerMoveUp()
     {
-        if (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[0])
+        if ((playerCasilla.getIced() && playerCasilla._casillaAdyacente[0]) || (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[0]))
         {           
                 playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos - 1].GetComponent<Casilla>();
                 mat.setPlayerPath(mat.playerXPos, mat.playerYPos,  0);
                 mat.playerYPos--;
                 mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 2);
+                checkWin();
                 playerMoveUp();          
         }
     }
     //Método que mueve el jugador reiterativamente mientras sea necesario
     private void playerMoveDown()
     {
-        if (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[2])
+        if ((playerCasilla.getIced() && playerCasilla._casillaAdyacente[2]) || (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[2]))
         {
 
                 playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos + 1].GetComponent<Casilla>();
                 mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 2);
                 mat.playerYPos++;
                 mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 0);
+                checkWin();
                 playerMoveDown();
 
         }
@@ -301,12 +315,13 @@ public class LevelManager : MonoBehaviour
     //Método que mueve el jugador reiterativamente mientras sea necesario
     private void playerMoveRight()
     {
-        if (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[1])
+        if ((playerCasilla.getIced() && playerCasilla._casillaAdyacente[1]) || (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[1]))
         {           
                 playerCasilla = mat.casillas[mat.playerXPos + 1, mat.playerYPos].GetComponent<Casilla>();
                 mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 1);
                 mat.playerXPos++;
                 mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 3);
+                checkWin();
                 playerMoveRight();
             
         }
@@ -314,13 +329,14 @@ public class LevelManager : MonoBehaviour
     //Método que mueve el jugador reiterativamente mientras sea necesario
     private void playerMoveLeft()
     {
-        if (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[3])
+        if ((playerCasilla.getIced() && playerCasilla._casillaAdyacente[3]) || (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[3]))
         {
 
                 playerCasilla = mat.casillas[mat.playerXPos - 1, mat.playerYPos].GetComponent<Casilla>();
                 mat.setPlayerPath(mat.playerXPos, mat.playerYPos,  3);
                 mat.playerXPos--;
                 mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 1);
+                checkWin();
                 playerMoveLeft();
             
         }
@@ -347,8 +363,15 @@ public class LevelManager : MonoBehaviour
         level = newLevel;
     }
     //Empezar un nuevo nivel
-    public void startNewLevel()
+    public void startNewLevel(bool isIceLevel)
     {
+        iceLevel = isIceLevel;
+        if (!iceLevel) 
+            col = new Color(0.082f, 0.745f, 0.196f);
+        else 
+            col = new Color(0, 0.6f, 0.84f);
+
+        player.GetComponent<SpriteRenderer>().color = col;
         mat.resetMap();
         cargaJson();
 
@@ -509,12 +532,16 @@ public class LevelManager : MonoBehaviour
              mat.setHints(x, y, from, to,true);
 
         }
-        void addHints()
+       
+    }
+    public bool addHints()
+    {
+        if (actualHints < 3)
         {
-            if(actualHints < 3){
-                actualHints++;
-            }
+            actualHints++;
+            return true;
         }
+        else return false;
     }
 
     //Datos de recogidos del array
