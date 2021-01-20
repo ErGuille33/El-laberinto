@@ -21,7 +21,8 @@ public class LevelManager : MonoBehaviour
     public GameObject player;
     public Color col;
 
-    Vector2 endCasilla;
+    Casilla endCasilla;
+    Vector2 endCasillaVector;
     Vector2 startCasilla;
 
     //Variables para la partida
@@ -163,10 +164,11 @@ public class LevelManager : MonoBehaviour
                     isIcedarray[(int)lvlData.i[i].x, auxInvertedCoord - (int)lvlData.i[i].y] = true;
 
                 }
-                else if ((int)lvlData.i[i].y > 0)
+                else 
                 {
                     isIcedarray[(int)lvlData.i[i].x, auxInvertedCoord - 1 - (int)lvlData.i[i].y] = true;
                 }
+                
             }       
         }
     }
@@ -176,9 +178,10 @@ public class LevelManager : MonoBehaviour
     {
         if(lvlData.f.y == auxInvertedCoord)
         {
-            endCasilla = new Vector2(lvlData.f.x, auxInvertedCoord - lvlData.f.y);
+            endCasillaVector = new Vector2(lvlData.f.x, auxInvertedCoord - lvlData.f.y);
         }
-        else endCasilla = new Vector2(lvlData.f.x, auxInvertedCoord - 1 - lvlData.f.y);
+        else endCasillaVector = new Vector2(lvlData.f.x, auxInvertedCoord - 1 - lvlData.f.y);
+        
 
     }
 
@@ -224,7 +227,7 @@ public class LevelManager : MonoBehaviour
         setEnd();
         setStart();
 
-        mat.createNewMap(lvlData.r, lvlData.c, wallsArray, isIcedarray,endCasilla,startCasilla,col);
+        mat.createNewMap(lvlData.r, lvlData.c, wallsArray, isIcedarray, endCasillaVector, startCasilla,col);
         playerCasilla = mat.casillas[(int)startCasilla.x, (int)startCasilla.y].GetComponent<Casilla>();
         player.transform.localScale = new Vector2 ( mat.getSizeCasilla()*2.5f, 2.5f*mat.getSizeCasilla());
         player.transform.position = playerCasilla.transform.position;
@@ -350,7 +353,9 @@ public class LevelManager : MonoBehaviour
     {
         if (playerCasilla != null)
         {
-            if (playerCasilla._end)
+            print(player.transform.position);
+            print(mat.endCasilla.transform.position);
+            if (Vector2.Distance(player.transform.position, mat.endCasilla.transform.position) < 0.2)
             {
                 finishedLevel = true;
             }

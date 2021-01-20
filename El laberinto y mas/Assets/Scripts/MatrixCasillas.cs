@@ -23,8 +23,6 @@ public class MatrixCasillas : MonoBehaviour
     public float widthCasilla = 0;
     public float heigthCasilla = 0;
 
-    public LevelManager levelManager;
-
     float sizeCasilla;
 
 
@@ -152,7 +150,9 @@ public class MatrixCasillas : MonoBehaviour
                 casillas[i, j].GetComponent<Casilla>()._isIced = isIced[i, j];
                 if (i == isEnd.x && j == isEnd.y)
                 {
+
                     casillas[i, j].GetComponent<Casilla>()._end = true;
+                    endCasilla = casillas[i, j].GetComponent<Casilla>();
 
 
                 }
@@ -160,7 +160,7 @@ public class MatrixCasillas : MonoBehaviour
 
                 if (i == isStart.x && j == isStart.y)
                 {
-                    levelManager.playerCasilla = casillas[i, j].GetComponent<Casilla>();
+                    
                     playerXPos = i;
                     playerYPos = j;
                 }
