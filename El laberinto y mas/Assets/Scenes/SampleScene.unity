@@ -2477,5 +2477,5 @@ MonoBehaviour:
   panelHint: {fileID: 929153632}
   grid: {fileID: 889000195}
   player: {fileID: 603012186}
-  levelToPlay: 0
+  levelToPlay: 1
   iceLevelsToPlay: 1
