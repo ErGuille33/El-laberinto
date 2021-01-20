@@ -459,7 +459,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 1.3719511
+  orthographic size: 4.6666665
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2477,5 +2477,5 @@ MonoBehaviour:
   panelHint: {fileID: 929153632}
   grid: {fileID: 889000195}
   player: {fileID: 603012186}
-  levelToPlay: 1
-  iceLevelsToPlay: 1
+  levelToPlay: 0
+  iceLevelsToPlay: 0

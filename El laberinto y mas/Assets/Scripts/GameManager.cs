@@ -152,7 +152,10 @@ public class GameManager : MonoBehaviour
         if (hintsAvaiable > 0)
         {
             // colocar pistas
-            hintsAvaiable -= 1;
+            if (levelManager.addHints())
+            {
+                hintsAvaiable -= 1;
+            }
             hideHintsPanel();
             state = State.RUN;
         }

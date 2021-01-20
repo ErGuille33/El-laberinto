@@ -221,7 +221,7 @@ public class LevelManager : MonoBehaviour
             }
         }
       
-            auxInvertedCoord = lvlData.r;
+        auxInvertedCoord = lvlData.r;
         auxTotalCols = lvlData.c;
 
         setWallsArray();
@@ -229,7 +229,7 @@ public class LevelManager : MonoBehaviour
    
         setEnd();
         setStart();
-
+       
         mat.createNewMap(lvlData.r, lvlData.c, wallsArray, isIcedarray, endCasillaVector, startCasilla,col);
         playerCasilla = mat.casillas[(int)startCasilla.x, (int)startCasilla.y].GetComponent<Casilla>();
         player.transform.localScale = new Vector2 ( mat.getSizeCasilla()*2.5f, 2.5f*mat.getSizeCasilla());
@@ -244,7 +244,7 @@ public class LevelManager : MonoBehaviour
     {
         if (colaPath.Count > 0)
         {
-            if (Vector2.Distance(player.transform.position, mat.casillas[(int)colaPath.First<Vector3>().x, (int)colaPath.First<Vector3>().y].transform.position) < 0.3)
+            if (Vector2.Distance(player.transform.position, mat.casillas[(int)colaPath.First<Vector3>().x, (int)colaPath.First<Vector3>().y].transform.position) < 0.5)
             {
                 Vector3 vec = colaPath.Dequeue();
                 mat.setPlayerPath((int)vec.x, (int)vec.y, (int)vec.z);
@@ -393,7 +393,8 @@ public class LevelManager : MonoBehaviour
             col = new Color(0.082f, 0.745f, 0.196f);
         else 
             col = new Color(0, 0.6f, 0.84f);
-
+     
+      
         player.GetComponent<SpriteRenderer>().color = col;
         colaPath.Clear();
         mat.resetMap();
@@ -415,7 +416,7 @@ public class LevelManager : MonoBehaviour
         int x = -1;
         int y = -1;
 
-        int countHints = (totalHints / 3) * actualHints;
+        int countHints = (int)((float)(totalHints / 3) )* actualHints;
 
         if(countHints > totalHints || actualHints == 3)
         {
