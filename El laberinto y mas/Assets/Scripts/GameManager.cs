@@ -12,6 +12,10 @@ public class GameManager : MonoBehaviour
     public LevelManager levelManager;
 
     public Text textLevel;
+    SaveGame saveGame;
+
+    public int[] packsLevel;
+    public int nHints;
     public Text hintsNum;
 
     public GameObject panelFin;
@@ -23,21 +27,46 @@ public class GameManager : MonoBehaviour
 
     private int hintsAvaiable;
 
-#if UNITY_EDITOR
     public int levelToPlay;
     public bool iceLevelsToPlay;
-#endif
+
 
     void Awake()
     {
         if(_instance != null)
         {
             _instance.levelManager = levelManager;
-            StartNewLevel();
+
             DestroyImmediate(gameObject);
             return;
         }
+        saveGame = gameObject.AddComponent<SaveGame>();
+        QualitySettings.vSyncCount = 0;   // Deshabilitamos el vSync
+        Application.targetFrameRate = 60; // Forzamos un máximo de 15 fps.
+
+    }
+
+    private void Start()
+    {
+        int maxSize = 1;
+        int auxSize = 0;
+
+        for(int i = 0; i< levelPackages.Length; i++)
+        {
+            auxSize = levelPackages[i].levels.Length;
+
+            if(auxSize > maxSize)
+                maxSize = levelPackages[i].levels.Length;
+        }
+
+        saveGame.setPacks(levelPackages.Length);
+        saveGame.loadLevels(out hintsAvaiable, out packsLevel);
+
+        print(nHints);
+        print(packsLevel[0]);
+
         StartNewLevel();
+
         state = State.RUN;
     }
 
@@ -55,18 +84,31 @@ public class GameManager : MonoBehaviour
     //Inicio de nuevo nivel
     private void StartNewLevel()
     {
+        
         levelManager.setFinishedLevel(false);
+        saveGame.saveLevel(nHints, packsLevel);
+
         state = State.RUN;
         
         if (!iceLevelsToPlay)
         {
        
             levelManager.setNewLevel(levelPackages[0].levels[levelToPlay]);
+            if(levelToPlay - 1 > packsLevel[0] )
+                packsLevel[0] = levelToPlay - 1;
+            saveGame.saveLevel(nHints, packsLevel);
+            
         }
         else {
             
-            levelManager.setTextAsset(levelPackages[1].levels[levelToPlay]); 
+            levelManager.setTextAsset(levelPackages[1].levels[levelToPlay]);
+
+            if (levelToPlay - 1 > packsLevel[0])
+                packsLevel[0] = levelToPlay - 1;
+            saveGame.saveLevel(nHints, packsLevel);
+            
         }
+        
   
         levelManager.startNewLevel(iceLevelsToPlay);
 
@@ -110,7 +152,10 @@ public class GameManager : MonoBehaviour
         if (hintsAvaiable > 0)
         {
             // colocar pistas
-            hintsAvaiable -= 1;
+            if (levelManager.addHints())
+            {
+                hintsAvaiable -= 1;
+            }
             hideHintsPanel();
             state = State.RUN;
         }

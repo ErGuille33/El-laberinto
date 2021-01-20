@@ -49,7 +49,7 @@ public class PlayerControl : MonoBehaviour
     void FixedUpdate()
     {
         if(moving)
-            transform.position = Vector3.MoveTowards(transform.position, levelManager.playerCasilla.transform.position, 0.1f);
+            transform.position = Vector3.MoveTowards(transform.position, levelManager.playerCasilla.transform.position, 0.15f);
     }
     //Input táctil
     Dir touchMovement()

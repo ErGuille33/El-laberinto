@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class RestartButton : MonoBehaviour
 {
-    public Button restartButton;
+    public LevelManager lvlManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +15,6 @@ public class RestartButton : MonoBehaviour
     // Update is called once per frame
     private void restartLevel()
     {
-        
+        lvlManager.startNewLevel(lvlManager.iceLevel);
     }
 }

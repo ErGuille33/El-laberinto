@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
@@ -21,12 +22,15 @@ public class LevelManager : MonoBehaviour
     public GameObject player;
     public Color col;
 
-    Vector2 endCasilla;
+    Vector2 endCasillaVector;
     Vector2 startCasilla;
+
+    //Cola con las partes del path pendientes de pintar
+    Queue<Vector3> colaPath = new Queue<Vector3>();
 
     //Variables para la partida
     public bool finishedLevel = false;
-    bool iceLevel;
+    public bool iceLevel;
     int totalHints;
     public int actualHints;
 
@@ -156,16 +160,19 @@ public class LevelManager : MonoBehaviour
 
         for(int i = 0; i < lvlData.i.Length; i++)
         {
-            if ((int)lvlData.i[i].y == auxInvertedCoord)
+            if (lvlData.i[i].x > 0 && lvlData.i[i].y > 0)
             {
-                isIcedarray[(int)lvlData.i[i].x, auxInvertedCoord - (int)lvlData.i[i].y] = true;
+                if ((int)lvlData.i[i].y == auxInvertedCoord)
+                {
+                    isIcedarray[(int)lvlData.i[i].x, auxInvertedCoord - (int)lvlData.i[i].y] = true;
 
-            }
-            else if((int)lvlData.i[i].y > 0)
-            {
-                isIcedarray[(int)lvlData.i[i].x, auxInvertedCoord - 1 - (int)lvlData.i[i].y] = true;
-            }
-       
+                }
+                else 
+                {
+                    isIcedarray[(int)lvlData.i[i].x, auxInvertedCoord - 1 - (int)lvlData.i[i].y] = true;
+                }
+                
+            }       
         }
     }
 
@@ -174,9 +181,10 @@ public class LevelManager : MonoBehaviour
     {
         if(lvlData.f.y == auxInvertedCoord)
         {
-            endCasilla = new Vector2(lvlData.f.x, auxInvertedCoord - lvlData.f.y);
+            endCasillaVector = new Vector2(lvlData.f.x, auxInvertedCoord - lvlData.f.y);
         }
-        else endCasilla = new Vector2(lvlData.f.x, auxInvertedCoord - 1 - lvlData.f.y);
+        else endCasillaVector = new Vector2(lvlData.f.x, auxInvertedCoord - 1 - lvlData.f.y);
+        
 
     }
 
@@ -212,7 +220,7 @@ public class LevelManager : MonoBehaviour
                 lvlData.h[i].y = 0;
             }
         }
-
+      
         auxInvertedCoord = lvlData.r;
         auxTotalCols = lvlData.c;
 
@@ -221,14 +229,29 @@ public class LevelManager : MonoBehaviour
    
         setEnd();
         setStart();
-
-        mat.createNewMap(lvlData.r, lvlData.c, wallsArray, isIcedarray,endCasilla,startCasilla,col);
+       
+        mat.createNewMap(lvlData.r, lvlData.c, wallsArray, isIcedarray, endCasillaVector, startCasilla,col);
         playerCasilla = mat.casillas[(int)startCasilla.x, (int)startCasilla.y].GetComponent<Casilla>();
         player.transform.localScale = new Vector2 ( mat.getSizeCasilla()*2.5f, 2.5f*mat.getSizeCasilla());
+        player.transform.position = playerCasilla.transform.position;
+
         totalHints = lvlData.h.Length;
         actualHints = 0;
 
     }
+    //Este método sirve para pintar el path a medida que pasa el jugador, en vez de que se pinte todo automaticamente
+    public void paintPath()
+    {
+        if (colaPath.Count > 0)
+        {
+            if (Vector2.Distance(player.transform.position, mat.casillas[(int)colaPath.First<Vector3>().x, (int)colaPath.First<Vector3>().y].transform.position) < 0.5)
+            {
+                Vector3 vec = colaPath.Dequeue();
+                mat.setPlayerPath((int)vec.x, (int)vec.y, (int)vec.z);
+            }
+        }
+    }
+
     //Método que mueve la posición del jugador
     public void MovePlayer(PlayerControl.Dir dir)
     {
@@ -237,11 +260,11 @@ public class LevelManager : MonoBehaviour
             case PlayerControl.Dir.UP:
                 if (playerCasilla._casillaAdyacente[0])
                 {
-                 
-                        mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 0);
+
+                        colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 0));
                         playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos - 1].GetComponent<Casilla>();
                         mat.playerYPos--;
-                        mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 2);
+                        colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 2));
                         playerMoveUp();
                   
                 }
@@ -249,21 +272,21 @@ public class LevelManager : MonoBehaviour
             case PlayerControl.Dir.DOWN:
                 if (playerCasilla._casillaAdyacente[2])
                 {
-                    mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 2);
+                    colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 2));
                     playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos + 1].GetComponent<Casilla>();
                     mat.playerYPos++;
-                    mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 0);
+                    colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 0));
                     playerMoveDown();
                 }
                 break;
             case PlayerControl.Dir.RIGHT:
                 if (playerCasilla._casillaAdyacente[1])
                 {
-                    
-                        mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 1);
+
+                        colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 1));
                         playerCasilla = mat.casillas[mat.playerXPos + 1, mat.playerYPos].GetComponent<Casilla>();
                         mat.playerXPos++;
-                        mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 3);
+                        colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 3));
                         playerMoveRight();
                     
                 }
@@ -271,10 +294,10 @@ public class LevelManager : MonoBehaviour
             case PlayerControl.Dir.LEFT:
                 if (playerCasilla._casillaAdyacente[3])
                 {
-                    mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 3);
+                    colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 3));
                     playerCasilla = mat.casillas[mat.playerXPos - 1, mat.playerYPos].GetComponent<Casilla>();
                     mat.playerXPos--;
-                    mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 1);
+                    colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 1));
                     playerMoveLeft();
                 }
              
@@ -290,9 +313,9 @@ public class LevelManager : MonoBehaviour
         if ((playerCasilla.getIced() && playerCasilla._casillaAdyacente[0]) || (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[0]))
         {           
                 playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos - 1].GetComponent<Casilla>();
-                mat.setPlayerPath(mat.playerXPos, mat.playerYPos,  0);
+                colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 0));
                 mat.playerYPos--;
-                mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 2);
+                colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 2));
                 checkWin();
                 playerMoveUp();          
         }
@@ -304,9 +327,9 @@ public class LevelManager : MonoBehaviour
         {
 
                 playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos + 1].GetComponent<Casilla>();
-                mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 2);
+                colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 2));
                 mat.playerYPos++;
-                mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 0);
+                colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 0));
                 checkWin();
                 playerMoveDown();
 
@@ -318,9 +341,9 @@ public class LevelManager : MonoBehaviour
         if ((playerCasilla.getIced() && playerCasilla._casillaAdyacente[1]) || (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[1]))
         {           
                 playerCasilla = mat.casillas[mat.playerXPos + 1, mat.playerYPos].GetComponent<Casilla>();
-                mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 1);
+                colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 1));
                 mat.playerXPos++;
-                mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 3);
+                colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 3));
                 checkWin();
                 playerMoveRight();
             
@@ -333,9 +356,9 @@ public class LevelManager : MonoBehaviour
         {
 
                 playerCasilla = mat.casillas[mat.playerXPos - 1, mat.playerYPos].GetComponent<Casilla>();
-                mat.setPlayerPath(mat.playerXPos, mat.playerYPos,  3);
+                colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 3));
                 mat.playerXPos--;
-                mat.setPlayerPath(mat.playerXPos, mat.playerYPos, 1);
+                colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 1));
                 checkWin();
                 playerMoveLeft();
             
@@ -346,7 +369,7 @@ public class LevelManager : MonoBehaviour
     {
         if (playerCasilla != null)
         {
-            if (playerCasilla._end)
+            if (Vector2.Distance(player.transform.position, mat.endCasilla.transform.position) < 0.2)
             {
                 finishedLevel = true;
             }
@@ -370,8 +393,10 @@ public class LevelManager : MonoBehaviour
             col = new Color(0.082f, 0.745f, 0.196f);
         else 
             col = new Color(0, 0.6f, 0.84f);
-
+     
+      
         player.GetComponent<SpriteRenderer>().color = col;
+        colaPath.Clear();
         mat.resetMap();
         cargaJson();
 
@@ -380,7 +405,7 @@ public class LevelManager : MonoBehaviour
     void Update()
     {
         checkWin();
-
+        paintPath();
         setHintsArray();
     }
     //Adaptamos los datos del json y preparamos el array de hints dependiendo del número que tengamos
@@ -391,7 +416,7 @@ public class LevelManager : MonoBehaviour
         int x = -1;
         int y = -1;
 
-        int countHints = (totalHints / 3) * actualHints;
+        int countHints = (int)((float)(totalHints / 3) )* actualHints;
 
         if(countHints > totalHints || actualHints == 3)
         {
@@ -561,11 +586,11 @@ public class LevelManager : MonoBehaviour
         public Vector2 s;
         public Vector2 f;
 
-        public WallsData[] w = new WallsData[100];
-        public Vector2[] h = new Vector2[100];
-        public Vector2[] i = new Vector2[2];
-        public Vector2[] e = new Vector2[2];
-        public Vector2[] t = new Vector2[2];
+        public WallsData[] w ;
+        public Vector2[] h  ;
+        public Vector2[] i ;
+        public Vector2[] e ;
+        public Vector2[] t;
     }
 
     [Serializable]
