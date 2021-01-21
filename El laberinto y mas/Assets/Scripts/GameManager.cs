@@ -6,17 +6,17 @@ using UnityEngine.SceneManagement;
 //Game manager de todo el juego
 public class GameManager : MonoBehaviour
 {
-    public enum State { RUN, PAUSE, PAUSE2, END }
+    public enum State { RUN, PAUSE, PAUSE2, END, MENU }
 
-    public LevelPackage[] levelPackages; 
-    public LevelManager levelManager;
+    public LevelPackage[] levelPackages;
+    public LevelManager levelManager = null;
 
     SaveGame saveGame;
 
     public int[] packsLevel;
     public int nHints;
 
-    private State state;
+    public State state;
 
     public int hintsAvaiable;
 
@@ -56,20 +56,25 @@ public class GameManager : MonoBehaviour
         print(hintsAvaiable);
         print(packsLevel[0]);
 
-        StartNewLevel();
-
-        state = State.RUN;
+        if (state != State.MENU)
+        {
+            StartNewLevel();
+            state = State.RUN;
+        }
     }
 
     void Update()
     {
-        if (levelManager.finishedLevel)
+        if (state != State.MENU)
         {
-            if (levelToPlay - 1 > packsLevel[0])
-                packsLevel[0] = levelToPlay - 1;
-            saveGame.saveLevel(hintsAvaiable, packsLevel);
-        
-            state = State.END;
+            if (levelManager.finishedLevel)
+            {
+                if (levelToPlay - 1 > packsLevel[0])
+                    packsLevel[0] = levelToPlay - 1;
+                saveGame.saveLevel(hintsAvaiable, packsLevel);
+
+                state = State.END;
+            }
         }
     }
     //Inicio de nuevo nivel
@@ -141,6 +146,12 @@ public class GameManager : MonoBehaviour
     public void home()
     {
         SceneManager.LoadScene("Menu");
+    }
+
+    public void changeScene()
+    {
+        state = State.RUN;
+        SceneManager.LoadScene("SampleScene");
     }
 
     public State getState() { return state; }

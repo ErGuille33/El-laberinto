@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PruebaButton : MonoBehaviour
 {
-    public MenuManager mm;
+    public GameManager gm;
     void Start()
     {
         gameObject.GetComponent<Button>().onClick.AddListener(changeScene);
@@ -13,6 +13,6 @@ public class PruebaButton : MonoBehaviour
 
     void changeScene()
     {
-        mm.changeScene();
+        gm.changeScene();
     }
 }
