@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\ButtonScript\PauseButton.cs" />
     <Compile Include="Assets\Scripts\ButtonScript\RestartButton.cs" />
     <Compile Include="Assets\Scripts\ButtonScript\ShowHintsButton.cs" />
+    <Compile Include="Assets\Scripts\ButtonScript\TwitterButton.cs" />
     <Compile Include="Assets\Scripts\ButtonScript\UseHintButton.cs" />
     <Compile Include="Assets\Scripts\Casilla.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
