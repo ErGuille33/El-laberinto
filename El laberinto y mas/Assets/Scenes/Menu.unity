@@ -809,7 +809,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1358442836}
   m_HandleRect: {fileID: 1358442835}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1121,12 +1121,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   levelManager: {fileID: 0}
-  textLevel: {fileID: 0}
-  hintsNum: {fileID: 0}
-  panelFin: {fileID: 0}
-  panelHint: {fileID: 0}
-  grid: {fileID: 0}
-  player: {fileID: 0}
+  packsLevel: 
+  nHints: 0
+  hintsAvaiable: 0
   levelToPlay: 0
   iceLevelsToPlay: 0
 --- !u!1 &1514233710

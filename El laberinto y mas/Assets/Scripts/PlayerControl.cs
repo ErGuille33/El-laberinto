@@ -10,6 +10,7 @@ public class PlayerControl : MonoBehaviour
 
     private Dir dir = Dir.STOP;
     private bool moving = false;
+    private bool clicked = false;
     public LevelManager levelManager;
 
     private Vector3 touchStartPos, touchEndPos;
@@ -67,12 +68,19 @@ public class PlayerControl : MonoBehaviour
             if (touch.phase == TouchPhase.Began)
             {
                 touchStartPos = touch.position;
+                clicked = true;
             }
-            else if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Ended)
+            else if (touch.phase == TouchPhase.Ended)
+            {
+                dir = Dir.STOP;
+            }
+            else if (touch.phase == TouchPhase.Moved && clicked)
             {
                 touchEndPos = touch.position;
                 float x = touchEndPos.x - touchStartPos.x;
                 float y = touchEndPos.y - touchStartPos.y;
+
+                if(touchStartPos.y > levelManager.mat.transform.position.y)
 
                 if (Mathf.Abs(x) > Mathf.Abs(y))
                 {
@@ -84,6 +92,7 @@ public class PlayerControl : MonoBehaviour
                     if (y > 0) dir = Dir.UP;
                     else if (y < 0) dir = Dir.DOWN;
                 }
+                clicked = false;
             }
             else dir = Dir.STOP;
         }

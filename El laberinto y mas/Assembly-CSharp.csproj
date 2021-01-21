@@ -67,7 +67,9 @@
     <Compile Include="Assets\Scripts\AdsManager.cs" />
     <Compile Include="Assets\Scripts\ButtonScript\BackHintButton.cs" />
     <Compile Include="Assets\Scripts\ButtonScript\BuyHintButton.cs" />
+    <Compile Include="Assets\Scripts\ButtonScript\HomeButton.cs" />
     <Compile Include="Assets\Scripts\ButtonScript\NextLevelButton.cs" />
+    <Compile Include="Assets\Scripts\ButtonScript\PauseButton.cs" />
     <Compile Include="Assets\Scripts\ButtonScript\RestartButton.cs" />
     <Compile Include="Assets\Scripts\ButtonScript\ShowHintsButton.cs" />
     <Compile Include="Assets\Scripts\ButtonScript\UseHintButton.cs" />
@@ -79,6 +81,7 @@
     <Compile Include="Assets\Scripts\MatchCameraToRes.cs" />
     <Compile Include="Assets\Scripts\MatrixCasillas.cs" />
     <Compile Include="Assets\Scripts\PanelFin.cs" />
+    <Compile Include="Assets\Scripts\PanelPause.cs" />
     <Compile Include="Assets\Scripts\PanelPista.cs" />
     <Compile Include="Assets\Scripts\PlayerControl.cs" />
     <Compile Include="Assets\Scripts\RewardedAd.cs" />

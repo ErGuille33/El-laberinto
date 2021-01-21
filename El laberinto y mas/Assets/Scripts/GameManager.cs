@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 //Game manager de todo el juego
 public class GameManager : MonoBehaviour
 {
-    public enum State { RUN, PAUSE, END }
+    public enum State { RUN, PAUSE, PAUSE2, END }
 
     public LevelPackage[] levelPackages; 
     public LevelManager levelManager;
@@ -29,7 +29,6 @@ public class GameManager : MonoBehaviour
         if(_instance != null)
         {
             _instance.levelManager = levelManager;
-
             DestroyImmediate(gameObject);
             return;
         }
@@ -54,15 +53,11 @@ public class GameManager : MonoBehaviour
         saveGame.setPacks(levelPackages.Length);
         saveGame.loadLevels(out hintsAvaiable, out packsLevel);
 
-        //print(nHints);
-        //print(packsLevel[0]);
-
         StartNewLevel();
 
         state = State.RUN;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (levelManager.finishedLevel)
@@ -144,6 +139,17 @@ public class GameManager : MonoBehaviour
     {
         hintsAvaiable += 1;
     }
+
+    public void pause()
+    {
+        state = State.PAUSE2;
+    }
+
+    public void home()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+
     public State getState() { return state; }
 
     static GameManager _instance;
