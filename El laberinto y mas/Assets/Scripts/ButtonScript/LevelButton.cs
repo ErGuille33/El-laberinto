@@ -9,7 +9,7 @@ public class LevelButton : MonoBehaviour
 
     void Start()
     {
-        gameObject.GetComponent<Button>().GetComponentInChildren<Text>().text = num.ToString();
+        gameObject.GetComponent<Button>().GetComponentInChildren<Text>().text = (num+1).ToString();
         gameObject.GetComponent<Button>().onClick.AddListener(selectPackage);
     }
 
