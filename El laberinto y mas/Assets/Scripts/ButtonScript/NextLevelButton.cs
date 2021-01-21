@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class NextLevelButton : MonoBehaviour
 {
-    public GameManager gm;
 
     void Start()
     {
@@ -13,6 +12,6 @@ public class NextLevelButton : MonoBehaviour
     }
     public void nextLevel()
     {
-        gm.nextLevel();
+        GameManager._instance.nextLevel();
     }
 }

@@ -5,10 +5,9 @@ using UnityEngine.UI;
 
 public class PanelPause : MonoBehaviour
 {
-    public GameManager gm;
     void Update()
     {
-        if (gm.getState() == GameManager.State.PAUSE2)
+        if (GameManager._instance.getState() == GameManager.State.PAUSE2)
         {
             gameObject.GetComponent<Image>().enabled = true;
             transform.GetChild(0).gameObject.SetActive(true);

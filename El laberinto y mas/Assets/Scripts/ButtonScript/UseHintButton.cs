@@ -5,9 +5,8 @@ using UnityEngine;
 
 public class UseHintButton : MonoBehaviour
 {
-    public GameManager gm;
     public void useHint()
     {
-        gm.useHint();
+        GameManager._instance.useHint();
     }
 }

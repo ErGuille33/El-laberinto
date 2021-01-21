@@ -58,3 +58,4 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 8a907847ead19a346850621051d97194, type: 3}
   - {fileID: 4900000, guid: 4ec03bea80b9ece4dbe9b138ee8dd370, type: 3}
   - {fileID: 4900000, guid: 82cfd2d68e5ab784494782bccc7ee61c, type: 3}
+  isIce: 1

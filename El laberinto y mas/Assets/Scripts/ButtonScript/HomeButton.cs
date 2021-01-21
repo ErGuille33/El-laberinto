@@ -5,13 +5,12 @@ using UnityEngine.UI;
 
 public class HomeButton : MonoBehaviour
 {
-    public GameManager gm;
     void Start()
     {
         gameObject.GetComponent<Button>().onClick.AddListener(home);
     }
     public void home()
     {
-        gm.home();
+        GameManager._instance.home();
     }
 }

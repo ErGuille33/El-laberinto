@@ -11,7 +11,6 @@ public class TwitterButton : MonoBehaviour
     private const string TWITTER_LANGUAGE = "en";
 
     public string LINK_GAME = "https://freesstylers.github.io/District-Dance-Battle/";
-    public GameManager gm;
 
 
     // Start is called before the first frame update
@@ -23,7 +22,7 @@ public class TwitterButton : MonoBehaviour
     // Update is called once per frame
     void shareOnTwitter()
     {
-        Application.OpenURL(TWITTER_ADDRESS + "?text=" + WWW.EscapeURL(twitterNameParamter + (gm.levelToPlay+1) + twitterDescriptionParam + "\n" + LINK_GAME));
-        gm.buyHint();
+        Application.OpenURL(TWITTER_ADDRESS + "?text=" + WWW.EscapeURL(twitterNameParamter + (GameManager._instance.levelToPlay+1) + twitterDescriptionParam + "\n" + LINK_GAME));
+        GameManager._instance.buyHint();
     }
 }

@@ -9,7 +9,6 @@ public class BuyHintButton : MonoBehaviour, IUnityAdsListener
     string gameId = "3974381";
     string myPlacementId = "rewardedVideo";
     bool testMode = true;
-    public GameManager gm;
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +34,7 @@ public class BuyHintButton : MonoBehaviour, IUnityAdsListener
     {
         if (showResult == ShowResult.Finished)
         {
-            gm.buyHint();
+            GameManager._instance.buyHint();
         }
         else if (showResult == ShowResult.Skipped)
         {

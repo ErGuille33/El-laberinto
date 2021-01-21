@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 //Game manager de todo el juego
 public class GameManager : MonoBehaviour
 {
-    public enum State { RUN, PAUSE, PAUSE2, END, MENU }
+    public enum State { RUN, PAUSE, PAUSE2, END, PACK, LEV }
 
     public LevelPackage[] levelPackages;
     public LevelManager levelManager = null;
@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     public int levelToPlay;
     public bool iceLevelsToPlay;
 
+    private int packageNum;
+    private int levelNum;
 
     void Awake()
     {
@@ -32,6 +34,8 @@ public class GameManager : MonoBehaviour
             DestroyImmediate(gameObject);
             return;
         }
+        else _instance = this;
+
         saveGame = gameObject.AddComponent<SaveGame>();
         QualitySettings.vSyncCount = 0;   // Deshabilitamos el vSync
         Application.targetFrameRate = 60; // Forzamos un máximo de 15 fps.
@@ -56,7 +60,7 @@ public class GameManager : MonoBehaviour
         print(hintsAvaiable);
         print(packsLevel[0]);
 
-        if (state != State.MENU)
+        if (state != State.PACK && state != State.LEV)
         {
             StartNewLevel();
             state = State.RUN;
@@ -65,7 +69,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (state != State.MENU)
+        if (state != State.PACK && state != State.LEV)
         {
             if (levelManager.finishedLevel)
             {
@@ -82,8 +86,6 @@ public class GameManager : MonoBehaviour
     {
         
         levelManager.setFinishedLevel(false);
-
-
         state = State.RUN;
         
         if (!iceLevelsToPlay)
@@ -154,9 +156,24 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("SampleScene");
     }
 
+    public void selectPackage(int num)
+    {
+        packageNum = num;
+        state = State.LEV;
+    }
+
+    public int getPackageNum()
+    {
+        return packageNum;
+    }
+    public void selectLevel(int num)
+    {
+        levelNum = num;
+    }
+
     public State getState() { return state; }
 
-    static GameManager _instance;
+    public static GameManager _instance;
 
 
 }

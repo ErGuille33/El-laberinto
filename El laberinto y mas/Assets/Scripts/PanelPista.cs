@@ -5,10 +5,9 @@ using UnityEngine.UI;
 
 public class PanelPista : MonoBehaviour
 {
-    public GameManager gm;
     void Update()
     {
-        if (gm.getState() == GameManager.State.PAUSE)
+        if (GameManager._instance.getState() == GameManager.State.PAUSE)
         {
             gameObject.GetComponent<Image>().enabled = true;
             transform.GetChild(0).gameObject.SetActive(true);
