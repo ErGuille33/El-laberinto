@@ -50,6 +50,12 @@ public class MatrixCasillas : MonoBehaviour
     //Método que activa o desactiva las pistas en una casilla
     public void setHints(int casillaX, int casillaY, int from, int to, bool set)
     {
+        if (casillaX < 0)
+            casillaX = 0;
+        if (casillaY < 0)
+            casillaY = 0;
+
+
         switch (from)
         {
             case 0:

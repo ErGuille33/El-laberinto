@@ -459,7 +459,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.6666665
+  orthographic size: 1.3719511
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2368,6 +2368,11 @@ PrefabInstance:
       objectReference: {fileID: 603012186}
     - target: {fileID: 3450368066208916689, guid: ecb82c3b56029de4dbce4d8e41dbe1cd,
         type: 3}
+      propertyPath: actualHints
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3450368066208916689, guid: ecb82c3b56029de4dbce4d8e41dbe1cd,
+        type: 3}
       propertyPath: finishedLevel
       value: 0
       objectReference: {fileID: 0}
@@ -2477,5 +2482,5 @@ MonoBehaviour:
   panelHint: {fileID: 929153632}
   grid: {fileID: 889000195}
   player: {fileID: 603012186}
-  levelToPlay: 0
+  levelToPlay: 16
   iceLevelsToPlay: 0
