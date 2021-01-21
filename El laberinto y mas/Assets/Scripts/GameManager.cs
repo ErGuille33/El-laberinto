@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        if(_instance != null)
+        if (_instance != null)
         {
             _instance.levelManager = levelManager;
             DestroyImmediate(gameObject);
