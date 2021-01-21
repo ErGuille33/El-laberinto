@@ -246,6 +246,7 @@ public class LevelManager : MonoBehaviour
         {
             if (Vector2.Distance(player.transform.position, mat.casillas[(int)colaPath.First<Vector3>().x, (int)colaPath.First<Vector3>().y].transform.position) < 0.5)
             {
+                
                 Vector3 vec = colaPath.Dequeue();
                 mat.setPlayerPath((int)vec.x, (int)vec.y, (int)vec.z);
             }
@@ -418,15 +419,16 @@ public class LevelManager : MonoBehaviour
 
         int countHints = (int)((float)(totalHints / 3) )* actualHints;
 
-        if(countHints > totalHints || actualHints == 3)
+        if(countHints > totalHints || actualHints >= 3)
         {
             countHints = totalHints;
         }
 
+
+
         for (int i = 0; i < countHints; i++)
         {
-           
-    
+              
             if (i != lvlData.h.Length - 1)
             {
                 //Vertical
