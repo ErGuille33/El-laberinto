@@ -53,6 +53,9 @@ public class GameManager : MonoBehaviour
         saveGame.setPacks(levelPackages.Length);
         saveGame.loadLevels(out hintsAvaiable, out packsLevel);
 
+        print(hintsAvaiable);
+        print(packsLevel[0]);
+
         StartNewLevel();
 
         state = State.RUN;
@@ -62,6 +65,10 @@ public class GameManager : MonoBehaviour
     {
         if (levelManager.finishedLevel)
         {
+            if (levelToPlay - 1 > packsLevel[0])
+                packsLevel[0] = levelToPlay - 1;
+            saveGame.saveLevel(hintsAvaiable, packsLevel);
+        
             state = State.END;
         }
     }
@@ -70,41 +77,25 @@ public class GameManager : MonoBehaviour
     {
         
         levelManager.setFinishedLevel(false);
-        saveGame.saveLevel(nHints, packsLevel);
+
 
         state = State.RUN;
         
         if (!iceLevelsToPlay)
         {
-       
+
             levelManager.setNewLevel(levelPackages[0].levels[levelToPlay]);
-            if(levelToPlay - 1 > packsLevel[0] )
-                packsLevel[0] = levelToPlay - 1;
-            saveGame.saveLevel(nHints, packsLevel);
+           
             
         }
         else {
             
             levelManager.setTextAsset(levelPackages[1].levels[levelToPlay]);
-
-            if (levelToPlay - 1 > packsLevel[0])
-                packsLevel[0] = levelToPlay - 1;
-            saveGame.saveLevel(nHints, packsLevel);
             
         }
-        
-  
-        levelManager.startNewLevel(iceLevelsToPlay);
 
-
-        if (iceLevelsToPlay)
-        {
-            levelManager.setTextAsset(levelPackages[1].levels[levelToPlay]);
-        }
-        else
-        {
-            levelManager.setTextAsset(levelPackages[0].levels[levelToPlay]);
-        }
+            levelManager.setActualHints(0);
+            levelManager.startNewLevel(iceLevelsToPlay);
     }
 
     public void nextLevel()
@@ -138,6 +129,8 @@ public class GameManager : MonoBehaviour
     public void buyHint()
     {
         hintsAvaiable += 1;
+        saveGame.saveLevel(hintsAvaiable, packsLevel);
+
     }
 
     public void pause()

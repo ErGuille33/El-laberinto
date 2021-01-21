@@ -236,7 +236,7 @@ public class LevelManager : MonoBehaviour
         player.transform.position = playerCasilla.transform.position;
 
         totalHints = lvlData.h.Length;
-        actualHints = 0;
+
 
     }
     //Este método sirve para pintar el path a medida que pasa el jugador, en vez de que se pinte todo automaticamente
@@ -402,6 +402,12 @@ public class LevelManager : MonoBehaviour
         cargaJson();
 
     }
+
+    public void setActualHints(int num)
+    {
+        actualHints = 0;
+    }
+
     // Update is called once per frame
     void Update()
     {
