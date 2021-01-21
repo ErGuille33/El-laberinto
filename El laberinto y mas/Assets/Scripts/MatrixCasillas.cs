@@ -24,13 +24,6 @@ public class MatrixCasillas : MonoBehaviour
     public float heigthCasilla = 0;
 
     float sizeCasilla;
-
-
-    void Start()
-    {
-
-
-    }
     public float getSizeCasilla()
     {
         return sizeCasilla;

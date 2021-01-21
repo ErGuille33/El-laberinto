@@ -6,26 +6,19 @@ using UnityEngine.UI;
 //Game manager de todo el juego
 public class GameManager : MonoBehaviour
 {
-    public enum State { RUN, PAUSE }
+    public enum State { RUN, PAUSE, END }
 
     public LevelPackage[] levelPackages; 
     public LevelManager levelManager;
 
-    public Text textLevel;
     SaveGame saveGame;
 
     public int[] packsLevel;
     public int nHints;
-    public Text hintsNum;
 
-    public GameObject panelFin;
-    public GameObject panelHint;
-    public GameObject grid;
-    public GameObject player;
+    private State state;
 
-    public static State state;
-
-    private int hintsAvaiable;
+    public int hintsAvaiable;
 
     public int levelToPlay;
     public bool iceLevelsToPlay;
@@ -43,7 +36,6 @@ public class GameManager : MonoBehaviour
         saveGame = gameObject.AddComponent<SaveGame>();
         QualitySettings.vSyncCount = 0;   // Deshabilitamos el vSync
         Application.targetFrameRate = 60; // Forzamos un máximo de 15 fps.
-
     }
 
     private void Start()
@@ -62,8 +54,8 @@ public class GameManager : MonoBehaviour
         saveGame.setPacks(levelPackages.Length);
         saveGame.loadLevels(out hintsAvaiable, out packsLevel);
 
-        print(nHints);
-        print(packsLevel[0]);
+        //print(nHints);
+        //print(packsLevel[0]);
 
         StartNewLevel();
 
@@ -75,10 +67,7 @@ public class GameManager : MonoBehaviour
     {
         if (levelManager.finishedLevel)
         {
-            panelFin.SetActive(true);
-            grid.SetActive(false);
-            player.SetActive(false);
-            state = State.PAUSE;
+            state = State.END;
         }
     }
     //Inicio de nuevo nivel
@@ -116,12 +105,10 @@ public class GameManager : MonoBehaviour
         if (iceLevelsToPlay)
         {
             levelManager.setTextAsset(levelPackages[1].levels[levelToPlay]);
-            textLevel.text = "PISO DE HIELO" + " - " + (levelToPlay + 1);
         }
         else
         {
             levelManager.setTextAsset(levelPackages[0].levels[levelToPlay]);
-            textLevel.text = "CLASICO" + " - " + (levelToPlay + 1);
         }
     }
 
@@ -129,21 +116,15 @@ public class GameManager : MonoBehaviour
     {
         levelToPlay++;
         StartNewLevel();
-        panelFin.SetActive(false);
-        grid.SetActive(true);
-        player.SetActive(true);
     }
 
     public void showHintsPanel()
     {
-        panelHint.SetActive(true);
-        hintsNum.text = hintsAvaiable.ToString();
         state = State.PAUSE;
     }
 
     public void hideHintsPanel()
     {
-        panelHint.SetActive(false);
         state = State.RUN;
     }
 
@@ -151,21 +132,19 @@ public class GameManager : MonoBehaviour
     {
         if (hintsAvaiable > 0)
         {
-            // colocar pistas
             if (levelManager.addHints())
             {
                 hintsAvaiable -= 1;
             }
             hideHintsPanel();
-            state = State.RUN;
         }
     }
 
     public void buyHint()
     {
         hintsAvaiable += 1;
-        hintsNum.text = hintsAvaiable.ToString();
     }
+    public State getState() { return state; }
 
     static GameManager _instance;
 

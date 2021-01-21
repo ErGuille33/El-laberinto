@@ -17,11 +17,14 @@ public class PlayerControl : MonoBehaviour
 
     bool inicializado = false;
 
+    public GameManager gm;
+
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.state == GameManager.State.RUN)
+        if (gm.getState() == GameManager.State.RUN)
         {
+            GetComponent<SpriteRenderer>().enabled = true;
             if (!inicializado && levelManager.playerCasilla != null)
             {
                 inicializado = true;
@@ -43,6 +46,10 @@ public class PlayerControl : MonoBehaviour
                 levelManager.MovePlayer(dir);
                 dir = Dir.STOP;
             }
+        } else if (gm.getState() == GameManager.State.END)
+        {
+            GetComponent<SpriteRenderer>().enabled = false;
+            dir = Dir.STOP;
         }
     }
 
