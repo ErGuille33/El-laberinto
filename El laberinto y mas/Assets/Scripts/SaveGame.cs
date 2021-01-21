@@ -6,6 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
+//Script cuya función es el guardado de partida
 public class SaveGame : MonoBehaviour
 {
     protected SaveData saveData;
@@ -30,13 +31,13 @@ public class SaveGame : MonoBehaviour
     {
         
     }
-
+    //El número de paquetes de niveles a guardar
     public void setPacks(int nPacks)
     {
         hash = new HashData();
         hash.packs = new int[nPacks];
     }
-
+    //GUardado con hash
     public void saveLevel(int hints, int[] packsLevel)
     {
         hash.hints = hints;
@@ -51,7 +52,7 @@ public class SaveGame : MonoBehaviour
         string auxHash = JsonUtility.ToJson(hash);
         PlayerPrefs.SetString("Save", auxHash);
     }
-
+    //Carga de niveles con la key
     public void loadLevels(out int hints, out int[] packsLevel)
     {
         
@@ -91,15 +92,13 @@ public class SaveGame : MonoBehaviour
             }
             saveLevel(hints, packsLevel);
         }
-  
-
 
     }
 
     [Serializable]
     protected class SaveData
     {
-        //Un maximo de 1500 packs posibles nos parece más que aceptable
+        //Clase vacía intermedia para guardado de datos
    
         
     }
