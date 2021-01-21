@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TwitterButton : MonoBehaviour
 {
-    public string twitterNameParamter = "Descarga este increible juego de resolver laberintos. Yo he completado el nivel: ";
+    public string twitterNameParamter = "Descarga este increible juego de resolver laberintos. Yo ya he completado el nivel ";
     public string twitterDescriptionParam = "";
     private const string TWITTER_ADDRESS = "http://twitter.com/intent/tweet";
     private const string TWITTER_LANGUAGE = "en";
