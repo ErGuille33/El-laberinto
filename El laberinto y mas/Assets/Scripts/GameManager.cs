@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        //Solo si esta en el juego
         if (state != State.PACK && state != State.LEV && state != State.INI)
         {
             if (levelManager != null)
@@ -135,7 +136,6 @@ public class GameManager : MonoBehaviour
     {
         hintsAvaiable += 1;
         saveGame.saveLevel(hintsAvaiable, packsLevel);
-
     }
 
     public void pause()

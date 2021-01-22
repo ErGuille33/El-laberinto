@@ -18,7 +18,6 @@ public class PlayerControl : MonoBehaviour
 
     bool inicializado = false;
 
-    // Update is called once per frame
     void Update()
     {
         if (GameManager._instance.getState() == GameManager.State.RUN)
@@ -30,6 +29,7 @@ public class PlayerControl : MonoBehaviour
                 transform.position = levelManager.playerCasilla.transform.position;
             }
 
+            // Deteccion de input
             if (!moving && touchMovement() != Dir.STOP) moving = true;
             else if (levelManager.playerCasilla != null)
             {
@@ -54,6 +54,7 @@ public class PlayerControl : MonoBehaviour
 
     void FixedUpdate()
     {
+        // Ir a la casilla correspondiente
         if(moving)
             transform.position = Vector3.MoveTowards(transform.position, levelManager.playerCasilla.transform.position, 0.15f);
     }
@@ -63,16 +64,17 @@ public class PlayerControl : MonoBehaviour
         if (Input.touchCount > 0)
         {
             touch = Input.GetTouch(0);
-            if (touch.phase == TouchPhase.Began)
+            
+            if (touch.phase == TouchPhase.Began) // Primer punto
             {
                 touchStartPos = touch.position;
                 clicked = true;
             }
-            else if (touch.phase == TouchPhase.Ended)
+            else if (touch.phase == TouchPhase.Ended) // Levanta el dedo
             {
                 dir = Dir.STOP;
             }
-            else if (touch.phase == TouchPhase.Moved && clicked)
+            else if (touch.phase == TouchPhase.Moved && clicked) // Segundo punto
             {
                 touchEndPos = touch.position;
                 float x = touchEndPos.x - touchStartPos.x;

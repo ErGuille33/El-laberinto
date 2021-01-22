@@ -92,7 +92,6 @@
     <Compile Include="Assets\Scripts\PanelPause.cs" />
     <Compile Include="Assets\Scripts\PanelPista.cs" />
     <Compile Include="Assets\Scripts\PlayerControl.cs" />
-    <Compile Include="Assets\Scripts\RewardedAd.cs" />
     <Compile Include="Assets\Scripts\SaveGame.cs" />
     <Compile Include="Assets\Scripts\TextLevel.cs" />
     <Compile Include="Assets\Scripts\ViewportHandler.cs" />
