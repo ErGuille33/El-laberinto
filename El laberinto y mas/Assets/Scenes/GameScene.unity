@@ -262,7 +262,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2114680838963a5459ee68e3d839e149, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gm: {fileID: 7680008931207497935}
 --- !u!1001 &293036588
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -524,7 +523,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.6666665
+  orthographic size: 1.6432682
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -707,7 +706,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88d286adbeb459a4cb8b099f9da45d94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gm: {fileID: 7680008931207497935}
 --- !u!222 &582116042
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -937,7 +935,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f911a538b4c5ac546a3d70d7b3bb2eea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gm: {fileID: 7680008931207497935}
 --- !u!1 &689279168
 GameObject:
   m_ObjectHideFlags: 0
@@ -1274,7 +1271,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd97462e59c059649a9730ef8fd3bbce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gm: {fileID: 7680008931207497935}
 --- !u!1 &864673224
 GameObject:
   m_ObjectHideFlags: 0
@@ -1412,7 +1408,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa4a3a1bf4dc30e42a55e63daa31eeb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gm: {fileID: 7680008931207497935}
 --- !u!1 &981851925
 GameObject:
   m_ObjectHideFlags: 0
@@ -1464,7 +1459,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a506ff68a13652a4387f7c9506958937, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gm: {fileID: 7680008931207497935}
 --- !u!114 &981851928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1598,7 +1592,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 889000195}
-  gm: {fileID: 7680008931207497935}
 --- !u!4 &1134323925
 Transform:
   m_ObjectHideFlags: 0
@@ -1842,7 +1835,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af4a61f0cc8767c4c935244f17139c30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gm: {fileID: 7680008931207497935}
 --- !u!1 &1409540451
 GameObject:
   m_ObjectHideFlags: 0
@@ -1985,7 +1977,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88d286adbeb459a4cb8b099f9da45d94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gm: {fileID: 7680008931207497935}
 --- !u!1 &1453668044
 GameObject:
   m_ObjectHideFlags: 0
@@ -2129,7 +2120,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b6d2c5c6317b6745a4bd49a3c8afc21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gm: {fileID: 7680008931207497935}
 --- !u!1 &1542155574
 GameObject:
   m_ObjectHideFlags: 0
@@ -2180,7 +2170,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4678d9c1405afe449026bc99579f7f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gm: {fileID: 7680008931207497935}
 --- !u!114 &1542155577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2603,7 +2592,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd97462e59c059649a9730ef8fd3bbce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gm: {fileID: 7680008931207497935}
 --- !u!1 &1858126799
 GameObject:
   m_ObjectHideFlags: 0
@@ -2657,9 +2645,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   twitterNameParamter: 'Descarga este increible juego de resolver laberintos. Yo
     ya he completado el nivel '
+  twitterLevelCompleted: ' Yo ya he completado el nivel '
   twitterDescriptionParam: 
   LINK_GAME: https://freesstylers.github.io/District-Dance-Battle/
-  gm: {fileID: 7680008931207497935}
 --- !u!114 &1858126802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2871,7 +2859,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c58d590cd1ab50440acdef0ab88add46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gm: {fileID: 7680008931207497935}
 --- !u!1 &2035628649
 GameObject:
   m_ObjectHideFlags: 0
@@ -2923,7 +2910,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad77db7739d0f874d944b8a8bf7aaa87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gm: {fileID: 7680008931207497935}
 --- !u!114 &2035628652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3228,8 +3214,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9c48f307df310374d870d247fdacb30b, type: 2}
   - {fileID: 11400000, guid: 9c48f307df310374d870d247fdacb30b, type: 2}
   levelManager: {fileID: 1207127372}
+  IniMenu: {fileID: 0}
   packsLevel: 
   nHints: 0
+  state: 0
   hintsAvaiable: 0
-  levelToPlay: 0
-  iceLevelsToPlay: 0
+  packageToPlay: 0
+  levelToPlay: 17
