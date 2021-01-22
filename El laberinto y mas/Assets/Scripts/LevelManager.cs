@@ -145,6 +145,10 @@ public class LevelManager : MonoBehaviour
         wallsArray[0, 0, 3] = false;
         wallsArray[0, 0, 0] = false;
 
+        //Esquina superior derecha
+        wallsArray[auxTotalCols, 0, 1] = false;
+        wallsArray[auxTotalCols, 0, 0] = false;
+
     }
     //Adaptamos los datos del json y preparamos el array de casillas heladas
     protected void setIcedArray()
@@ -413,6 +417,7 @@ public class LevelManager : MonoBehaviour
     {
         checkWin();
         paintPath();
+        //Colocamos este script en el update para poder modificar las pistas desde el editor. Si no fuera asi, lo lanzaríamos sólo desde el game manager al gastar una pista
         setHintsArray();
     }
     //Adaptamos los datos del json y preparamos el array de hints dependiendo del número que tengamos
@@ -429,8 +434,6 @@ public class LevelManager : MonoBehaviour
         {
             countHints = totalHints;
         }
-
-
 
         for (int i = 0; i < countHints; i++)
         {
@@ -550,19 +553,40 @@ public class LevelManager : MonoBehaviour
                 }
             }
                 
-             if ((int)lvlData.h[i].x == auxTotalCols)
-             {
-                 x = (int)lvlData.h[i].x - 1;
-             }
-             else
-             {
+            if ((int)lvlData.h[i].x == auxTotalCols)
+            {
+               x = (int)lvlData.h[i].x - 1;
+            }
+            else if((int)lvlData.h[i].x > auxTotalCols)
+            {
+                x = 0;
+            }
+             
+            else if((int)lvlData.h[i].x <= 0)
+            {
 
-                x = (int)lvlData.h[i].x;
-             }
-                       
-             y = auxInvertedCoord - 1 - (int)lvlData.h[i].y;
+               x = 0;
+            }
+            else
+            {
+               x = (int)lvlData.h[i].x ;
+            }
+
+            if((int)lvlData.h[i].y >= auxInvertedCoord)
+            {
+               y = 0;
+            }
            
-             mat.setHints(x, y, from, to,true);
+            else if((int)lvlData.h[i].y <= 0)
+            {
+               y = 0;
+               y = auxInvertedCoord - 1 -(int)lvlData.h[i].y;
+            }
+            else
+            {
+                y = auxInvertedCoord - 1 - (int)lvlData.h[i].y;
+            }
+            mat.setHints(x, y, from, to,true);
 
         }
        

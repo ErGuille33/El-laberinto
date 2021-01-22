@@ -24,12 +24,12 @@ public class LevelsContent : MonoBehaviour
                 {
                     aux = Instantiate(button);
                 }
-                aux.transform.parent = transform;
+                aux.transform.SetParent(transform) ;
                 aux.GetComponent<LevelButton>().num = i;
             } else
             {
                 GameObject aux = Instantiate(candado);
-                aux.transform.parent = transform;
+                aux.transform.SetParent(transform);
             }
         }
     }

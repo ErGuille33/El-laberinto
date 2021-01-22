@@ -52,31 +52,31 @@ public class MatrixCasillas : MonoBehaviour
         switch (from)
         {
             case 0:
-                casillas[casillaX, casillaY].transform.Find("HintLine").gameObject.active = set; 
+                casillas[casillaX, casillaY].transform.Find("HintLine").gameObject.SetActive(set); 
                 break;
             case 1:
-                casillas[casillaX, casillaY].transform.Find("HintLine 1").gameObject.active = set;
+                casillas[casillaX, casillaY].transform.Find("HintLine 1").gameObject.SetActive(set);
                 break;
             case 2:
-                casillas[casillaX, casillaY].transform.Find("HintLine 2").gameObject.active = set;
+                casillas[casillaX, casillaY].transform.Find("HintLine 2").gameObject.SetActive(set);
                 break;
             case 3:
-                casillas[casillaX, casillaY].transform.Find("HintLine 3").gameObject.active = set;
+                casillas[casillaX, casillaY].transform.Find("HintLine 3").gameObject.SetActive(set);
                 break;
         }
         switch (to)
         {
             case 0:
-                casillas[casillaX, casillaY].transform.Find("HintLine").gameObject.active = set;
+                casillas[casillaX, casillaY].transform.Find("HintLine").gameObject.SetActive(set);
                 break;
             case 1:
-                casillas[casillaX, casillaY].transform.Find("HintLine 1").gameObject.active = set;
+                casillas[casillaX, casillaY].transform.Find("HintLine 1").gameObject.SetActive(set);
                 break;
             case 2:
-                casillas[casillaX, casillaY].transform.Find("HintLine 2").gameObject.active = set;
+                casillas[casillaX, casillaY].transform.Find("HintLine 2").gameObject.SetActive(set);
                 break;
             case 3:
-                casillas[casillaX, casillaY].transform.Find("HintLine 3").gameObject.active = set;
+                casillas[casillaX, casillaY].transform.Find("HintLine 3").gameObject.SetActive(set);
                 break;
         }
 
@@ -88,22 +88,22 @@ public class MatrixCasillas : MonoBehaviour
         switch (from)
         {
             case 0:
-                if (casillas[casillaX, casillaY].transform.Find("PlayerPath").gameObject.active)
+                if (casillas[casillaX, casillaY].transform.Find("PlayerPath").gameObject.activeSelf)
                     casillas[casillaX, casillaY].transform.Find("PlayerPath").gameObject.SetActive(false);
                 else casillas[casillaX, casillaY].transform.Find("PlayerPath").gameObject.SetActive(true);
                 break; 
             case 1:
-                if (casillas[casillaX, casillaY].transform.Find("PlayerPath 1").gameObject.active)
+                if (casillas[casillaX, casillaY].transform.Find("PlayerPath 1").gameObject.activeSelf)
                     casillas[casillaX, casillaY].transform.Find("PlayerPath 1").gameObject.SetActive(false);
                 else casillas[casillaX, casillaY].transform.Find("PlayerPath 1").gameObject.SetActive(true);
                 break;
             case 2:
-                if (casillas[casillaX, casillaY].transform.Find("PlayerPath 2").gameObject.active)
+                if (casillas[casillaX, casillaY].transform.Find("PlayerPath 2").gameObject.activeSelf)
                     casillas[casillaX, casillaY].transform.Find("PlayerPath 2").gameObject.SetActive(false);
                 else casillas[casillaX, casillaY].transform.Find("PlayerPath 2").gameObject.SetActive(true);
                 break;
             case 3:
-                if (casillas[casillaX, casillaY].transform.Find("PlayerPath 3").gameObject.active)
+                if (casillas[casillaX, casillaY].transform.Find("PlayerPath 3").gameObject.activeSelf)
                     casillas[casillaX, casillaY].transform.Find("PlayerPath 3").gameObject.SetActive(false);
                 else casillas[casillaX, casillaY].transform.Find("PlayerPath 3").gameObject.SetActive(true);
                 break;
@@ -174,13 +174,13 @@ public class MatrixCasillas : MonoBehaviour
                             if (l == 0)
                             {
 
-                                casillas[i, j].transform.Find("Wall").gameObject.active = true;
-                   
+                                casillas[i, j].transform.Find("Wall").gameObject.SetActive(true);
+
                             }
 
                             else if (l == 2)
                             {
-                                casillas[i, j].transform.Find("Wall 2").gameObject.active = true;
+                                casillas[i, j].transform.Find("Wall 2").gameObject.SetActive(true);
                             }
 
                         }
@@ -189,12 +189,12 @@ public class MatrixCasillas : MonoBehaviour
 
                             if (l == 1)
                             {
-                                casillas[i, j].transform.Find("Wall 1").gameObject.active = true;
+                                casillas[i, j].transform.Find("Wall 1").gameObject.SetActive(true);
                             }
 
                             else if (l == 3)
                             {
-                                casillas[i, j].transform.Find("Wall 3").gameObject.active = true;
+                                casillas[i, j].transform.Find("Wall 3").gameObject.SetActive(true);
                             }
 
                         }

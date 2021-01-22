@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEditorInternal;
+using UnityEngine.Networking;
 
 public class TwitterButton : MonoBehaviour
 {
@@ -26,12 +27,12 @@ public class TwitterButton : MonoBehaviour
     {
         if (GameManager._instance.state != GameManager.State.INI)
         {
-            Application.OpenURL(TWITTER_ADDRESS + "?text=" + WWW.EscapeURL(twitterNameParamter + twitterLevelCompleted + (GameManager.levelNum + 1) + twitterDescriptionParam + "\n" + LINK_GAME));
+            Application.OpenURL(TWITTER_ADDRESS + "?text=" + UnityWebRequest.EscapeURL(twitterNameParamter + twitterLevelCompleted + (GameManager.levelNum + 1) + twitterDescriptionParam + "\n" + LINK_GAME));
             GameManager._instance.buyHint();
         }
         else
         {
-            Application.OpenURL(TWITTER_ADDRESS + "?text=" + WWW.EscapeURL(twitterNameParamter + twitterDescriptionParam + "\n" + LINK_GAME));
+            Application.OpenURL(TWITTER_ADDRESS + "?text=" + UnityWebRequest.EscapeURL(twitterNameParamter + twitterDescriptionParam + "\n" + LINK_GAME));
             GameManager._instance.buyHint();
         }
     }
