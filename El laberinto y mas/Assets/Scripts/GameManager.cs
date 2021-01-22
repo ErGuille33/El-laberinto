@@ -72,6 +72,11 @@ public class GameManager : MonoBehaviour
                         packsLevel[packageNum] = levelNum+1;
                     saveGame.saveLevel(hintsAvaiable, packsLevel);
 
+                    if(levelNum >= levelPackages[packageNum].levels.Length)
+                    {
+                        home();
+                    }
+
                     state = State.END;
                 }
             }
