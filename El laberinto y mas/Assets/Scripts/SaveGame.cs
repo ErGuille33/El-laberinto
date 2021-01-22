@@ -40,6 +40,13 @@ public class SaveGame : MonoBehaviour
     //GUardado con hash
     public void saveLevel(int hints, int[] packsLevel)
     {
+        //Este código es para resetear la hoja de guardado en caso necesario
+        /* 
+        hash.hints = 0;
+        for(int i = 0; i < packsLevel.Length; i++)
+        {
+            packsLevel[i] = 00;
+        }*/
         hash.hints = hints;
         hash.packs = packsLevel;
 

@@ -63,8 +63,8 @@ public class GameManager : MonoBehaviour
         saveGame.setPacks(levelPackages.Length);
         saveGame.loadLevels(out hintsAvaiable, out packsLevel);
 
-        print(hintsAvaiable);
-        print(packsLevel[0]);
+        print("Pistas disponibles de guardado: " + hintsAvaiable);
+        print("Niveles completados de guardado: " + packsLevel[0]);
     }
 
     void Update()
