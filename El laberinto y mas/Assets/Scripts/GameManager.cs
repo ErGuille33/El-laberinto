@@ -6,10 +6,12 @@ using UnityEngine.SceneManagement;
 //Game manager de todo el juego
 public class GameManager : MonoBehaviour
 {
-    public enum State { RUN, PAUSE, PAUSE2, END, PACK, LEV }
+    public enum State { RUN, PAUSE, PAUSE2, END, PACK, LEV, INI }
 
     public LevelPackage[] levelPackages;
     public LevelManager levelManager = null;
+
+    public GameObject IniMenu;
 
     SaveGame saveGame;
 
@@ -68,7 +70,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (state != State.PACK && state != State.LEV)
+        if (state != State.PACK && state != State.LEV && state != State.INI)
         {
             if (levelManager.finishedLevel)
             {
@@ -78,6 +80,14 @@ public class GameManager : MonoBehaviour
 
                 state = State.END;
             }
+        }
+        else if(state == State.INI)
+        {
+            IniMenu.SetActive(true);
+        }
+        else
+        {
+            IniMenu.SetActive(false);
         }
     }
 

@@ -19,5 +19,15 @@ public class MenuBackButton : MonoBehaviour
         {
             GameManager._instance.state = GameManager.State.PACK;
         }
+        else if (GameManager._instance.state == GameManager.State.PACK)
+        {
+            GameManager._instance.state = GameManager.State.INI;
+        }
+
+        if (GameManager._instance.state == GameManager.State.INI)
+        {
+            gameObject.SetActive(false);
+        }
+     
     }
 }
