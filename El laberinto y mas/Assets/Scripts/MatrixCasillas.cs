@@ -198,6 +198,39 @@ public class MatrixCasillas : MonoBehaviour
                             }
 
                         }
+                        //casilla superior derecha
+                        if(i == numCasillasX - 1 && j == 0)
+                        {
+                            casillas[i, j].transform.Find("Wall").gameObject.SetActive(true);
+                            casillas[i, j].transform.Find("Wall 1").gameObject.SetActive(true);
+                            casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[1] = false;
+                            casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[0] = false;
+                        }
+                        //Casilla superior izquierda
+                        else if (i == 0 && j == 0)
+                        {
+                            casillas[i, j].transform.Find("Wall").gameObject.SetActive(true);
+                            casillas[i, j].transform.Find("Wall 3").gameObject.SetActive(true);
+                            casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[0] = false;
+                            casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[3] = false;
+                        }
+                        //Casilla inferior izquierda
+                        else if (i == 0 && j == numCasillasY - 1)
+                        {
+                            casillas[i, j].transform.Find("Wall 2").gameObject.SetActive(true);
+                            casillas[i, j].transform.Find("Wall 3").gameObject.SetActive(true);
+                            casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[2] = false;
+                            casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[3] = false;
+                        }
+
+                        //Casilla inferior derecha
+                        else if (i == numCasillasX - 1 && j == numCasillasY - 1)
+                        {
+                            casillas[i, j].transform.Find("Wall 2").gameObject.SetActive(true);
+                            casillas[i, j].transform.Find("Wall 1").gameObject.SetActive(true);
+                            casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[2] = false;
+                            casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[3] = false;
+                        }
 
                     }
                 }

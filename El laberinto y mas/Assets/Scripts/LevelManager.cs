@@ -146,8 +146,14 @@ public class LevelManager : MonoBehaviour
         wallsArray[0, 0, 0] = false;
 
         //Esquina superior derecha
-        wallsArray[auxTotalCols, 0, 1] = false;
-        wallsArray[auxTotalCols, 0, 0] = false;
+        wallsArray[auxTotalCols +2, 0, 1] = false;
+        wallsArray[auxTotalCols +2, 0, 0] = false;
+
+        wallsArray[auxTotalCols + 2, auxInvertedCoord-1, 1] = false;
+        wallsArray[auxTotalCols + 2, auxInvertedCoord-1, 2] = false;
+
+        wallsArray[0, auxInvertedCoord - 1, 2] = false;
+        wallsArray[0 , auxInvertedCoord - 1, 3] = false;
 
     }
     //Adaptamos los datos del json y preparamos el array de casillas heladas
