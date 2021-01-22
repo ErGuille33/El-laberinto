@@ -22,7 +22,7 @@ public class TwitterButton : MonoBehaviour
     // Update is called once per frame
     void shareOnTwitter()
     {
-        Application.OpenURL(TWITTER_ADDRESS + "?text=" + WWW.EscapeURL(twitterNameParamter + (GameManager._instance.levelToPlay+1) + twitterDescriptionParam + "\n" + LINK_GAME));
+        Application.OpenURL(TWITTER_ADDRESS + "?text=" + WWW.EscapeURL(twitterNameParamter + (GameManager.levelNum+1) + twitterDescriptionParam + "\n" + LINK_GAME));
         GameManager._instance.buyHint();
     }
 }

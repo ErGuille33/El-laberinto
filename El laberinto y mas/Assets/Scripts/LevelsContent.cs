@@ -6,8 +6,10 @@ public class LevelsContent : MonoBehaviour
 {
     public GameObject button;
     public GameObject iceButton;
-    void Start()
+
+    public void createChildren()
     {
+        eraseChildren();
         for (int i = 0; i < GameManager._instance.levelPackages[GameManager._instance.getPackageNum()].levels.Length; i++)
         {
             GameObject aux;
@@ -22,5 +24,10 @@ public class LevelsContent : MonoBehaviour
             aux.transform.parent = transform;
             aux.GetComponent<LevelButton>().num = i;
         }
+    }
+
+    public void eraseChildren()
+    {
+        foreach (Transform child in transform) Destroy(child.gameObject);
     }
 }

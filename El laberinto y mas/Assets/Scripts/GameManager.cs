@@ -20,11 +20,10 @@ public class GameManager : MonoBehaviour
 
     public int hintsAvaiable;
 
-    public int levelToPlay;
     public bool iceLevelsToPlay;
 
-    private int packageNum;
-    private int levelNum;
+    public static int packageNum;
+    public static int levelNum;
 
     void Awake()
     {
@@ -60,11 +59,11 @@ public class GameManager : MonoBehaviour
         print(hintsAvaiable);
         print(packsLevel[0]);
 
-        if (state != State.PACK && state != State.LEV)
-        {
-            StartNewLevel();
-            state = State.RUN;
-        }
+        //if (state != State.PACK && state != State.LEV)
+        //{
+        //    StartNewLevel();
+        //    state = State.RUN;
+        //}
     }
 
     void Update()
@@ -73,41 +72,30 @@ public class GameManager : MonoBehaviour
         {
             if (levelManager.finishedLevel)
             {
-                if (levelToPlay - 1 > packsLevel[0])
-                    packsLevel[0] = levelToPlay - 1;
+                if (levelNum - 1 > packsLevel[0])
+                    packsLevel[0] = levelNum - 1;
                 saveGame.saveLevel(hintsAvaiable, packsLevel);
 
                 state = State.END;
             }
         }
     }
+
     //Inicio de nuevo nivel
-    private void StartNewLevel()
+    public void StartNewLevel()
     {
-        
         levelManager.setFinishedLevel(false);
         state = State.RUN;
-        
-        if (!iceLevelsToPlay)
-        {
 
-            levelManager.setNewLevel(levelPackages[0].levels[levelToPlay]);
-           
-            
-        }
-        else {
-            
-            levelManager.setTextAsset(levelPackages[1].levels[levelToPlay]);
-            
-        }
+        levelManager.setNewLevel(levelPackages[packageNum].levels[levelNum]);
 
-            levelManager.setActualHints(0);
-            levelManager.startNewLevel(iceLevelsToPlay);
+        levelManager.setActualHints(0);
+        levelManager.startNewLevel(levelPackages[packageNum].isIce);
     }
 
     public void nextLevel()
     {
-        levelToPlay++;
+        levelNum++;
         StartNewLevel();
     }
 
@@ -153,7 +141,7 @@ public class GameManager : MonoBehaviour
     public void changeScene()
     {
         state = State.RUN;
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("GameScene");
     }
 
     public void selectPackage(int num)
@@ -169,6 +157,7 @@ public class GameManager : MonoBehaviour
     public void selectLevel(int num)
     {
         levelNum = num;
+        changeScene();
     }
 
     public State getState() { return state; }

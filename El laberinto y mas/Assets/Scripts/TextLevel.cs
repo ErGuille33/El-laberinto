@@ -5,16 +5,15 @@ using UnityEngine.UI;
 
 public class TextLevel : MonoBehaviour
 {
-    public GameManager gm;
     void Update()
     {
-        if (gm.iceLevelsToPlay)
+        if (GameManager._instance.levelPackages[GameManager.packageNum].isIce)
         {
-            GetComponent<Text>().text = "PISO DE HIELO" + " - " + (gm.levelToPlay + 1);
+            GetComponent<Text>().text = "PISO DE HIELO" + " - " + (GameManager.levelNum + 1);
         }
         else
         {
-            GetComponent<Text>().text = "CLASICO" + " - " + (gm.levelToPlay + 1);
+            GetComponent<Text>().text = "CLASICO" + " - " + (GameManager.levelNum + 1);
         }
     }
 }

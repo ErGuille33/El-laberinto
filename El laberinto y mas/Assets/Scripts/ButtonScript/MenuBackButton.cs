@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class MenuBackButton : MonoBehaviour
 {
-    // Start is called before the first frame update
-    GameManager gm;
+    public LevelsContent levels;
     void Start()
     {
         gameObject.GetComponent<Button>().onClick.AddListener(Back);
@@ -15,7 +14,8 @@ public class MenuBackButton : MonoBehaviour
     // Update is called once per frame
     void Back()
     {
-        if(GameManager._instance.state == GameManager.State.LEV)
+        levels.eraseChildren();
+        if (GameManager._instance.state == GameManager.State.LEV)
         {
             GameManager._instance.state = GameManager.State.PACK;
         }

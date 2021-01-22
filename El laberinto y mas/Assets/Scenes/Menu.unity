@@ -368,7 +368,7 @@ GameObject:
   - component: {fileID: 729954595}
   - component: {fileID: 729954598}
   m_Layer: 5
-  m_Name: Button
+  m_Name: HomeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -485,6 +485,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4788857d53f6b847b2f12e27cb64507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levels: {fileID: 2097120310}
 --- !u!1 &796004668
 GameObject:
   m_ObjectHideFlags: 0
@@ -1422,7 +1423,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2097120305
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1440,7 +1441,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 399.99997}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 754, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &2097120306
 MonoBehaviour:
