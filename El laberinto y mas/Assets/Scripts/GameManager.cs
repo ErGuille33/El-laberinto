@@ -25,6 +25,12 @@ public class GameManager : MonoBehaviour
     public static int packageNum;
     public static int levelNum;
 
+#if UNITY_EDITOR
+    private static bool fromMenu;
+    public int packageToPlay;
+    public int levelToPlay;
+#endif
+
     void Awake()
     {
         if (_instance != null)
@@ -42,6 +48,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+
         int maxSize = 1;
         int auxSize = 0;
 
@@ -95,6 +102,12 @@ public class GameManager : MonoBehaviour
     //Inicio de nuevo nivel
     public void StartNewLevel()
     {
+        if (!fromMenu)
+        {
+            packageNum = packageToPlay;
+            levelNum = levelToPlay;
+        }
+
         levelManager.setFinishedLevel(false);
         state = State.RUN;
 
@@ -151,6 +164,7 @@ public class GameManager : MonoBehaviour
     public void changeScene()
     {
         state = State.RUN;
+        fromMenu = true;
         SceneManager.LoadScene("GameScene");
     }
 
