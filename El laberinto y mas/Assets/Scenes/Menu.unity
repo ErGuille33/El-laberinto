@@ -1076,7 +1076,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 101784352}
   m_HandleRect: {fileID: 101784351}
   m_Direction: 3
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -2053,6 +2053,7 @@ MonoBehaviour:
   button: {fileID: 6640207281433608165, guid: 527415b1690f53440acdc529e22a53b3, type: 3}
   iceButton: {fileID: 1371048936691914379, guid: 44931d3e57c19b24ba42e1876362cf3f,
     type: 3}
+  candado: {fileID: 3825309992358136983, guid: eed1b79c79bd0244a8a88c3735bd8a33, type: 3}
 --- !u!1 &2097231225 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1696963098600927107, guid: c91ef06914225854988c169efa04bef8,
@@ -2080,7 +2081,6 @@ MonoBehaviour:
   nHints: 0
   state: 6
   hintsAvaiable: 0
-  iceLevelsToPlay: 0
 --- !u!1 &2117898927
 GameObject:
   m_ObjectHideFlags: 0

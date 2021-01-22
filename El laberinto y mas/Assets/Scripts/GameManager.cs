@@ -22,8 +22,6 @@ public class GameManager : MonoBehaviour
 
     public int hintsAvaiable;
 
-    public bool iceLevelsToPlay;
-
     public static int packageNum;
     public static int levelNum;
 
@@ -60,25 +58,22 @@ public class GameManager : MonoBehaviour
 
         print(hintsAvaiable);
         print(packsLevel[0]);
-
-        //if (state != State.PACK && state != State.LEV)
-        //{
-        //    StartNewLevel();
-        //    state = State.RUN;
-        //}
     }
 
     void Update()
     {
         if (state != State.PACK && state != State.LEV && state != State.INI)
         {
-            if (levelManager.finishedLevel)
+            if (levelManager != null)
             {
-                if (levelNum - 1 > packsLevel[0])
-                    packsLevel[0] = levelNum - 1;
-                saveGame.saveLevel(hintsAvaiable, packsLevel);
+                if (levelManager.finishedLevel)
+                {
+                    if (levelNum > packsLevel[packageNum])
+                        packsLevel[packageNum] = levelNum+1;
+                    saveGame.saveLevel(hintsAvaiable, packsLevel);
 
-                state = State.END;
+                    state = State.END;
+                }
             }
         }
         else if(state == State.INI)
@@ -168,6 +163,11 @@ public class GameManager : MonoBehaviour
     {
         levelNum = num;
         changeScene();
+    }
+
+    public int getLastLevel(int pack)
+    {
+        return packsLevel[pack];
     }
 
     public State getState() { return state; }

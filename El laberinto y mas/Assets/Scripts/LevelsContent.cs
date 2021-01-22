@@ -6,23 +6,31 @@ public class LevelsContent : MonoBehaviour
 {
     public GameObject button;
     public GameObject iceButton;
+    public GameObject candado;
 
     public void createChildren()
     {
         eraseChildren();
         for (int i = 0; i < GameManager._instance.levelPackages[GameManager._instance.getPackageNum()].levels.Length; i++)
         {
-            GameObject aux;
-            if (GameManager._instance.levelPackages[GameManager._instance.getPackageNum()].isIce)
+            if (i == 0 || i <= GameManager._instance.getLastLevel(GameManager._instance.getPackageNum()))
             {
-                aux = Instantiate(iceButton);
-            }
-            else
+                GameObject aux;
+                if (GameManager._instance.levelPackages[GameManager._instance.getPackageNum()].isIce)
+                {
+                    aux = Instantiate(iceButton);
+                }
+                else
+                {
+                    aux = Instantiate(button);
+                }
+                aux.transform.parent = transform;
+                aux.GetComponent<LevelButton>().num = i;
+            } else
             {
-                aux = Instantiate(button);
+                GameObject aux = Instantiate(candado);
+                aux.transform.parent = transform;
             }
-            aux.transform.parent = transform;
-            aux.GetComponent<LevelButton>().num = i;
         }
     }
 
