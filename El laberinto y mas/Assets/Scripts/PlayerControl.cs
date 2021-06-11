@@ -20,7 +20,7 @@ public class PlayerControl : MonoBehaviour
 
     void Update()
     {
-        if (GameManager._instance.getState() == GameManager.State.RUN)
+        if (GameManager._instance.getRunningGame())
         {
             GetComponent<SpriteRenderer>().enabled = true;
             if (!inicializado && levelManager.playerCasilla != null)
@@ -45,7 +45,7 @@ public class PlayerControl : MonoBehaviour
                 levelManager.MovePlayer(dir);
                 dir = Dir.STOP;
             }
-        } else if (GameManager._instance.getState() == GameManager.State.END)
+        } else if (GameManager._instance.getLevelFinished())
         {
             GetComponent<SpriteRenderer>().enabled = false;
             dir = Dir.STOP;

@@ -20,7 +20,7 @@ public class PackagesContent : MonoBehaviour
                 aux = Instantiate(button);
             }
             aux.transform.SetParent(transform)  ;
-            aux.GetComponent<PackageButton>().num = i;
+            //aux.GetComponent<PackageButton>().num = i;
         }
     }
 }

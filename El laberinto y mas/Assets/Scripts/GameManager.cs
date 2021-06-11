@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 //Game manager de todo el juego
 public class GameManager : MonoBehaviour
 {
-    public enum State { RUN, PAUSE, PAUSE2, END, PACK, LEV, INI }
+    //public enum State { RUN, PAUSE, PAUSE2, END, PACK, LEV, INI }
 
     [SerializeField]
     private LevelPackage[] levelPackages;
@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int nHints;
 
-    public State state;
+    //public State state;
 
     [SerializeField]
     private int hintsAvaiable;
@@ -47,6 +47,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private int levelToPlay;
+
+    private bool runningGame;
+    private bool levelFinished;
 #endif
 
     void Awake()
@@ -88,7 +91,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         //Solo si esta en el juego
-        if (state != State.PACK && state != State.LEV && state != State.INI)
+        if (runningGame)
         {
             if (levelManager != null)
             {
@@ -102,13 +105,14 @@ public class GameManager : MonoBehaviour
                     {
                         home();
                     }
-
-                    state = State.END;
+                    runningGame = false;
+                    levelFinished = true;
                     gridManager.activateGrid(false);
                    
                 }
             }
         }
+        /*
         else if(state == State.INI)
         {
             IniMenu.SetActive(true);
@@ -116,7 +120,7 @@ public class GameManager : MonoBehaviour
         else
         {
             IniMenu.SetActive(false);
-        }
+        }*/
     }
 
     //Inicio de nuevo nivel
@@ -130,7 +134,9 @@ public class GameManager : MonoBehaviour
 
         levelManager.setFinishedLevel(false);
 
-        state = State.RUN;
+        runningGame = true;
+        levelFinished = false;
+
         gridManager.activateGrid(true);
 
         levelManager.setNewLevel(levelPackages[packageNum].levels[levelNum]);
@@ -141,21 +147,10 @@ public class GameManager : MonoBehaviour
 
     public void nextLevel()
     {
-        levelNum++;
+        levelToPlay++;
         StartNewLevel();
     }
 
-    public void showHintsPanel()
-    {
-        state = State.PAUSE;
-        gridManager.activateGrid(true);
-    }
-
-    public void hideHintsPanel()
-    {
-        state = State.RUN;
-        gridManager.activateGrid(true);
-    }
 
     public void useHint()
     {
@@ -165,7 +160,6 @@ public class GameManager : MonoBehaviour
             {
                 hintsAvaiable -= 1;
             }
-            hideHintsPanel();
         }
     }
 
@@ -175,10 +169,6 @@ public class GameManager : MonoBehaviour
         saveGame.saveLevel(hintsAvaiable, packsLevel);
     }
 
-    public void pause()
-    {
-        state = State.PAUSE2;
-    }
 
     public void home()
     {
@@ -187,15 +177,11 @@ public class GameManager : MonoBehaviour
 
     public void changeScene()
     {
-        state = State.RUN;
+        runningGame = true;
+        levelFinished = false;
+
         fromMenu = true;
         SceneManager.LoadScene("GameScene");
-    }
-
-    public void selectPackage(int num)
-    {
-        packageNum = num;
-        state = State.LEV;
     }
 
     public int getPackageNum()
@@ -213,7 +199,6 @@ public class GameManager : MonoBehaviour
         return packsLevel[pack];
     }
 
-    public State getState() { return state; }
 
     public int getLevelNum() { return levelNum; }
     public int getHintsAvaliable() { return hintsAvaiable; }
@@ -221,6 +206,11 @@ public class GameManager : MonoBehaviour
     public LevelPackage getActualPackage() { return levelPackages[packageNum]; }
 
     public LevelPackage[] getLevelPackages() { return levelPackages; }
+
+    public bool getRunningGame() { return runningGame; }
+
+    public bool getLevelFinished() { return levelFinished; }
+
 
     public static GameManager _instance;
 

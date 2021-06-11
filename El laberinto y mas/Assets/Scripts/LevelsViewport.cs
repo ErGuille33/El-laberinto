@@ -7,6 +7,7 @@ public class LevelsViewport : MonoBehaviour
     private bool created;
     void Update()
     {
+        /*
         if (GameManager._instance.state != GameManager.State.LEV)
         {
             transform.GetChild(0).gameObject.SetActive(false);
@@ -19,5 +20,7 @@ public class LevelsViewport : MonoBehaviour
                 transform.GetChild(0).gameObject.GetComponent<LevelsContent>().createChildren();
             created = true;
         }
+        */
     }
+    
 }

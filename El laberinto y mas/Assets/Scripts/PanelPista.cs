@@ -7,6 +7,7 @@ public class PanelPista : MonoBehaviour
 {
     void Update()
     {
+        /*
         if (GameManager._instance.getState() == GameManager.State.PAUSE)
         {
             gameObject.GetComponent<Image>().enabled = true;
@@ -17,5 +18,6 @@ public class PanelPista : MonoBehaviour
             gameObject.GetComponent<Image>().enabled = false;
             transform.GetChild(0).gameObject.SetActive(false);
         }
+        */
     }
 }

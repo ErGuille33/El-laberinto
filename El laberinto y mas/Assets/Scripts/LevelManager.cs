@@ -383,6 +383,7 @@ public class LevelManager : MonoBehaviour
             if (Vector2.Distance(player.transform.position, mat.endCasilla.transform.position) < 0.2)
             {
                 finishedLevel = true;
+                GameManager._instance.nextLevel();
             }
         }
     }

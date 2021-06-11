@@ -7,6 +7,7 @@ public class PanelFin : MonoBehaviour
 {
     void Update()
     {
+        /*
         if (GameManager._instance.getState() == GameManager.State.END)
         {
             gameObject.GetComponent<Image>().enabled = true;
@@ -17,5 +18,7 @@ public class PanelFin : MonoBehaviour
             gameObject.GetComponent<Image>().enabled = false;
             transform.GetChild(0).gameObject.SetActive(false);
         }
+        */
     }
+
 }

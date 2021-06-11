@@ -25,7 +25,7 @@ public class TwitterButton : MonoBehaviour
     // Update is called once per frame
     void shareOnTwitter()
     {
-        if (GameManager._instance.state != GameManager.State.INI)
+        /*if (GameManager._instance.state != GameManager.State.INI)
         {
             Application.OpenURL(TWITTER_ADDRESS + "?text=" + UnityWebRequest.EscapeURL(twitterNameParamter + twitterLevelCompleted + (GameManager._instance.getLevelNum() + 1) + twitterDescriptionParam + "\n" + LINK_GAME));
             GameManager._instance.buyHint();
@@ -35,5 +35,6 @@ public class TwitterButton : MonoBehaviour
             Application.OpenURL(TWITTER_ADDRESS + "?text=" + UnityWebRequest.EscapeURL(twitterNameParamter + twitterDescriptionParam + "\n" + LINK_GAME));
             GameManager._instance.buyHint();
         }
+        */
     }
 }
