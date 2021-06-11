@@ -11,13 +11,13 @@ public class LevelsContent : MonoBehaviour
     public void createChildren()
     {
         eraseChildren();
-        for (int i = 0; i < GameManager._instance.levelPackages[GameManager._instance.getPackageNum()].levels.Length; i++)
+        for (int i = 0; i < GameManager._instance.getLevelPackages()[GameManager._instance.getPackageNum()].levels.Length; i++)
         {
             //Colocar niveles hasta el ultimo completado, y a partir de ahi candados
             if (i == 0 || i <= GameManager._instance.getLastLevel(GameManager._instance.getPackageNum()))
             {
                 GameObject aux;
-                if (GameManager._instance.levelPackages[GameManager._instance.getPackageNum()].isIce)
+                if (GameManager._instance.getLevelPackages()[GameManager._instance.getPackageNum()].isIce)
                 {
                     aux = Instantiate(iceButton);
                 }

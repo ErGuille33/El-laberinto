@@ -8,10 +8,10 @@ public class PackagesContent : MonoBehaviour
     public GameObject iceButton;
     void Start()
     {
-        for(int i = 0; i < GameManager._instance.levelPackages.Length; i++)
+        for(int i = 0; i < GameManager._instance.getLevelPackages().Length; i++)
         {
             GameObject aux;
-            if(GameManager._instance.levelPackages[i].isIce)
+            if(GameManager._instance.getLevelPackages()[i].isIce)
             {
                 aux = Instantiate(iceButton);
             }

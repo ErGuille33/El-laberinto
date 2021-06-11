@@ -5,10 +5,9 @@ using UnityEngine.UI;
 
 public class HintsText : MonoBehaviour
 {
-    public GameManager gm;
 
     void Update()
     {
-        GetComponent<Text>().text = gm.hintsAvaiable.ToString();
+        GetComponent<Text>().text = GameManager._instance.getHintsAvaliable().ToString();
     }
 }

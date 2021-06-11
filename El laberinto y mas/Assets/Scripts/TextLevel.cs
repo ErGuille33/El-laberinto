@@ -7,13 +7,13 @@ public class TextLevel : MonoBehaviour
 {
     void Update()
     {
-        if (GameManager._instance.levelPackages[GameManager.packageNum].isIce)
+        if (GameManager._instance.getActualPackage().isIce)
         {
-            GetComponent<Text>().text = "PISO DE HIELO" + " - " + (GameManager.levelNum + 1);
+            GetComponent<Text>().text = "PISO DE HIELO" + " - " + (GameManager._instance.getLevelNum() + 1);
         }
         else
         {
-            GetComponent<Text>().text = "CLASICO" + " - " + (GameManager.levelNum + 1);
+            GetComponent<Text>().text = "CLASICO" + " - " + (GameManager._instance.getLevelNum() + 1);
         }
     }
 }

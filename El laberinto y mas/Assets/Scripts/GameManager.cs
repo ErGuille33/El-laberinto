@@ -8,27 +8,45 @@ public class GameManager : MonoBehaviour
 {
     public enum State { RUN, PAUSE, PAUSE2, END, PACK, LEV, INI }
 
-    public LevelPackage[] levelPackages;
-    public LevelManager levelManager = null;
+    [SerializeField]
+    private LevelPackage[] levelPackages;
 
-    public GameObject IniMenu;
+    [SerializeField]
+    private GridManager gridManager;
+
+    [SerializeField]
+    private LevelManager levelManager = null;
+
+    [SerializeField]
+    private GameObject IniMenu;
 
     SaveGame saveGame;
 
-    public int[] packsLevel;
-    public int nHints;
+    [SerializeField]
+    private int[] packsLevel;
+
+    [SerializeField]
+    private int nHints;
 
     public State state;
 
-    public int hintsAvaiable;
+    [SerializeField]
+    private int hintsAvaiable;
 
-    public static int packageNum;
-    public static int levelNum;
+    [SerializeField]
+    private int packageNum;
+    [SerializeField]
+    private int levelNum;
 
 #if UNITY_EDITOR
-    private static bool fromMenu;
-    public int packageToPlay;
-    public int levelToPlay;
+    [SerializeField]
+    private bool fromMenu;
+
+    [SerializeField]
+    private int packageToPlay;
+
+    [SerializeField]
+    private int levelToPlay;
 #endif
 
     void Awake()
@@ -86,6 +104,8 @@ public class GameManager : MonoBehaviour
                     }
 
                     state = State.END;
+                    gridManager.activateGrid(false);
+                   
                 }
             }
         }
@@ -109,7 +129,9 @@ public class GameManager : MonoBehaviour
         }
 
         levelManager.setFinishedLevel(false);
+
         state = State.RUN;
+        gridManager.activateGrid(true);
 
         levelManager.setNewLevel(levelPackages[packageNum].levels[levelNum]);
 
@@ -126,11 +148,13 @@ public class GameManager : MonoBehaviour
     public void showHintsPanel()
     {
         state = State.PAUSE;
+        gridManager.activateGrid(true);
     }
 
     public void hideHintsPanel()
     {
         state = State.RUN;
+        gridManager.activateGrid(true);
     }
 
     public void useHint()
@@ -190,6 +214,13 @@ public class GameManager : MonoBehaviour
     }
 
     public State getState() { return state; }
+
+    public int getLevelNum() { return levelNum; }
+    public int getHintsAvaliable() { return hintsAvaiable; }
+
+    public LevelPackage getActualPackage() { return levelPackages[packageNum]; }
+
+    public LevelPackage[] getLevelPackages() { return levelPackages; }
 
     public static GameManager _instance;
 

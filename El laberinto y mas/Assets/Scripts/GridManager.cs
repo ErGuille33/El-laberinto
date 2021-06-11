@@ -7,12 +7,14 @@ public class GridManager : MonoBehaviour
     public GameObject grid;
 
     // Update is called once per frame
-    void Update()
+    public void activateGrid(bool active)
     {
+        grid.SetActive(active);
+        /*
         if (GameManager._instance.getState() == GameManager.State.END)
         {
             grid.SetActive(false);
         }
-        else grid.SetActive(true);
+        else grid.SetActive(true);*/
     }
 }

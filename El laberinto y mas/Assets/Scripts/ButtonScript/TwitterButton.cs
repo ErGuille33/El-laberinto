@@ -27,7 +27,7 @@ public class TwitterButton : MonoBehaviour
     {
         if (GameManager._instance.state != GameManager.State.INI)
         {
-            Application.OpenURL(TWITTER_ADDRESS + "?text=" + UnityWebRequest.EscapeURL(twitterNameParamter + twitterLevelCompleted + (GameManager.levelNum + 1) + twitterDescriptionParam + "\n" + LINK_GAME));
+            Application.OpenURL(TWITTER_ADDRESS + "?text=" + UnityWebRequest.EscapeURL(twitterNameParamter + twitterLevelCompleted + (GameManager._instance.getLevelNum() + 1) + twitterDescriptionParam + "\n" + LINK_GAME));
             GameManager._instance.buyHint();
         }
         else
