@@ -16,7 +16,23 @@ public class PlayerControl : MonoBehaviour
     private Vector3 touchStartPos, touchEndPos;
     private Touch touch;
 
+    private GameObject[] arrows = new GameObject [4];
+
     bool inicializado = false;
+
+    private void Start()
+    {
+        //Flechas
+        if (transform.childCount == 4)
+        {
+            
+            for (int i = 0; i < 4; i++) {
+
+                arrows[i] = transform.GetChild(i).gameObject;
+                arrows[i].GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
+            }
+        }
+    }
 
     void Update()
     {
@@ -30,13 +46,19 @@ public class PlayerControl : MonoBehaviour
             }
 
             // Deteccion de input
-            if (!moving && touchMovement() != Dir.STOP) moving = true;
+            if (!moving && touchMovement() != Dir.STOP)
+            {
+                moving = true;
+                hideArrows();
+            }
             else if (levelManager.playerCasilla != null)
             {
                 if (transform.position == levelManager.playerCasilla.transform.position)
                 {
                     dir = Dir.STOP;
                     moving = false;
+
+                    setArrowsActive(levelManager.getPossibleMoves());
                 }
             }
             if (dir != Dir.STOP)
@@ -58,6 +80,25 @@ public class PlayerControl : MonoBehaviour
         if(moving)
             transform.position = Vector3.MoveTowards(transform.position, levelManager.playerCasilla.transform.position, 0.15f);
     }
+
+    public void setArrowsActive(bool[] active)
+    {
+       
+       for(int i = 0; i < arrows.Length; i++)
+        {
+            arrows[i].SetActive(active[i]);
+        }
+       
+    }
+
+    public void hideArrows()
+    {
+        for (int i = 0; i < arrows.Length; i++)
+        {
+            arrows[i].SetActive(false);
+        }
+    }
+
     //Input táctil
     Dir touchMovement()
     {

@@ -8,24 +8,25 @@ using UnityEngine.PlayerLoop;
 //EL level manager leerá los niveles y pasará los datos pertinentes al tablero, y tambien se encargará de la lógica de cada nivel
 public class LevelManager : MonoBehaviour
 {
-    //Archivo y matriz
+    //Archivo y matriz de casillas lógica
     public MatrixCasillas mat;
+    //Posición lógica del jugador en la casilla de la matriz
+    public Casilla playerCasilla;
+
     public TextAsset level;
 
-    //Datos del nivel
+    //Para leer datos del nivel
     protected LevelData lvlData;
     protected WallsData[] walls;
     protected bool[,,] wallsArray = new bool [500, 500, 4];
     protected bool[,] isIcedarray = new bool[500, 500];
-    //Casilla del jugador
-    public Casilla playerCasilla;
     public GameObject player;
     public Color col;
 
     Vector2 endCasillaVector;
     Vector2 startCasilla;
 
-    //Cola con las partes del path pendientes de pintar
+    //Cola con las partes del path pendientes de pintar. De esta manera se va creando poco a poco
     Queue<Vector3> colaPath = new Queue<Vector3>();
 
     //Variables para la partida
@@ -273,6 +274,7 @@ public class LevelManager : MonoBehaviour
                 {
 
                         colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 0));
+                        //Posición lógica
                         playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos - 1].GetComponent<Casilla>();
                         mat.playerYPos--;
                         colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 2));
@@ -284,6 +286,7 @@ public class LevelManager : MonoBehaviour
                 if (playerCasilla._casillaAdyacente[2])
                 {
                     colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 2));
+                    //Posición lógica
                     playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos + 1].GetComponent<Casilla>();
                     mat.playerYPos++;
                     colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 0));
@@ -295,6 +298,7 @@ public class LevelManager : MonoBehaviour
                 {
 
                         colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 1));
+                        //Posición lógica     
                         playerCasilla = mat.casillas[mat.playerXPos + 1, mat.playerYPos].GetComponent<Casilla>();
                         mat.playerXPos++;
                         colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 3));
@@ -306,6 +310,7 @@ public class LevelManager : MonoBehaviour
                 if (playerCasilla._casillaAdyacente[3])
                 {
                     colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 3));
+                    //Posición lógica
                     playerCasilla = mat.casillas[mat.playerXPos - 1, mat.playerYPos].GetComponent<Casilla>();
                     mat.playerXPos--;
                     colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 1));
@@ -314,9 +319,8 @@ public class LevelManager : MonoBehaviour
              
                 break;
         }
+
     }
-
-
 
     //Método que mueve el jugador reiterativamente mientras sea necesario
     private void playerMoveUp()
@@ -375,11 +379,26 @@ public class LevelManager : MonoBehaviour
             
         }
     }
+
+    //Método que se llama desde player para las flechas que indican las posibles direcciones
+    public bool[] getPossibleMoves()
+    {
+        bool[] possibleMoves = { false, false, false, false };
+
+        for(int i = 0; i < 4; i++)
+        {
+            possibleMoves[i] = playerCasilla._casillaAdyacente[i];
+        }
+
+        return possibleMoves;
+    }
+
     //Comprueba victoria
     public void checkWin()
     {
-        if (playerCasilla != null)
+        if (playerCasilla != null && playerCasilla == mat.endCasilla)
         {
+            //Lo hacemos por distancia y no por lógica para que no se realice el cambio de nivel hasta que el jugador llegue al centro de la casilla de destino
             if (Vector2.Distance(player.transform.position, mat.endCasilla.transform.position) < 0.2)
             {
                 finishedLevel = true;
@@ -422,10 +441,10 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        checkWin();
         paintPath();
-        //Colocamos este script en el update para poder modificar las pistas desde el editor. Si no fuera asi, lo lanzaríamos sólo desde el game manager al gastar una pista
-        setHintsArray();
+
+        checkWin();
+   
     }
     //Adaptamos los datos del json y preparamos el array de hints dependiendo del número que tengamos
     protected void setHintsArray()
@@ -603,6 +622,8 @@ public class LevelManager : MonoBehaviour
         if (actualHints < 3)
         {
             actualHints++;
+            //Colocamos este script en el update para poder modificar las pistas desde el editor. Si no fuera asi, lo lanzaríamos sólo desde el game manager al gastar una pista
+            setHintsArray();
             return true;
         }
         else return false;
