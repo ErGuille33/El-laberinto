@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityEngine.UI", "UnityEngine.UI.csproj", "{C7AFC25C-F0C8-5546-E56B-F2D11F240829}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityEngine.TestRunner", "UnityEngine.TestRunner.csproj", "{330D066B-34BE-8128-FF66-6C169B14A683}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.2D.Animation.Triangle.Runtime", "Unity.2D.Animation.Triangle.Runtime.csproj", "{41D54EC6-5997-B8AB-11B8-1050F5007A79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityEngine.UI", "UnityEngine.UI.csproj", "{C7AFC25C-F0C8-5546-E56B-F2D11F240829}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.TextMeshPro", "Unity.TextMeshPro.csproj", "{503337E6-3D71-FAA9-592E-D52B85D20FF5}"
 EndProject
@@ -77,10 +77,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C7AFC25C-F0C8-5546-E56B-F2D11F240829}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C7AFC25C-F0C8-5546-E56B-F2D11F240829}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C7AFC25C-F0C8-5546-E56B-F2D11F240829}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C7AFC25C-F0C8-5546-E56B-F2D11F240829}.Release|Any CPU.Build.0 = Release|Any CPU
 		{330D066B-34BE-8128-FF66-6C169B14A683}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{330D066B-34BE-8128-FF66-6C169B14A683}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{330D066B-34BE-8128-FF66-6C169B14A683}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -89,6 +85,10 @@ Global
 		{41D54EC6-5997-B8AB-11B8-1050F5007A79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{41D54EC6-5997-B8AB-11B8-1050F5007A79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41D54EC6-5997-B8AB-11B8-1050F5007A79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7AFC25C-F0C8-5546-E56B-F2D11F240829}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7AFC25C-F0C8-5546-E56B-F2D11F240829}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7AFC25C-F0C8-5546-E56B-F2D11F240829}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7AFC25C-F0C8-5546-E56B-F2D11F240829}.Release|Any CPU.Build.0 = Release|Any CPU
 		{503337E6-3D71-FAA9-592E-D52B85D20FF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{503337E6-3D71-FAA9-592E-D52B85D20FF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{503337E6-3D71-FAA9-592E-D52B85D20FF5}.Release|Any CPU.ActiveCfg = Release|Any CPU

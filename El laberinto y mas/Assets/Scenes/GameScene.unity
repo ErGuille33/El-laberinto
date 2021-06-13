@@ -464,7 +464,6 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
-  - component: {fileID: 519420030}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -480,22 +479,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
---- !u!114 &519420030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8aa503d781ffca4abddf915fa4fd005, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wireColor: {r: 0.16019939, g: 0.17674431, b: 0.754717, a: 1}
-  UnitsSize: 7
-  constraint: 0
-  camera: {fileID: 519420031}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -523,7 +506,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 2.0992324
+  orthographic size: 6.2222223
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1038,6 +1021,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grid
       objectReference: {fileID: 0}
+    - target: {fileID: 2834915284350503343, guid: 0a011cc4c7f692947b6a44470a44a852,
+        type: 3}
+      propertyPath: _cam
+      value: 
+      objectReference: {fileID: 519420031}
     - target: {fileID: 2834915284350503343, guid: 0a011cc4c7f692947b6a44470a44a852,
         type: 3}
       propertyPath: levelManager
