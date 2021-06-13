@@ -5,16 +5,33 @@ using UnityEngine.UI;
 
 public class LevelButton : MonoBehaviour
 {
-    public int num;
+    public Text text_;
+    public int num_;
+    public GameObject lockObject_;
+    public Image image_;
 
-    void Start()
+    bool locked_;
+
+    public void Init(int num, int packNum)
     {
-        gameObject.GetComponent<Button>().GetComponentInChildren<Text>().text = (num+1).ToString();
-        gameObject.GetComponent<Button>().onClick.AddListener(selectLevel);
+        num_ = num;
+        text_.text = (num_+1).ToString();
+        if (num > GameManager._instance.getPackLevels()[packNum])
+        {
+            lockObject_.SetActive(true);
+            locked_ = true;
+            text_.text = " ";
+        }
     }
 
-    void selectLevel()
+    public void setImage(Sprite image)
     {
-        GameManager._instance.selectLevel(num);
+        image_.sprite = image;
+    }
+
+    public void selectLevel()
+    {
+        if(!locked_)
+            GameManager._instance.selectLevel(num_);
     }
 }

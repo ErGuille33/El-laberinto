@@ -28,8 +28,6 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int nHints;
 
-    //public State state;
-
     [SerializeField]
     private int hintsAvaiable;
 
@@ -210,6 +208,8 @@ public class GameManager : MonoBehaviour
     public bool getRunningGame() { return runningGame; }
 
     public bool getLevelFinished() { return levelFinished; }
+
+    public int[] getPackLevels() { return packsLevel; }
 
 
     public static GameManager _instance;
