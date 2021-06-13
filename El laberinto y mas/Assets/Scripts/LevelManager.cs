@@ -243,7 +243,7 @@ public class LevelManager : MonoBehaviour
        
         mat.createNewMap(lvlData.r, lvlData.c, wallsArray, isIcedarray, endCasillaVector, startCasilla,col);
         playerCasilla = mat.casillas[(int)startCasilla.x, (int)startCasilla.y].GetComponent<Casilla>();
-        player.transform.localScale = new Vector2 ( mat.getSizeCasilla()*2.5f, 2.5f*mat.getSizeCasilla());
+        player.transform.localScale = new Vector2 (2.5f, 2.5f);
         player.transform.position = playerCasilla.transform.position;
 
         totalHints = lvlData.h.Length;

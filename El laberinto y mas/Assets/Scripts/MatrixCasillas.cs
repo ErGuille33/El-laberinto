@@ -23,11 +23,13 @@ public class MatrixCasillas : MonoBehaviour
     public float widthCasilla = 0;
     public float heigthCasilla = 0;
 
+    public Camera _cam;
+
     float sizeCasilla;
-    public float getSizeCasilla()
-    {
-        return sizeCasilla;
-    }
+
+
+
+
     //Resetear mapa y borrar todas las casillas
     public void resetMap()
     {
@@ -110,6 +112,40 @@ public class MatrixCasillas : MonoBehaviour
         }
 
     }
+    //Sólo se adaptara a la resolución del dispositivo sólo al crear cada mapa. Lo haremos cambiando el tamaño de la camara ortográfica
+    void adaptToResolution(int _cols, int _rows)
+    {
+        _cam.orthographic = true;
+
+        float unitsPerPixel;
+        float orthSize;
+
+        if (Math.Abs(Screen.width - Screen.height) > 400){
+            if (Screen.width > Screen.height)
+            {
+                unitsPerPixel = (float)_rows / (float)Screen.height;
+
+                orthSize = unitsPerPixel * Screen.width * 0.5f;
+
+            }
+            else 
+            {
+                unitsPerPixel = (float)_rows / (float)Screen.width;
+
+                orthSize = unitsPerPixel * Screen.height * 0.5f;
+
+            }
+        }
+        else
+        {
+            unitsPerPixel = (float)_rows / (float)Screen.width;
+
+            orthSize = unitsPerPixel * Screen.height * 0.5f * 1.25f;
+
+        }
+
+        _cam.orthographicSize = orthSize;
+    }
     //Método que recibe los datos necesarios para crear el tablero, y lo crea.
     public void createNewMap(int rows, int cols, bool[,,] wallsArray, bool[,] isIced, Vector2 isEnd, Vector2 isStart, Color color)
     {
@@ -117,10 +153,10 @@ public class MatrixCasillas : MonoBehaviour
         numCasillasY = rows;
         casillas = new GameObject[numCasillasX, numCasillasY];
 
-        prefabCasilla.GetComponent<Casilla>()._width = (5.3f / numCasillasX);
-        prefabCasilla.GetComponent<Casilla>()._heigth = (5.3f / numCasillasX);
+        prefabCasilla.GetComponent<Casilla>()._width = 1;
+        prefabCasilla.GetComponent<Casilla>()._heigth = 1;
 
-        sizeCasilla = 5.3f / numCasillasX;
+        sizeCasilla = 1;
 
         widthCasilla = prefabCasilla.GetComponent<Casilla>()._width;
         heigthCasilla = prefabCasilla.GetComponent<Casilla>()._heigth;
@@ -236,6 +272,8 @@ public class MatrixCasillas : MonoBehaviour
                 }
             }
         }
+
+        adaptToResolution(cols, rows);
 
     }
 }
