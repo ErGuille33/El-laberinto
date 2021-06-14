@@ -21,6 +21,7 @@ public class LevelManager : MonoBehaviour
     protected bool[,,] wallsArray = new bool [500, 500, 4];
     protected bool[,] isIcedarray = new bool[500, 500];
     public GameObject player;
+    public GameObject panelFin;
     public Color col;
 
     Vector2 endCasillaVector;
@@ -400,7 +401,9 @@ public class LevelManager : MonoBehaviour
             if (Vector2.Distance(player.transform.position, mat.endCasilla.transform.position) < 0.2)
             {
                 finishedLevel = true;
-                GameManager._instance.nextLevel();
+
+                //spawn panel
+                panelFin.SetActive(true);
             }
         }
     }
@@ -417,6 +420,7 @@ public class LevelManager : MonoBehaviour
     //Empezar un nuevo nivel
     public void startNewLevel(bool isIceLevel)
     {
+        panelFin.SetActive(false);
         iceLevel = isIceLevel;
         if (!iceLevel) 
             col = new Color(0.082f, 0.745f, 0.196f);
@@ -429,6 +433,11 @@ public class LevelManager : MonoBehaviour
         mat.resetMap();
         cargaJson();
 
+    }
+
+    public void restartLevel()
+    {
+        startNewLevel(iceLevel);
     }
 
     public void setActualHints(int num)

@@ -121,7 +121,6 @@ public class GameManager : MonoBehaviour
         StartNewLevel();
     }
 
-
     public void useHint()
     {
         if (hintsAvaiable > 0)
@@ -150,6 +149,16 @@ public class GameManager : MonoBehaviour
         runningGame = true;
         levelFinished = false;
         SceneManager.LoadScene("GameScene");
+    }
+
+    public void Pause()
+    {
+        runningGame = false;
+    }
+
+    public void Run()
+    {
+        runningGame = true;
     }
 
     public int getPackageNum()

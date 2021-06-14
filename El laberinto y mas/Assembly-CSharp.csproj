@@ -69,7 +69,6 @@
     <Compile Include="Assets\Scripts\ButtonScript\LevelButton.cs" />
     <Compile Include="Assets\Scripts\ButtonScript\NextLevelButton.cs" />
     <Compile Include="Assets\Scripts\ButtonScript\PackageButton.cs" />
-    <Compile Include="Assets\Scripts\ButtonScript\RestartButton.cs" />
     <Compile Include="Assets\Scripts\ButtonScript\TwitterButton.cs" />
     <Compile Include="Assets\Scripts\ButtonScript\UseHintButton.cs" />
     <Compile Include="Assets\Scripts\Casilla.cs" />
@@ -81,8 +80,6 @@
     <Compile Include="Assets\Scripts\LevelsContent.cs" />
     <Compile Include="Assets\Scripts\MatrixCasillas.cs" />
     <Compile Include="Assets\Scripts\PackageContent.cs" />
-    <Compile Include="Assets\Scripts\PanelFin.cs" />
-    <Compile Include="Assets\Scripts\PanelPista.cs" />
     <Compile Include="Assets\Scripts\PlayerControl.cs" />
     <Compile Include="Assets\Scripts\SaveGame.cs" />
     <Compile Include="Assets\Scripts\TextLevel.cs" />
