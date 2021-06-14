@@ -39,12 +39,10 @@ public class LevelManager : MonoBehaviour
     private int auxInvertedCoord;
     private int auxTotalCols;
 
-    // Start is called before the first frame update
     void Start()
     {
         GameManager._instance.StartNewLevel();
     }
-    
 
     //Para poner el nivel 
     public void setTextAsset(TextAsset lvl)

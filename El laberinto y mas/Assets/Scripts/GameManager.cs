@@ -6,19 +6,12 @@ using UnityEngine.SceneManagement;
 //Game manager de todo el juego
 public class GameManager : MonoBehaviour
 {
-    //public enum State { RUN, PAUSE, PAUSE2, END, PACK, LEV, INI }
 
     [SerializeField]
     private LevelPackage[] levelPackages;
 
     [SerializeField]
-    private GridManager gridManager;
-
-    [SerializeField]
     private LevelManager levelManager = null;
-
-    [SerializeField]
-    private GameObject IniMenu;
 
     SaveGame saveGame;
 
@@ -31,24 +24,14 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int hintsAvaiable;
 
-    [SerializeField]
     private int packageNum;
-    [SerializeField]
     private int levelNum;
 
-#if UNITY_EDITOR
-    [SerializeField]
-    private bool fromMenu;
-
-    [SerializeField]
     private int packageToPlay;
-
-    [SerializeField]
     private int levelToPlay;
 
     private bool runningGame;
     private bool levelFinished;
-#endif
 
     void Awake()
     {
@@ -58,11 +41,15 @@ public class GameManager : MonoBehaviour
             DestroyImmediate(gameObject);
             return;
         }
-        else _instance = this;
+        else
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
 
         saveGame = gameObject.AddComponent<SaveGame>();
         QualitySettings.vSyncCount = 0;   // Deshabilitamos el vSync
-        Application.targetFrameRate = 60; // Forzamos un máximo de 15 fps.
+        Application.targetFrameRate = 60; // 60 fps, son 60 fps
     }
 
     private void Start()
@@ -105,37 +92,22 @@ public class GameManager : MonoBehaviour
                     }
                     runningGame = false;
                     levelFinished = true;
-                    gridManager.activateGrid(false);
                    
                 }
             }
         }
-        /*
-        else if(state == State.INI)
-        {
-            IniMenu.SetActive(true);
-        }
-        else
-        {
-            IniMenu.SetActive(false);
-        }*/
     }
 
     //Inicio de nuevo nivel
     public void StartNewLevel()
     {
-        if (!fromMenu)
-        {
-            packageNum = packageToPlay;
-            levelNum = levelToPlay;
-        }
+        packageNum = packageToPlay;
+        levelNum = levelToPlay;
 
         levelManager.setFinishedLevel(false);
 
         runningGame = true;
         levelFinished = false;
-
-        gridManager.activateGrid(true);
 
         levelManager.setNewLevel(levelPackages[packageNum].levels[levelNum]);
 
@@ -177,8 +149,6 @@ public class GameManager : MonoBehaviour
     {
         runningGame = true;
         levelFinished = false;
-
-        fromMenu = true;
         SceneManager.LoadScene("GameScene");
     }
 
@@ -186,9 +156,10 @@ public class GameManager : MonoBehaviour
     {
         return packageNum;
     }
-    public void selectLevel(int num)
+    public void selectLevel(int pack, int num)
     {
-        levelNum = num;
+        packageToPlay = pack;
+        levelToPlay = num;
         changeScene();
     }
 

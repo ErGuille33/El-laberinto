@@ -7,6 +7,7 @@ public class LevelButton : MonoBehaviour
 {
     public Text text_;
     public int num_;
+    int pack_;
     public GameObject lockObject_;
     public Image image_;
 
@@ -15,6 +16,7 @@ public class LevelButton : MonoBehaviour
     public void Init(int num, int packNum)
     {
         num_ = num;
+        pack_ = packNum;
         text_.text = (num_+1).ToString();
         if (num > GameManager._instance.getPackLevels()[packNum])
         {
@@ -32,6 +34,6 @@ public class LevelButton : MonoBehaviour
     public void selectLevel()
     {
         if(!locked_)
-            GameManager._instance.selectLevel(num_);
+            GameManager._instance.selectLevel(pack_, num_);
     }
 }
