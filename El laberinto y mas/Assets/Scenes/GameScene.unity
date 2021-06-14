@@ -3066,6 +3066,11 @@ PrefabInstance:
       objectReference: {fileID: 603012186}
     - target: {fileID: 3450368066208916689, guid: ecb82c3b56029de4dbce4d8e41dbe1cd,
         type: 3}
+      propertyPath: panelFin
+      value: 
+      objectReference: {fileID: 278839392}
+    - target: {fileID: 3450368066208916689, guid: ecb82c3b56029de4dbce4d8e41dbe1cd,
+        type: 3}
       propertyPath: actualHints
       value: 2
       objectReference: {fileID: 0}
