@@ -18,6 +18,13 @@ public class Casilla : MonoBehaviour
     //Sprite de acabado
     public GameObject endSprite;
 
+    public GameObject[] hintLine = new GameObject[4];
+
+    public GameObject[] paths = new GameObject[4];
+    public GameObject[] walls = new GameObject[4];
+
+
+
 
     public void setIced (bool iced) { _isIced = iced; }
     public bool getIced() { return _isIced; }

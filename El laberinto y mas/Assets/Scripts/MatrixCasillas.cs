@@ -13,7 +13,7 @@ public class MatrixCasillas : MonoBehaviour
     public GameObject prefabCasilla;
     public GameObject prefabWall;
     //Array de casillas
-    public GameObject[,] casillas;
+    public Casilla[,] casillas;
     //Casilla que corresponde al final
     public Casilla endCasilla;
     public Casilla startCasilla;
@@ -40,8 +40,7 @@ public class MatrixCasillas : MonoBehaviour
       
         endCasilla = null;
     }
-    //En estos metodos hacemos Find () ,pero hay que tener en cuenta en cuenta que estamos buscando a un hijo de casilla que va a existir siempre ya que forma parte del prefab
-    //por lo tanto no se va a dar el caso en el que de problemas. Somos conscientes de que en otros contextos puede causar problemas, pero como en este no decidimos activamente usarlo ya que facilita ligreramente el código
+    
     //Método que activa o desactiva las pistas en una casilla
     public void setHints(int casillaX, int casillaY, int from, int to, bool set)
     {
@@ -54,31 +53,31 @@ public class MatrixCasillas : MonoBehaviour
         switch (from)
         {
             case 0:
-                casillas[casillaX, casillaY].transform.Find("HintLine").gameObject.SetActive(set); 
+                casillas[casillaX, casillaY].hintLine[0].SetActive(set); 
                 break;
             case 1:
-                casillas[casillaX, casillaY].transform.Find("HintLine 1").gameObject.SetActive(set);
+                casillas[casillaX, casillaY].hintLine[1].SetActive(set);
                 break;
             case 2:
-                casillas[casillaX, casillaY].transform.Find("HintLine 2").gameObject.SetActive(set);
+                casillas[casillaX, casillaY].hintLine[2].SetActive(set);
                 break;
             case 3:
-                casillas[casillaX, casillaY].transform.Find("HintLine 3").gameObject.SetActive(set);
+                casillas[casillaX, casillaY].hintLine[3].SetActive(set);
                 break;
         }
         switch (to)
         {
             case 0:
-                casillas[casillaX, casillaY].transform.Find("HintLine").gameObject.SetActive(set);
+                casillas[casillaX, casillaY].hintLine[0].SetActive(set);
                 break;
             case 1:
-                casillas[casillaX, casillaY].transform.Find("HintLine 1").gameObject.SetActive(set);
+                casillas[casillaX, casillaY].hintLine[1].SetActive(set);
                 break;
             case 2:
-                casillas[casillaX, casillaY].transform.Find("HintLine 2").gameObject.SetActive(set);
+                casillas[casillaX, casillaY].hintLine[3].SetActive(set);
                 break;
             case 3:
-                casillas[casillaX, casillaY].transform.Find("HintLine 3").gameObject.SetActive(set);
+                casillas[casillaX, casillaY].hintLine[4].SetActive(set);
                 break;
         }
 
@@ -90,24 +89,24 @@ public class MatrixCasillas : MonoBehaviour
         switch (from)
         {
             case 0:
-                if (casillas[casillaX, casillaY].transform.Find("PlayerPath").gameObject.activeSelf)
-                    casillas[casillaX, casillaY].transform.Find("PlayerPath").gameObject.SetActive(false);
-                else casillas[casillaX, casillaY].transform.Find("PlayerPath").gameObject.SetActive(true);
+                if (casillas[casillaX, casillaY].paths[0].gameObject.activeSelf)
+                    casillas[casillaX, casillaY].paths[0].gameObject.SetActive(false);
+                else casillas[casillaX, casillaY].paths[0].gameObject.SetActive(true);
                 break; 
             case 1:
-                if (casillas[casillaX, casillaY].transform.Find("PlayerPath 1").gameObject.activeSelf)
-                    casillas[casillaX, casillaY].transform.Find("PlayerPath 1").gameObject.SetActive(false);
-                else casillas[casillaX, casillaY].transform.Find("PlayerPath 1").gameObject.SetActive(true);
+                if (casillas[casillaX, casillaY].paths[1].gameObject.activeSelf)
+                    casillas[casillaX, casillaY].paths[1].gameObject.SetActive(false);
+                else casillas[casillaX, casillaY].paths[1].gameObject.SetActive(true);
                 break;
             case 2:
-                if (casillas[casillaX, casillaY].transform.Find("PlayerPath 2").gameObject.activeSelf)
-                    casillas[casillaX, casillaY].transform.Find("PlayerPath 2").gameObject.SetActive(false);
-                else casillas[casillaX, casillaY].transform.Find("PlayerPath 2").gameObject.SetActive(true);
+                if (casillas[casillaX, casillaY].paths[2].gameObject.activeSelf)
+                    casillas[casillaX, casillaY].paths[2].gameObject.SetActive(false);
+                else casillas[casillaX, casillaY].paths[2].gameObject.SetActive(true);
                 break;
             case 3:
-                if (casillas[casillaX, casillaY].transform.Find("PlayerPath 3").gameObject.activeSelf)
-                    casillas[casillaX, casillaY].transform.Find("PlayerPath 3").gameObject.SetActive(false);
-                else casillas[casillaX, casillaY].transform.Find("PlayerPath 3").gameObject.SetActive(true);
+                if (casillas[casillaX, casillaY].paths[3].gameObject.activeSelf)
+                    casillas[casillaX, casillaY].paths[3].gameObject.SetActive(false);
+                else casillas[casillaX, casillaY].paths[3].gameObject.SetActive(true);
                 break;
         }
 
@@ -151,15 +150,15 @@ public class MatrixCasillas : MonoBehaviour
     {
         numCasillasX = cols;
         numCasillasY = rows;
-        casillas = new GameObject[numCasillasX, numCasillasY];
+        casillas = new Casilla[numCasillasX, numCasillasY];
 
         prefabCasilla.GetComponent<Casilla>()._width = 1;
         prefabCasilla.GetComponent<Casilla>()._heigth = 1;
 
         sizeCasilla = 1;
 
-        widthCasilla = prefabCasilla.GetComponent<Casilla>()._width;
-        heigthCasilla = prefabCasilla.GetComponent<Casilla>()._heigth;
+        widthCasilla = 1;
+        heigthCasilla = 1;
 
 
         transform.position = new Vector2((widthCasilla / 2) - ((numCasillasX * widthCasilla) / 2), -(heigthCasilla / 2) + ((numCasillasY * heigthCasilla) / 2));
@@ -168,17 +167,17 @@ public class MatrixCasillas : MonoBehaviour
         {
             for (int j = 0; j < numCasillasY; j++)
             {
-                casillas[i, j] = Instantiate(prefabCasilla, transform);
+                casillas[i, j] = Instantiate(prefabCasilla, transform).GetComponent<Casilla>();
 
-                casillas[i, j].transform.Find("PlayerPath").GetComponent<SpriteRenderer>().color = color;
+                casillas[i, j].paths[0].GetComponent<SpriteRenderer>().color = color;
 
-                casillas[i, j].transform.Find("PlayerPath 1").GetComponent<SpriteRenderer>().color = color;
-
-
-                casillas[i, j].transform.Find("PlayerPath 2").GetComponent<SpriteRenderer>().color = color;
+                casillas[i, j].paths[1].GetComponent<SpriteRenderer>().color = color;
 
 
-                casillas[i, j].transform.Find("PlayerPath 3").GetComponent<SpriteRenderer>().color = color;
+                casillas[i, j].paths[2].GetComponent<SpriteRenderer>().color = color;
+
+
+                casillas[i, j].paths[3].GetComponent<SpriteRenderer>().color = color;
 
 
                 casillas[i, j].transform.position = new Vector2(transform.position.x + (i * widthCasilla), transform.position.y - (j * heigthCasilla));
@@ -186,12 +185,12 @@ public class MatrixCasillas : MonoBehaviour
                 if (i == isEnd.x && j == isEnd.y)
                 {
 
-                    casillas[i, j].GetComponent<Casilla>()._end = true;
-                    endCasilla = casillas[i, j].GetComponent<Casilla>();
+                    casillas[i, j]._end = true;
+                    endCasilla = casillas[i, j];
 
 
                 }
-                else casillas[i, j].GetComponent<Casilla>()._end = false;
+                else casillas[i, j]._end = false;
 
                 if (i == isStart.x && j == isStart.y)
                 {
@@ -202,21 +201,21 @@ public class MatrixCasillas : MonoBehaviour
 
                 for (int l = 0; l < 4; l++)
                 {
-                    casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[l] = wallsArray[i, j, l];
-                    if (casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[l] == false)
+                    casillas[i, j]._casillaAdyacente[l] = wallsArray[i, j, l];
+                    if (casillas[i, j]._casillaAdyacente[l] == false)
                     {
                         if (l == 0 || l == 2)
                         {
                             if (l == 0)
                             {
 
-                                casillas[i, j].transform.Find("Wall").gameObject.SetActive(true);
+                                casillas[i, j].walls[0].gameObject.SetActive(true);
 
                             }
 
                             else if (l == 2)
                             {
-                                casillas[i, j].transform.Find("Wall 2").gameObject.SetActive(true);
+                                casillas[i, j].walls[2].gameObject.SetActive(true);
                             }
 
                         }
@@ -225,47 +224,47 @@ public class MatrixCasillas : MonoBehaviour
 
                             if (l == 1)
                             {
-                                casillas[i, j].transform.Find("Wall 1").gameObject.SetActive(true);
+                                casillas[i, j].walls[1].gameObject.SetActive(true);
                             }
 
                             else if (l == 3)
                             {
-                                casillas[i, j].transform.Find("Wall 3").gameObject.SetActive(true);
+                                casillas[i, j].walls[3].gameObject.SetActive(true);
                             }
 
                         }
                         //casilla superior derecha
                         if(i == numCasillasX - 1 && j == 0)
                         {
-                            casillas[i, j].transform.Find("Wall").gameObject.SetActive(true);
-                            casillas[i, j].transform.Find("Wall 1").gameObject.SetActive(true);
-                            casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[1] = false;
-                            casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[0] = false;
+                            casillas[i, j].walls[0].gameObject.SetActive(true);
+                            casillas[i, j].walls[1].gameObject.SetActive(true);
+                            casillas[i, j]._casillaAdyacente[1] = false;
+                            casillas[i, j]._casillaAdyacente[0] = false;
                         }
                         //Casilla superior izquierda
                         else if (i == 0 && j == 0)
                         {
-                            casillas[i, j].transform.Find("Wall").gameObject.SetActive(true);
-                            casillas[i, j].transform.Find("Wall 3").gameObject.SetActive(true);
-                            casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[0] = false;
-                            casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[3] = false;
+                            casillas[i, j].walls[0].gameObject.SetActive(true);
+                            casillas[i, j].walls[3].gameObject.SetActive(true);
+                            casillas[i, j]._casillaAdyacente[0] = false;
+                            casillas[i, j]._casillaAdyacente[3] = false;
                         }
                         //Casilla inferior izquierda
                         else if (i == 0 && j == numCasillasY - 1)
                         {
-                            casillas[i, j].transform.Find("Wall 2").gameObject.SetActive(true);
-                            casillas[i, j].transform.Find("Wall 3").gameObject.SetActive(true);
-                            casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[2] = false;
-                            casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[3] = false;
+                            casillas[i, j].walls[2].gameObject.SetActive(true);
+                            casillas[i, j].walls[3].gameObject.SetActive(true);
+                            casillas[i, j]._casillaAdyacente[2] = false;
+                            casillas[i, j]._casillaAdyacente[3] = false;
                         }
 
                         //Casilla inferior derecha
                         else if (i == numCasillasX - 1 && j == numCasillasY - 1)
                         {
-                            casillas[i, j].transform.Find("Wall 2").gameObject.SetActive(true);
-                            casillas[i, j].transform.Find("Wall 1").gameObject.SetActive(true);
-                            casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[2] = false;
-                            casillas[i, j].GetComponent<Casilla>()._casillaAdyacente[3] = false;
+                            casillas[i, j].walls[2].gameObject.SetActive(true);
+                            casillas[i, j].walls[1].gameObject.SetActive(true);
+                            casillas[i, j]._casillaAdyacente[2] = false;
+                            casillas[i, j]._casillaAdyacente[3] = false;
                         }
 
                     }
