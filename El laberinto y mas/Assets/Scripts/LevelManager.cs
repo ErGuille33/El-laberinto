@@ -241,7 +241,7 @@ public class LevelManager : MonoBehaviour
         setStart();
        
         mat.createNewMap(lvlData.r, lvlData.c, wallsArray, isIcedarray, endCasillaVector, startCasilla,col);
-        playerCasilla = mat.casillas[(int)startCasilla.x, (int)startCasilla.y].GetComponent<Casilla>();
+        playerCasilla = mat.casillas[(int)startCasilla.x, (int)startCasilla.y];
         player.transform.localScale = new Vector2 (2.5f, 2.5f);
         player.transform.position = playerCasilla.transform.position;
 
@@ -274,7 +274,7 @@ public class LevelManager : MonoBehaviour
 
                         colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 0));
                         //Posición lógica
-                        playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos - 1].GetComponent<Casilla>();
+                        playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos - 1];
                         mat.playerYPos--;
                         colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 2));
                         playerMoveUp();
@@ -286,7 +286,7 @@ public class LevelManager : MonoBehaviour
                 {
                     colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 2));
                     //Posición lógica
-                    playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos + 1].GetComponent<Casilla>();
+                    playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos + 1];
                     mat.playerYPos++;
                     colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 0));
                     playerMoveDown();
@@ -298,7 +298,7 @@ public class LevelManager : MonoBehaviour
 
                         colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 1));
                         //Posición lógica     
-                        playerCasilla = mat.casillas[mat.playerXPos + 1, mat.playerYPos].GetComponent<Casilla>();
+                        playerCasilla = mat.casillas[mat.playerXPos + 1, mat.playerYPos];
                         mat.playerXPos++;
                         colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 3));
                         playerMoveRight();
@@ -310,7 +310,7 @@ public class LevelManager : MonoBehaviour
                 {
                     colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 3));
                     //Posición lógica
-                    playerCasilla = mat.casillas[mat.playerXPos - 1, mat.playerYPos].GetComponent<Casilla>();
+                    playerCasilla = mat.casillas[mat.playerXPos - 1, mat.playerYPos];
                     mat.playerXPos--;
                     colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 1));
                     playerMoveLeft();
@@ -326,7 +326,7 @@ public class LevelManager : MonoBehaviour
     {
         if ((playerCasilla.getIced() && playerCasilla._casillaAdyacente[0]) || (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[0]))
         {           
-                playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos - 1].GetComponent<Casilla>();
+                playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos - 1];
                 colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 0));
                 mat.playerYPos--;
                 colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 2));
@@ -340,7 +340,7 @@ public class LevelManager : MonoBehaviour
         if ((playerCasilla.getIced() && playerCasilla._casillaAdyacente[2]) || (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[2]))
         {
 
-                playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos + 1].GetComponent<Casilla>();
+                playerCasilla = mat.casillas[mat.playerXPos, mat.playerYPos + 1];
                 colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 2));
                 mat.playerYPos++;
                 colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 0));
@@ -354,7 +354,7 @@ public class LevelManager : MonoBehaviour
     {
         if ((playerCasilla.getIced() && playerCasilla._casillaAdyacente[1]) || (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[1]))
         {           
-                playerCasilla = mat.casillas[mat.playerXPos + 1, mat.playerYPos].GetComponent<Casilla>();
+                playerCasilla = mat.casillas[mat.playerXPos + 1, mat.playerYPos];
                 colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 1));
                 mat.playerXPos++;
                 colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 3));
@@ -369,7 +369,7 @@ public class LevelManager : MonoBehaviour
         if ((playerCasilla.getIced() && playerCasilla._casillaAdyacente[3]) || (playerCasilla.getSalidas() < 3 && playerCasilla._casillaAdyacente[3]))
         {
 
-                playerCasilla = mat.casillas[mat.playerXPos - 1, mat.playerYPos].GetComponent<Casilla>();
+                playerCasilla = mat.casillas[mat.playerXPos - 1, mat.playerYPos];
                 colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 3));
                 mat.playerXPos--;
                 colaPath.Enqueue(new Vector3(mat.playerXPos, mat.playerYPos, 1));
@@ -395,7 +395,7 @@ public class LevelManager : MonoBehaviour
     //Comprueba victoria
     public void checkWin()
     {
-        if (playerCasilla != null && playerCasilla == mat.endCasilla)
+        if (playerCasilla != null)
         {
             //Lo hacemos por distancia y no por lógica para que no se realice el cambio de nivel hasta que el jugador llegue al centro de la casilla de destino
             if (Vector2.Distance(player.transform.position, mat.endCasilla.transform.position) < 0.2)
@@ -429,6 +429,9 @@ public class LevelManager : MonoBehaviour
      
       
         player.GetComponent<SpriteRenderer>().color = col;
+
+        player.GetComponent<PlayerControl>().setArrowColor();
+
         colaPath.Clear();
         mat.resetMap();
         cargaJson();

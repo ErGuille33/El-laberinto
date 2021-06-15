@@ -25,9 +25,6 @@ public class MatrixCasillas : MonoBehaviour
 
     public Camera _cam;
 
-    float sizeCasilla;
-
-
 
 
     //Resetear mapa y borrar todas las casillas
@@ -74,10 +71,10 @@ public class MatrixCasillas : MonoBehaviour
                 casillas[casillaX, casillaY].hintLine[1].SetActive(set);
                 break;
             case 2:
-                casillas[casillaX, casillaY].hintLine[3].SetActive(set);
+                casillas[casillaX, casillaY].hintLine[2].SetActive(set);
                 break;
             case 3:
-                casillas[casillaX, casillaY].hintLine[4].SetActive(set);
+                casillas[casillaX, casillaY].hintLine[3].SetActive(set);
                 break;
         }
 
@@ -154,8 +151,6 @@ public class MatrixCasillas : MonoBehaviour
 
         prefabCasilla.GetComponent<Casilla>()._width = 1;
         prefabCasilla.GetComponent<Casilla>()._heigth = 1;
-
-        sizeCasilla = 1;
 
         widthCasilla = 1;
         heigthCasilla = 1;

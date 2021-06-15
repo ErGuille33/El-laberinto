@@ -141,4 +141,12 @@ public class PlayerControl : MonoBehaviour
         return dir;
     }
 
+    public void setArrowColor()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            arrows[i].GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
+        }
+    }
+
 }
