@@ -26,7 +26,7 @@ public class LevelsContent : MonoBehaviour
                     aux = Instantiate(button);
                 }
                 aux.transform.SetParent(transform) ;
-                aux.GetComponent<LevelButton>().num = i;
+                aux.GetComponent<LevelButton>().num_ = i;
             } else
             {
                 GameObject aux = Instantiate(candado);
