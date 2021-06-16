@@ -113,27 +113,26 @@ public class PlayerControl : MonoBehaviour
             }
             else if (touch.phase == TouchPhase.Ended) // Levanta el dedo
             {
-                dir = Dir.STOP;
+                float x = touchEndPos.x - touchStartPos.x;
+                float y = touchEndPos.y - touchStartPos.y;
+
+                if (touchStartPos.y > levelManager.mat.transform.position.y)
+
+                    if (Mathf.Abs(x) > Mathf.Abs(y))
+                    {
+                        if (x > 0) dir = Dir.RIGHT;
+                        else if (x < 0) dir = Dir.LEFT;
+                    }
+                    else
+                    {
+                        if (y > 0) dir = Dir.UP;
+                        else if (y < 0) dir = Dir.DOWN;
+                    }
+                clicked = false;
             }
             else if (touch.phase == TouchPhase.Moved && clicked) // Segundo punto
             {
                 touchEndPos = touch.position;
-                float x = touchEndPos.x - touchStartPos.x;
-                float y = touchEndPos.y - touchStartPos.y;
-
-                if(touchStartPos.y > levelManager.mat.transform.position.y)
-
-                if (Mathf.Abs(x) > Mathf.Abs(y))
-                {
-                    if (x > 0) dir = Dir.RIGHT;
-                    else if (x < 0) dir = Dir.LEFT;
-                }
-                else
-                {
-                    if (y > 0) dir = Dir.UP;
-                    else if (y < 0) dir = Dir.DOWN;
-                }
-                clicked = false;
             }
             else dir = Dir.STOP;
         }
