@@ -265,7 +265,7 @@ public class LevelManager : MonoBehaviour
     {
         if (colaPath.Count > 0)
         {
-            if (Vector2.Distance(player.transform.position, mat.casillas[(int)colaPath.First<Vector3>().x, (int)colaPath.First<Vector3>().y].transform.position) < 0.5)
+            if (Vector2.Distance(player.transform.position, mat.casillas[(int)colaPath.First<Vector3>().x, (int)colaPath.First<Vector3>().y].transform.position) < 0.25)
             {
                 
                 Vector3 vec = colaPath.Dequeue();

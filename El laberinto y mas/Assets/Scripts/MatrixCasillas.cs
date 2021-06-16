@@ -142,7 +142,7 @@ public class MatrixCasillas : MonoBehaviour
 
         _cam.orthographicSize = orthSize;
     }
-    //Método que recibe los datos necesarios para crear el tablero, y lo crea.Utilizamos GetComponent, sin embargo este método solo se usa al crear un nuevo nivel, por lo que no se usa en el updarte nunca.
+    //Método que recibe los datos necesarios para crear el tablero, y lo crea.
     public void createNewMap(int rows, int cols, bool[,,] wallsArray, bool[,] isIced, Vector2 isEnd, Vector2 isStart, Color color)
     {
         numCasillasX = cols;

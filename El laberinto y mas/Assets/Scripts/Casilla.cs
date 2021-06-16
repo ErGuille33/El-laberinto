@@ -26,7 +26,7 @@ public class Casilla : MonoBehaviour
     public GameObject[] walls = new GameObject[4];
 
     [SerializeField]
-    private new SpriteRenderer renderer;
+    private SpriteRenderer renderer;
 
     [SerializeField]
     private SpriteRenderer[] pathsRenderer = new SpriteRenderer[4];

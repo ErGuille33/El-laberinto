@@ -5,7 +5,7 @@ using UnityEngine;
 public class Arrow : MonoBehaviour
 {
     [SerializeField]
-    private new SpriteRenderer renderer;
+    private SpriteRenderer renderer;
 
     public void changeColor(Color color)
     {

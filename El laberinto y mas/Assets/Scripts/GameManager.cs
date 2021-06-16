@@ -80,8 +80,6 @@ public class GameManager : MonoBehaviour, IUnityAdsListener
         saveGame.setPacks(levelPackages.Length);
         saveGame.loadLevels(out hintsAvaiable, out packsLevel);
 
-        hintsText.updateHints(hintsAvaiable);
-
     }
 
     void Update()
