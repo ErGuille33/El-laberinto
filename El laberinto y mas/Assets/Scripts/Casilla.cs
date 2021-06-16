@@ -26,12 +26,10 @@ public class Casilla : MonoBehaviour
     public GameObject[] walls = new GameObject[4];
 
     [SerializeField]
-    private SpriteRenderer renderer;
+    private new SpriteRenderer renderer;
 
     [SerializeField]
-    private SpriteRenderer[] pathsRenderer = new SpriteRenderer[4];
-
-
+    private SpriteRenderer[] pathsRenderer ;
 
 
     public void setIced (bool iced) { _isIced = iced; }
@@ -81,4 +79,5 @@ public class Casilla : MonoBehaviour
             pathsRenderer[i].color = color;
         }
     }
+
 }

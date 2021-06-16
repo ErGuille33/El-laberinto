@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour, IUnityAdsListener
             {
                 if (levelManager.finishedLevel)
                 {
-                    if (levelNum > packsLevel[packageNum])
+                    if (levelNum >= packsLevel[packageNum])
                         packsLevel[packageNum] = levelNum+1;
                     saveGame.saveLevel(hintsAvaiable, packsLevel);
 
@@ -218,7 +218,7 @@ public class GameManager : MonoBehaviour, IUnityAdsListener
         }
         else
         {
-            Debug.Log("No esta ready hermano");
+            Debug.Log("Not ready");
         }
     }
 

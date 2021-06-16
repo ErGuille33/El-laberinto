@@ -1029,11 +1029,6 @@ PrefabInstance:
       propertyPath: _cam
       value: 
       objectReference: {fileID: 519420031}
-    - target: {fileID: 2834915284350503343, guid: 0a011cc4c7f692947b6a44470a44a852,
-        type: 3}
-      propertyPath: levelManager
-      value: 
-      objectReference: {fileID: 1207127372}
     - target: {fileID: 2834915284350503376, guid: 0a011cc4c7f692947b6a44470a44a852,
         type: 3}
       propertyPath: m_RootOrder

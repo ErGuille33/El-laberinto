@@ -134,6 +134,7 @@ MonoBehaviour:
   - {fileID: 8084670450366529895}
   - {fileID: 7551790391909156551}
   - {fileID: 5704704504553480145}
+  prefabCasilla: {fileID: 1629216581556634026}
 --- !u!1001 &2374441738424990524
 PrefabInstance:
   m_ObjectHideFlags: 0

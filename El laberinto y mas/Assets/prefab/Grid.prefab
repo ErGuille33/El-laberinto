@@ -49,11 +49,10 @@ MonoBehaviour:
     type: 3}
   prefabWall: {fileID: 6678331455984844249, guid: 2dde36ea51ffef84ab3e052479c2af51,
     type: 3}
-  hintLine: {fileID: 4303388646785988897, guid: dd48d2475b5ef1343b34e71b937bcd41,
-    type: 3}
   endCasilla: {fileID: 0}
+  startCasilla: {fileID: 0}
   playerXPos: 6
   playerYPos: 0
   widthCasilla: 0.7571429
   heigthCasilla: 0.7571429
-  levelManager: {fileID: 0}
+  _cam: {fileID: 0}

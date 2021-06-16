@@ -24,7 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3450368066208916694}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.403179, y: 5.4006658, z: -441.75076}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -44,5 +44,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mat: {fileID: 0}
-  level: {fileID: 4900000, guid: 68a67dcc244b9ce46a27496f149db4ef, type: 3}
   playerCasilla: {fileID: 0}
+  playerRender: {fileID: 0}
+  playerControl: {fileID: 0}
+  level: {fileID: 4900000, guid: 68a67dcc244b9ce46a27496f149db4ef, type: 3}
+  player: {fileID: 0}
+  panelFin: {fileID: 0}
+  col: {r: 0, g: 0, b: 0, a: 0}
+  finishedLevel: 0
+  iceLevel: 0
+  actualHints: 2
