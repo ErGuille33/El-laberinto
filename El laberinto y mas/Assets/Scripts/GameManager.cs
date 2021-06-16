@@ -144,6 +144,7 @@ public class GameManager : MonoBehaviour, IUnityAdsListener
             }
             hintsText.updateHints(hintsAvaiable);
         }
+        Run();
     }
 
     public void buyHint()
