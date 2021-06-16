@@ -136,7 +136,7 @@ public class MatrixCasillas : MonoBehaviour
         {
             unitsPerPixel = (float)_rows / (float)Screen.width;
 
-            orthSize = unitsPerPixel * Screen.height * 0.5f * 1.25f;
+            orthSize = unitsPerPixel * Screen.height * 0.5f * 1.5f;
 
         }
 
