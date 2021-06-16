@@ -17,7 +17,10 @@ public class PackageButton : MonoBehaviour
     {
         name_.text = package;
 
-        int percentage = (GameManager._instance.getPackLevels()[id] / GameManager._instance.getLevelPackages()[id].levels.Length)*100;
+        float nivelespasados = GameManager._instance.getPackLevels()[id];
+        float total = GameManager._instance.getLevelPackages()[id].levels.Length;
+        float div = nivelespasados / total;
+        int percentage = Mathf.RoundToInt(div*100.0f);
 
         percentage_.text = percentage.ToString() + "%";
         id_ = id;
