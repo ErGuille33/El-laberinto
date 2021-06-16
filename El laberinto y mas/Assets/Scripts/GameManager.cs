@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Advertisements;
 //Game manager de todo el juego
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, IUnityAdsListener
 {
 
     [SerializeField]
@@ -54,6 +55,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        Advertisement.AddListener(this);
+        Advertisement.Initialize(gameId, testMode);
 
         int maxSize = 1;
         int auxSize = 0;
@@ -118,6 +121,7 @@ public class GameManager : MonoBehaviour
     public void nextLevel()
     {
         levelToPlay++;
+        ShowRewardedVideo();
         StartNewLevel();
     }
 
@@ -191,6 +195,50 @@ public class GameManager : MonoBehaviour
 
     public int[] getPackLevels() { return packsLevel; }
 
+    string gameId = "3974381";
+    string myPlacementId = "rewardedVideo";
+    bool testMode = true;
+
+    public void ShowRewardedVideo()
+    {
+        if (Advertisement.IsReady(myPlacementId))
+        {
+            Advertisement.Show(myPlacementId);
+        }
+        else
+        {
+            Debug.Log("No esta ready hermano");
+        }
+    }
+
+    public void OnUnityAdsDidFinish(string placementId, ShowResult showResult)
+    {
+        //
+    }
+
+    public void OnUnityAdsReady(string placementId)
+    {
+        if (placementId == myPlacementId)
+        {
+            // Para cuando ya puedes usar el boton de anuncio
+        }
+    }
+
+
+    public void OnUnityAdsDidError(string message)
+    {
+        print("Ha habido un error con el anuncio");
+    }
+
+    public void OnUnityAdsDidStart(string placementId)
+    {
+        // Cosas opcionales que puedes hacer cuando el anuncio empieza
+    }
+
+    public void OnDestroy()
+    {
+        Advertisement.RemoveListener(this);
+    }
 
     public static GameManager _instance;
 
