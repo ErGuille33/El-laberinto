@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class TwitterButton : MonoBehaviour
 {
@@ -12,8 +13,7 @@ public class TwitterButton : MonoBehaviour
     private const string TWITTER_ADDRESS = "http://twitter.com/intent/tweet";
     private const string TWITTER_LANGUAGE = "en";
 
-    public string LINK_GAME = "https://freesstylers.github.io/District-Dance-Battle/";
-
+    public string LINK_GAME = "https://freesstylers.github.io/District-Dance-Battle/"; 
 
     // Start is called before the first frame update
     void Start()
@@ -22,9 +22,12 @@ public class TwitterButton : MonoBehaviour
     }
 
     // Update is called once per frame
-    void shareOnTwitter()
+    public void shareOnTwitter()
     {
-        /*if (GameManager._instance.state != GameManager.State.INI)
+
+        
+
+        if (SceneManager.GetActiveScene().name != "Menu" )
         {
             Application.OpenURL(TWITTER_ADDRESS + "?text=" + UnityWebRequest.EscapeURL(twitterNameParamter + twitterLevelCompleted + (GameManager._instance.getLevelNum() + 1) + twitterDescriptionParam + "\n" + LINK_GAME));
             GameManager._instance.buyHint();
@@ -34,6 +37,6 @@ public class TwitterButton : MonoBehaviour
             Application.OpenURL(TWITTER_ADDRESS + "?text=" + UnityWebRequest.EscapeURL(twitterNameParamter + twitterDescriptionParam + "\n" + LINK_GAME));
             GameManager._instance.buyHint();
         }
-        */
+        
     }
 }

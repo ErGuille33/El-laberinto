@@ -5,15 +5,22 @@ using UnityEngine.UI;
 
 public class TextLevel : MonoBehaviour
 {
-    void Update()
+
+    [SerializeField]
+    Text textComponent;
+
+    public void updateLevelText(bool isIce, int levelNum)
     {
-        if (GameManager._instance.getActualPackage().isIce)
+        if (textComponent != null)
         {
-            GetComponent<Text>().text = "PISO DE HIELO" + " - " + (GameManager._instance.getLevelNum() + 1);
-        }
-        else
-        {
-            GetComponent<Text>().text = "CLASICO" + " - " + (GameManager._instance.getLevelNum() + 1);
+            if (isIce)
+            {
+                textComponent.text = "PISO DE HIELO" + " - " + (levelNum + 1);
+            }
+            else
+            {
+                textComponent.text = "CLASICO" + " - " + (levelNum + 1);
+            }
         }
     }
 }

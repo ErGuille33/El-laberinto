@@ -10,11 +10,5 @@ public class GridManager : MonoBehaviour
     public void activateGrid(bool active)
     {
         grid.SetActive(active);
-        /*
-        if (GameManager._instance.getState() == GameManager.State.END)
-        {
-            grid.SetActive(false);
-        }
-        else grid.SetActive(true);*/
     }
 }

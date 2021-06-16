@@ -142,15 +142,12 @@ public class MatrixCasillas : MonoBehaviour
 
         _cam.orthographicSize = orthSize;
     }
-    //Método que recibe los datos necesarios para crear el tablero, y lo crea.
+    //Método que recibe los datos necesarios para crear el tablero, y lo crea.Utilizamos GetComponent, sin embargo este método solo se usa al crear un nuevo nivel, por lo que no se usa en el updarte nunca.
     public void createNewMap(int rows, int cols, bool[,,] wallsArray, bool[,] isIced, Vector2 isEnd, Vector2 isStart, Color color)
     {
         numCasillasX = cols;
         numCasillasY = rows;
         casillas = new Casilla[numCasillasX, numCasillasY];
-
-        prefabCasilla.GetComponent<Casilla>()._width = 1;
-        prefabCasilla.GetComponent<Casilla>()._heigth = 1;
 
         widthCasilla = 1;
         heigthCasilla = 1;
@@ -164,19 +161,11 @@ public class MatrixCasillas : MonoBehaviour
             {
                 casillas[i, j] = Instantiate(prefabCasilla, transform).GetComponent<Casilla>();
 
-                casillas[i, j].paths[0].GetComponent<SpriteRenderer>().color = color;
-
-                casillas[i, j].paths[1].GetComponent<SpriteRenderer>().color = color;
-
-
-                casillas[i, j].paths[2].GetComponent<SpriteRenderer>().color = color;
-
-
-                casillas[i, j].paths[3].GetComponent<SpriteRenderer>().color = color;
+                casillas[i, j].changePathsColor(color);
 
 
                 casillas[i, j].transform.position = new Vector2(transform.position.x + (i * widthCasilla), transform.position.y - (j * heigthCasilla));
-                casillas[i, j].GetComponent<Casilla>()._isIced = isIced[i, j];
+                casillas[i, j]._isIced = isIced[i, j];
                 if (i == isEnd.x && j == isEnd.y)
                 {
 

@@ -16,9 +16,13 @@ public class PlayerControl : MonoBehaviour
     private Vector3 touchStartPos, touchEndPos;
     private Touch touch;
 
-    private GameObject[] arrows = new GameObject [4];
+    [SerializeField]
+    private Arrow[] arrows;
 
     bool inicializado = false;
+
+    [SerializeField]
+    private SpriteRenderer playerSprite;
 
     private void Start()
     {
@@ -28,8 +32,7 @@ public class PlayerControl : MonoBehaviour
             
             for (int i = 0; i < 4; i++) {
 
-                arrows[i] = transform.GetChild(i).gameObject;
-                arrows[i].GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
+                arrows[i].changeColor(playerSprite.color) ;
             }
         }
     }
@@ -38,7 +41,7 @@ public class PlayerControl : MonoBehaviour
     {
         if (GameManager._instance.getRunningGame())
         {
-            GetComponent<SpriteRenderer>().enabled = true;
+            playerSprite.enabled = true;
             if (!inicializado && levelManager.playerCasilla != null)
             {
                 inicializado = true;
@@ -69,7 +72,7 @@ public class PlayerControl : MonoBehaviour
             }
         } else if (GameManager._instance.getLevelFinished())
         {
-            GetComponent<SpriteRenderer>().enabled = false;
+            playerSprite.enabled = false;
             dir = Dir.STOP;
         }
     }
@@ -86,7 +89,7 @@ public class PlayerControl : MonoBehaviour
        
        for(int i = 0; i < arrows.Length; i++)
         {
-            arrows[i].SetActive(active[i]);
+            arrows[i].gameObject.SetActive(active[i]);
         }
        
     }
@@ -95,7 +98,7 @@ public class PlayerControl : MonoBehaviour
     {
         for (int i = 0; i < arrows.Length; i++)
         {
-            arrows[i].SetActive(false);
+            arrows[i].gameObject.SetActive(false);
         }
     }
 
@@ -144,7 +147,7 @@ public class PlayerControl : MonoBehaviour
     {
         for (int i = 0; i < 4; i++)
         {
-            arrows[i].GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
+            arrows[i].changeColor(playerSprite.color);
         }
     }
 

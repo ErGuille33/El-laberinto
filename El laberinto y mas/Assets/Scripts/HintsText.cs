@@ -6,8 +6,13 @@ using UnityEngine.UI;
 public class HintsText : MonoBehaviour
 {
 
-    void Update()
+    [SerializeField]
+    Text textComponent;
+
+    public void updateHints(int numHints)
     {
-        GetComponent<Text>().text = GameManager._instance.getHintsAvaliable().ToString();
+        textComponent.text = numHints.ToString();
     }
+
+
 }

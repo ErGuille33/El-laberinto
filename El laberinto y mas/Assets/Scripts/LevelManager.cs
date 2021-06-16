@@ -12,7 +12,12 @@ public class LevelManager : MonoBehaviour
     public MatrixCasillas mat;
     //Posición lógica del jugador en la casilla de la matriz
     public Casilla playerCasilla;
+    [SerializeField]
+    private SpriteRenderer playerRender;
+    [SerializeField]
+    private PlayerControl playerControl;
 
+    [SerializeField]
     public TextAsset level;
 
     //Para leer datos del nivel
@@ -20,9 +25,13 @@ public class LevelManager : MonoBehaviour
     protected WallsData[] walls;
     protected bool[,,] wallsArray = new bool [500, 500, 4];
     protected bool[,] isIcedarray = new bool[500, 500];
-    public GameObject player;
-    public GameObject panelFin;
-    public Color col;
+
+    [SerializeField]
+    private GameObject player;
+    [SerializeField]
+    private GameObject panelFin;
+    [SerializeField]
+    private Color col;
 
     Vector2 endCasillaVector;
     Vector2 startCasilla;
@@ -32,9 +41,11 @@ public class LevelManager : MonoBehaviour
 
     //Variables para la partida
     public bool finishedLevel = false;
-    public bool iceLevel;
+    [SerializeField]
+    private bool iceLevel;
     int totalHints;
-    public int actualHints;
+    [SerializeField]
+    private int actualHints;
 
     //Variables auxiliares
     private int auxInvertedCoord;
@@ -428,9 +439,9 @@ public class LevelManager : MonoBehaviour
             col = new Color(0, 0.6f, 0.84f);
      
       
-        player.GetComponent<SpriteRenderer>().color = col;
+        playerRender.color = col;
 
-        player.GetComponent<PlayerControl>().setArrowColor();
+        playerControl.setArrowColor();
 
         colaPath.Clear();
         mat.resetMap();

@@ -23,6 +23,12 @@ public class GameManager : MonoBehaviour, IUnityAdsListener
     private int nHints;
 
     [SerializeField]
+    private HintsText hintsText;
+
+    [SerializeField]
+    private TextLevel levelText;
+
+
     private int hintsAvaiable;
 
     private int packageNum;
@@ -39,6 +45,8 @@ public class GameManager : MonoBehaviour, IUnityAdsListener
         if (_instance != null)
         {
             _instance.levelManager = levelManager;
+            _instance.hintsText = hintsText;
+            _instance.levelText = levelText;
             DestroyImmediate(gameObject);
             return;
         }
@@ -72,8 +80,8 @@ public class GameManager : MonoBehaviour, IUnityAdsListener
         saveGame.setPacks(levelPackages.Length);
         saveGame.loadLevels(out hintsAvaiable, out packsLevel);
 
-        print("Pistas disponibles de guardado: " + hintsAvaiable);
-        print("Niveles completados de guardado: " + packsLevel[0]);
+        hintsText.updateHints(hintsAvaiable);
+
     }
 
     void Update()
@@ -116,6 +124,9 @@ public class GameManager : MonoBehaviour, IUnityAdsListener
 
         levelManager.setActualHints(0);
         levelManager.startNewLevel(levelPackages[packageNum].isIce);
+
+        levelText.updateLevelText(levelPackages[packageNum].isIce, levelNum);
+        hintsText.updateHints(hintsAvaiable);
     }
 
     public void nextLevel()
@@ -133,6 +144,7 @@ public class GameManager : MonoBehaviour, IUnityAdsListener
             {
                 hintsAvaiable -= 1;
             }
+            hintsText.updateHints(hintsAvaiable);
         }
     }
 
@@ -140,6 +152,7 @@ public class GameManager : MonoBehaviour, IUnityAdsListener
     {
         hintsAvaiable += 1;
         saveGame.saveLevel(hintsAvaiable, packsLevel);
+        hintsText.updateHints(hintsAvaiable);
     }
 
 
@@ -183,7 +196,6 @@ public class GameManager : MonoBehaviour, IUnityAdsListener
 
 
     public int getLevelNum() { return levelNum; }
-    public int getHintsAvaliable() { return hintsAvaiable; }
 
     public LevelPackage getActualPackage() { return levelPackages[packageNum]; }
 

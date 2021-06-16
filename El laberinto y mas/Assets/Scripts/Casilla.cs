@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 
@@ -21,7 +22,14 @@ public class Casilla : MonoBehaviour
     public GameObject[] hintLine = new GameObject[4];
 
     public GameObject[] paths = new GameObject[4];
+
     public GameObject[] walls = new GameObject[4];
+
+    [SerializeField]
+    private new SpriteRenderer renderer;
+
+    [SerializeField]
+    private SpriteRenderer[] pathsRenderer = new SpriteRenderer[4];
 
 
 
@@ -35,17 +43,25 @@ public class Casilla : MonoBehaviour
     void Start()
     {
         //Escalamos la casilla y dibujamos con sus caracteristicas
+
+        _width = 1;
+        _heigth = 1;
         transform.localScale = new Vector2( _width,_heigth);
-        if (!_isIced)
+
+        if (renderer != null)
         {
-            GetComponent<SpriteRenderer>().enabled = false;
+            if (!_isIced)
+            {
+                renderer.enabled = false;
+            }
+            else renderer.enabled = true;
         }
-        else GetComponent<SpriteRenderer>().enabled = true;
 
         if (_end)
         {
             Instantiate(endSprite, transform);
         }
+      
     }
 
     public int getSalidas()
@@ -56,5 +72,13 @@ public class Casilla : MonoBehaviour
         if (_casillaAdyacente[2]) aux++;
         if (_casillaAdyacente[3]) aux++;
         return aux;
+    }
+
+    public void changePathsColor( Color color)
+    {
+        for(int i = 0; i < 4; i++)
+        {
+            pathsRenderer[i].color = color;
+        }
     }
 }
