@@ -15,12 +15,6 @@ public class TwitterButton : MonoBehaviour
 
     public string LINK_GAME = "https://freesstylers.github.io/District-Dance-Battle/"; 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        gameObject.GetComponent<Button>().onClick.AddListener(shareOnTwitter);
-    }
-
     // Update is called once per frame
     public void shareOnTwitter()
     {

@@ -15,7 +15,6 @@ public class BuyHintButton : MonoBehaviour, IUnityAdsListener
     {
         Advertisement.AddListener(this);
         Advertisement.Initialize(gameId, testMode);
-        gameObject.GetComponent<Button>().onClick.AddListener(ShowRewardedVideo);
     }
 
     public void ShowRewardedVideo()
