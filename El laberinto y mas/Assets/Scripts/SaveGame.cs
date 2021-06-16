@@ -20,17 +20,6 @@ public class SaveGame : MonoBehaviour
             return;
         }
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     //El número de paquetes de niveles a guardar
     public void setPacks(int nPacks)
     {
@@ -82,9 +71,9 @@ public class SaveGame : MonoBehaviour
                 hints = 0;
                 packsLevel = new int[1500];
 
-                for (int i = 0; i < 1500; i++)
+                for (int i = 1; i < 1500; i++)
                 {
-                    packsLevel[i] = -1;
+                    packsLevel[i] = 0;
                 }
             }
         }
@@ -93,9 +82,9 @@ public class SaveGame : MonoBehaviour
             hints = 0;
             packsLevel = new int[1500];
 
-            for (int i = 0; i < 1500; i++)
+            for (int i = 1; i < 1500; i++)
             {
-                packsLevel[i] = -1;
+                packsLevel[i] = 0;
             }
             saveLevel(hints, packsLevel);
         }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
-using UnityEditorInternal;
 using UnityEngine.Networking;
 
 public class TwitterButton : MonoBehaviour
